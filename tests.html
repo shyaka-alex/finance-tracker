@@ -31,6 +31,7 @@
       PATTERNS, validateDescription, validateAmount, validateDate, validateCategory,
       validateCurrencyCode, validateRate, findDuplicateWord, isRealDate, describeRecordProblem,
     } from './scripts/validators.js';
+    import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './scripts/search.js';
 
     const groups = [];
 
@@ -129,6 +130,46 @@
       expect('negative amount is reported', describeRecordProblem({ ...good, amount: -1 }), "has an invalid 'amount' (-1)");
       expect('bad date is reported', describeRecordProblem({ ...good, date: '2026-02-30' }), "has an invalid 'date' (2026-02-30)");
       expect('null is reported', describeRecordProblem(null), 'is not an object');
+    });
+
+    group('Safe regex compiler', (expect) => {
+      expect('empty input gives no regex and no error', compileRegex(''), { re: null, error: '' });
+      const broken = compileRegex('[abc');
+      expect('"[abc" does not throw and returns null', broken.re, null);
+      expect('"[abc" returns an error message', broken.error.startsWith('Invalid pattern'), true);
+      expect('case-insensitive flag is applied', compileRegex('coffee').re.flags, 'gi');
+      expect('case-sensitive when toggled off', compileRegex('coffee', { caseInsensitive: false }).re.flags, 'g');
+      const { re } = compileRegex('(coffee|tea)');
+      expect('/(coffee|tea)/i matches "Tea & biscuits"', matches('Tea & biscuits', re), true);
+      expect('repeated test() calls stay stable (lastIndex reset)', [matches('tea', re), matches('tea', re)], [true, true]);
+      expect('cents pattern \\.\\d{2}\\b matches "$12.50"', matches('$12.50', compileRegex('\\.\\d{2}\\b').re), true);
+    });
+
+    group('Highlight with <mark>', (expect) => {
+      const { re } = compileRegex('coffee');
+      expect('wraps matches', highlight('Coffee coffee', re), '<mark>Coffee</mark> <mark>coffee</mark>');
+      expect('escapes HTML around matches', highlight('<b>coffee</b>', re), '&lt;b&gt;<mark>coffee</mark>&lt;/b&gt;');
+      expect('no regex just escapes', highlight('a < b', null), 'a &lt; b');
+      expect('zero-length pattern does not loop forever', highlight('abc', compileRegex('^').re), 'abc');
+      expect('escapeHTML handles quotes', escapeHTML(`"it's"`), '&quot;it&#39;s&quot;');
+      const dupes = compileRegex('\\b(\\w+)\\s+\\1\\b').re;
+      expect('back-reference search highlights "coffee coffee"', highlight('Coffee coffee with Amina', dupes), '<mark>Coffee coffee</mark> with Amina');
+    });
+
+    group('Sorting', (expect) => {
+      const rows = [
+        { id: 'a', description: 'banana', amount: 5, date: '2026-10-02', createdAt: '1' },
+        { id: 'b', description: 'Apple', amount: 20, date: '2026-10-03', createdAt: '2' },
+        { id: 'c', description: 'cherry', amount: 0, date: '2026-10-01', createdAt: '3' },
+      ];
+      const ids = (key) => sortRecords(rows, key).map((r) => r.id);
+      expect('date newest first', ids('date-desc'), ['b', 'a', 'c']);
+      expect('date oldest first', ids('date-asc'), ['c', 'a', 'b']);
+      expect('description A–Z ignores case', ids('description-asc'), ['b', 'a', 'c']);
+      expect('description Z–A', ids('description-desc'), ['c', 'a', 'b']);
+      expect('amount high to low', ids('amount-desc'), ['b', 'a', 'c']);
+      expect('amount low to high', ids('amount-asc'), ['c', 'a', 'b']);
+      expect('original array is not mutated', rows.map((r) => r.id), ['a', 'b', 'c']);
     });
 
     /* ---------- Render results ---------- */
