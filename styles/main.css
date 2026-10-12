@@ -1298,6 +1298,14 @@ legend {
 /* ---------- 15. Test page ---------- */
 .tests-page .main { max-width: 900px; }
 
+.tests-page .site-header {
+  position: static;
+  height: auto;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .tests-summary {
   margin-bottom: var(--space-4);
   padding: var(--space-3);

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tests · Spendwise</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="tests-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img class="brand__mark" src="assets/favicon.svg" alt="">
+      <span class="brand__text">
+        <span class="brand__name">Spendwise</span>
+        <span class="brand__tagline">Back to the app</span>
+      </span>
+    </a>
+  </header>
+
+  <main id="main" class="main" tabindex="-1">
+    <h1 class="view__title">Test suite</h1>
+    <p class="view__lede">Small assertions for the validators, search, import and stats modules. Open this page through a local server or GitHub Pages.</p>
+    <p id="summary" class="tests-summary" role="status">Running tests…</p>
+    <div id="results"></div>
+  </main>
+
+  <script type="module">
+    import {
+      PATTERNS, validateDescription, validateAmount, validateDate, validateCategory,
+      validateCurrencyCode, validateRate, findDuplicateWord, isRealDate, describeRecordProblem,
+    } from './scripts/validators.js';
+
+    const groups = [];
+
+    function group(name, body) {
+      const cases = [];
+      const expect = (label, actual, expected) => {
+        const pass = JSON.stringify(actual) === JSON.stringify(expected);
+        cases.push({ label, pass, actual, expected });
+      };
+      try {
+        body(expect);
+      } catch (error) {
+        cases.push({ label: `threw: ${error.message}`, pass: false });
+      }
+      groups.push({ name, cases });
+    }
+
+    const ok = (message) => message === '';
+
+    group('Description: /^\\S(?:.*\\S)?$/ and no double spaces', (expect) => {
+      expect('"Lunch at cafeteria" is valid', ok(validateDescription('Lunch at cafeteria')), true);
+      expect('single character "A" is valid', ok(validateDescription('A')), true);
+      expect('leading space is rejected', ok(validateDescription(' Lunch')), false);
+      expect('trailing space is rejected', ok(validateDescription('Lunch ')), false);
+      expect('double space is rejected', ok(validateDescription('Lunch  at cafe')), false);
+      expect('empty string is rejected', ok(validateDescription('')), false);
+      expect('only spaces is rejected', ok(validateDescription('   ')), false);
+      expect('HTML-like text is allowed (escaped on render)', ok(validateDescription('Printing <notes>')), true);
+    });
+
+    group('Amount: /^(0|[1-9]\\d*)(\\.\\d{1,2})?$/', (expect) => {
+      for (const value of ['0', '12', '12.5', '12.50', '2450', '0.99']) {
+        expect(`"${value}" is valid`, ok(validateAmount(value)), true);
+      }
+      for (const value of ['', '012', '-5', '1.234', '.5', '5.', '1e3', '12,50', ' 12']) {
+        expect(`"${value}" is rejected`, ok(validateAmount(value)), false);
+      }
+      expect('over the 1,000,000 limit is rejected', ok(validateAmount('1000000.01')), false);
+    });
+
+    group('Date: YYYY-MM-DD and a real calendar day', (expect) => {
+      expect('"2026-10-12" is valid', ok(validateDate('2026-10-12')), true);
+      expect('leap day "2024-02-29" is valid', ok(validateDate('2024-02-29')), true);
+      expect('"2025-02-29" does not exist', ok(validateDate('2025-02-29')), false);
+      expect('"2026-02-30" does not exist', ok(validateDate('2026-02-30')), false);
+      expect('month 13 fails the pattern', PATTERNS.date.test('2026-13-01'), false);
+      expect('day 32 fails the pattern', PATTERNS.date.test('2026-01-32'), false);
+      expect('"26-10-12" fails the pattern', PATTERNS.date.test('26-10-12'), false);
+      expect('"2026/10/12" fails the pattern', PATTERNS.date.test('2026/10/12'), false);
+      expect('isRealDate("2026-04-31") is false', isRealDate('2026-04-31'), false);
+    });
+
+    group('Category: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/', (expect) => {
+      const list = ['Food', 'Books', 'Eating Out', 'Self-care'];
+      expect('"Food" is valid', ok(validateCategory('Food', list)), true);
+      expect('case-insensitive match "food" is valid', ok(validateCategory('food', list)), true);
+      expect('"Eating Out" (space) is valid', ok(validateCategory('Eating Out', list)), true);
+      expect('"Self-care" (hyphen) is valid', ok(validateCategory('Self-care', list)), true);
+      expect('"Food1" (digit) is rejected', PATTERNS.category.test('Food1'), false);
+      expect('"Eating  Out" (double space) is rejected', PATTERNS.category.test('Eating  Out'), false);
+      expect('"-Food" (leading hyphen) is rejected', PATTERNS.category.test('-Food'), false);
+      expect('unknown category "Rent" is rejected', ok(validateCategory('Rent', list)), false);
+    });
+
+    group('Advanced: duplicate word back-reference /\\b(\\w+)\\s+\\1\\b/i', (expect) => {
+      expect('"Coffee coffee with Amina" finds "Coffee"', findDuplicateWord('Coffee coffee with Amina'), 'Coffee');
+      expect('"the the book" finds "the"', findDuplicateWord('the the book'), 'the');
+      expect('"the theme" has no duplicate', findDuplicateWord('the theme'), null);
+      expect('"Lunch at cafeteria" has no duplicate', findDuplicateWord('Lunch at cafeteria'), null);
+    });
+
+    group('Advanced: positive rate lookahead /^(?=.*[1-9])…$/', (expect) => {
+      expect('"0.92" is valid', ok(validateRate('0.92')), true);
+      expect('"1300" is valid', ok(validateRate('1300')), true);
+      expect('"0.000001" is valid', ok(validateRate('0.000001')), true);
+      expect('"0" is rejected by the lookahead', ok(validateRate('0')), false);
+      expect('"0.000" is rejected by the lookahead', ok(validateRate('0.000')), false);
+      expect('"-1" is rejected', ok(validateRate('-1')), false);
+    });
+
+    group('Currency code: /^[A-Z]{3}$/', (expect) => {
+      expect('"USD" is valid', ok(validateCurrencyCode('USD')), true);
+      expect('"usd" is rejected', ok(validateCurrencyCode('usd')), false);
+      expect('"US" is rejected', ok(validateCurrencyCode('US')), false);
+    });
+
+    group('Record structure check', (expect) => {
+      const good = {
+        id: 'txn_0001', description: 'Bus pass', amount: 45, category: 'Transport',
+        date: '2026-10-01', createdAt: '2026-10-01T08:00:00.000Z', updatedAt: '2026-10-01T08:00:00.000Z',
+      };
+      expect('a complete record passes', describeRecordProblem(good), '');
+      const { amount, ...noAmount } = good;
+      expect('missing amount is reported', describeRecordProblem(noAmount), "is missing 'amount'");
+      expect('string amount is reported', describeRecordProblem({ ...good, amount: '45' }), "has 'amount' as a string, expected a number");
+      expect('negative amount is reported', describeRecordProblem({ ...good, amount: -1 }), "has an invalid 'amount' (-1)");
+      expect('bad date is reported', describeRecordProblem({ ...good, date: '2026-02-30' }), "has an invalid 'date' (2026-02-30)");
+      expect('null is reported', describeRecordProblem(null), 'is not an object');
+    });
+
+    /* ---------- Render results ---------- */
+    const results = document.getElementById('results');
+    let passed = 0;
+    let total = 0;
+
+    for (const { name, cases } of groups) {
+      const section = document.createElement('section');
+      section.className = 'card test-group';
+      const heading = document.createElement('h2');
+      heading.textContent = name;
+      const list = document.createElement('ul');
+      list.className = 'test-list';
+
+      for (const testCase of cases) {
+        total += 1;
+        if (testCase.pass) passed += 1;
+        const item = document.createElement('li');
+        const badge = document.createElement('span');
+        badge.className = `test-badge test-badge--${testCase.pass ? 'pass' : 'fail'}`;
+        badge.textContent = testCase.pass ? 'PASS' : 'FAIL';
+        const text = document.createElement('span');
+        text.textContent = testCase.pass
+          ? testCase.label
+          : `${testCase.label} (got ${JSON.stringify(testCase.actual)}, expected ${JSON.stringify(testCase.expected)})`;
+        item.append(badge, text);
+        list.append(item);
+      }
+
+      section.append(heading, list);
+      results.append(section);
+    }
+
+    const summary = document.getElementById('summary');
+    summary.textContent = `${passed} of ${total} tests passed.`;
+    summary.dataset.failed = String(passed !== total);
+    console.info(summary.textContent);
+  </script>
+</body>
+</html>
