@@ -20,7 +20,7 @@ Spendwise is an accessible, responsive student finance tracker for students in R
 | Area | What it does |
 |---|---|
 | Home | Landing page with a hero, feature cards, About (with a founder profile) and a Contact form (email checked with a regex, then opened in your email app). Mockup images live in `assets/img/` |
-| Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total with a small CSS bar chart (plus a screen-reader text alternative), a monthly budget, a spending-by-category breakdown, and the add form beside the transactions |
+| Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total, a monthly budget, a spending-by-category breakdown, and the add form beside the transactions |
 | Budget cap | Monthly cap with a progress bar, remaining amount or overage, days left and a daily allowance. Under the cap it is announced politely; over the cap it is announced assertively |
 | Transactions | Table on tablet/desktop, cards on mobile. Live regex search with a case-insensitive toggle, `<mark>` highlighting, sorting by date, description (A↕Z) and amount (↑↓) using a dropdown or the column headers |
 | Inline edit & delete | Edit any row in place (same validation as the form, updates `updatedAt`). Delete asks for confirmation in an accessible `<dialog>` |
@@ -100,7 +100,6 @@ Search runs on what you see (date, description, category and the formatted amoun
 - **Live regions:** `role="status"` (polite) and `role="alert"` (assertive) regions announce saves, deletes, imports and the budget cap. Messages are appended, not replaced, so quick back-to-back messages are both read. The result count under the search box is also a status region.
 - **Focus:** a thick `3px` outline on every focusable element (`:focus-visible`), never removed. Focus is managed after deleting (moves to the next row), editing and closing dialogs.
 - **Mobile table:** rows become cards with CSS, and explicit `role="table/row/cell"` keeps the table semantics when `display` changes.
-- **Chart:** the 7-day bar chart is `aria-hidden`, with a visually hidden list of each day's total.
 - **Colour:** text pairs meet WCAG AA (for example deep green `#0F4D3A` on white ≈ 9.8:1, muted text `#4F5B55` ≈ 6.5:1). Orange buttons use dark text. Budget state is shown by wording and an icon, not colour alone.
 - **Motion:** section fade-in, bar growth, progress-bar fill and button lift are all switched off under `prefers-reduced-motion`.
 
@@ -141,7 +140,7 @@ scripts/
   form.js             add-transaction form
   records.js          table/cards, search, inline edit, delete
   contact.js          contact form validation and mailto hand-off
-  dashboard.js        stat cards, chart, budget cap
+  dashboard.js        stat cards, categories, budget cap
   settings.js         currencies, cap, categories, theme, data tools
 assets/               logo mark, favicon, brand images, img/ mockups for the home page
 docs/design.md        M1 spec: data model, wireframes, a11y plan

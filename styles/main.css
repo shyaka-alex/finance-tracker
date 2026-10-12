@@ -1084,7 +1084,10 @@ mark {
 }
 
 .budget-card,
-.categories-card { transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease); }
+.categories-card {
+  align-self: stretch;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
 .budget-card:hover,
 .categories-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 
@@ -1138,30 +1141,6 @@ mark {
 .budget-card[data-state="over"] { border-color: var(--danger); }
 .budget-card[data-state="over"] .meter__fill { background: var(--danger); }
 .budget-card[data-state="over"] .budget__message { color: var(--danger-text); }
-
-/* 7-day mini bar chart in the "Last 7 days" stat */
-.spark {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  align-items: end;
-  gap: 6px;
-  height: 36px;
-  margin-top: 10px;
-}
-
-.spark__bar {
-  --i: 0;
-  height: var(--h, 0%);
-  min-height: 4px;
-  border-radius: 4px;
-  background: var(--primary);
-  transform-origin: bottom;
-  animation: bar-grow 0.7s var(--ease) both;
-  animation-delay: calc(var(--i) * 60ms);
-}
-
-.spark__bar.is-empty { background: var(--track); }
-.spark__bar.is-today:not(.is-empty) { background: var(--gold); }
 
 /* Category breakdown */
 .cat-breakdown {
@@ -1641,11 +1620,6 @@ legend {
   to { opacity: 1; transform: none; }
 }
 
-@keyframes bar-grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
 @keyframes pop-in {
   from { opacity: 0; transform: translateY(8px) scale(0.97); }
   to { opacity: 1; transform: none; }
@@ -1895,7 +1869,6 @@ legend {
   .records tbody tr { border: 1px solid CanvasText; }
 
   .meter__fill,
-  .spark__bar,
   .cat-breakdown__fill,
   .switch input:checked { background: Highlight; forced-color-adjust: none; }
 }

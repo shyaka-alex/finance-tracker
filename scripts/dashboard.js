@@ -1,4 +1,4 @@
-// Dashboard: greeting, stat cards with a 7-day mini bar chart, category breakdown and budget cap.
+// Dashboard: greeting, stat cards, category breakdown and budget cap.
 import { state, subscribe } from './state.js';
 import { computeStats, capStatus } from './stats.js';
 import { formatMoney, categoryTone, greeting } from './format.js';
@@ -35,21 +35,6 @@ function renderStats(stats) {
 
   $('#stat-week').textContent = money(stats.weekTotal);
   $('#stat-week-sub').textContent = plural(stats.weekCount, 'transaction');
-}
-
-function renderChart(stats) {
-  const max = Math.max(...stats.days.map((d) => d.total), 0);
-
-  $('#chart').innerHTML = stats.days.map((day, i) => {
-    const height = max > 0 ? Math.max((day.total / max) * 100, day.total > 0 ? 8 : 0) : 0;
-    return `<span class="spark__bar${day.isToday ? ' is-today' : ''}${day.total > 0 ? '' : ' is-empty'}"
-      style="--h:${height.toFixed(1)}%; --i:${i}" title="${escapeHTML(`${day.longLabel}: ${money(day.total)}`)}"></span>`;
-  }).join('');
-
-  // Text alternative for screen readers.
-  $('#chart-list').innerHTML = stats.days
-    .map((day) => `<li>${escapeHTML(day.longLabel)}: ${escapeHTML(money(day.total))}</li>`)
-    .join('');
 }
 
 function renderCategories(stats) {
@@ -122,7 +107,6 @@ function renderBudget(stats, shouldAnnounce) {
 function render(shouldAnnounce) {
   const stats = computeStats(state.records);
   renderStats(stats);
-  renderChart(stats);
   renderCategories(stats);
   renderBudget(stats, shouldAnnounce);
 }
