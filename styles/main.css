@@ -887,9 +887,10 @@ mark {
   width: min(100%, 280px);
 }
 
-.founder__media::before {
+.founder__photo::before {
   content: "";
   position: absolute;
+  z-index: -1;
   inset: 18px -14px -14px 18px;
   border: 2px solid var(--primary);
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-sm);
@@ -897,10 +898,8 @@ mark {
 
 .founder__photo {
   position: relative;
-  display: grid;
-  place-items: center;
   aspect-ratio: 4 / 5;
-  overflow: hidden;
+  margin-top: 64px;
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-sm);
   background:
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.35), transparent 55%),
@@ -908,13 +907,16 @@ mark {
   box-shadow: var(--shadow-md);
 }
 
-.founder__initials {
-  font-family: var(--font-head);
-  font-size: 5.5rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #FFFFFF;
-  text-shadow: 0 6px 18px rgba(120, 50, 10, 0.25);
+/* The cut-out rises above the orange block, like the portfolio reference */
+.founder__img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 122%;
+  width: auto;
+  max-width: none;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 14px 18px rgba(60, 25, 5, 0.28));
 }
 
 .founder__role-tag {
