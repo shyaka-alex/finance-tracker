@@ -1,0 +1,128 @@
+[
+  {
+    "id": "txn_0001",
+    "description": "Lunch at cafeteria",
+    "amount": 12.5,
+    "category": "Food",
+    "date": "2026-10-12",
+    "createdAt": "2026-10-12T11:42:05.000Z",
+    "updatedAt": "2026-10-12T11:42:05.000Z"
+  },
+  {
+    "id": "txn_0002",
+    "description": "Coffee coffee with Amina",
+    "amount": 4.25,
+    "category": "Food",
+    "date": "2026-10-11",
+    "createdAt": "2026-10-11T08:15:30.000Z",
+    "updatedAt": "2026-10-11T08:15:30.000Z"
+  },
+  {
+    "id": "txn_0003",
+    "description": "Moto ride to campus",
+    "amount": 1.2,
+    "category": "Transport",
+    "date": "2026-10-10",
+    "createdAt": "2026-10-10T07:02:11.000Z",
+    "updatedAt": "2026-10-10T07:02:11.000Z"
+  },
+  {
+    "id": "txn_0004",
+    "description": "Tea & biscuits",
+    "amount": 0.75,
+    "category": "Food",
+    "date": "2026-10-09",
+    "createdAt": "2026-10-09T16:20:00.000Z",
+    "updatedAt": "2026-10-09T16:20:00.000Z"
+  },
+  {
+    "id": "txn_0005",
+    "description": "Chemistry textbook (2nd ed.)",
+    "amount": 89.99,
+    "category": "Books",
+    "date": "2026-10-08",
+    "createdAt": "2026-10-08T13:05:47.000Z",
+    "updatedAt": "2026-10-09T09:30:12.000Z"
+  },
+  {
+    "id": "txn_0006",
+    "description": "Free campus movie night",
+    "amount": 0,
+    "category": "Entertainment",
+    "date": "2026-10-07",
+    "createdAt": "2026-10-07T19:45:00.000Z",
+    "updatedAt": "2026-10-07T19:45:00.000Z"
+  },
+  {
+    "id": "txn_0007",
+    "description": "Printing <lecture notes> for exam",
+    "amount": 0.5,
+    "category": "Other",
+    "date": "2026-10-06",
+    "createdAt": "2026-10-06T10:10:10.000Z",
+    "updatedAt": "2026-10-06T10:10:10.000Z"
+  },
+  {
+    "id": "txn_0008",
+    "description": "Group project supplies: poster board, markers, glue sticks, tape and a folder for the final presentation",
+    "amount": 27.35,
+    "category": "Other",
+    "date": "2026-10-05",
+    "createdAt": "2026-10-05T14:33:21.000Z",
+    "updatedAt": "2026-10-05T14:33:21.000Z"
+  },
+  {
+    "id": "txn_0009",
+    "description": "Semester tuition fee",
+    "amount": 2450,
+    "category": "Fees",
+    "date": "2026-10-01",
+    "createdAt": "2026-10-01T09:00:00.000Z",
+    "updatedAt": "2026-10-02T12:00:00.000Z"
+  },
+  {
+    "id": "txn_0010",
+    "description": "Café au lait",
+    "amount": 3.6,
+    "category": "Food",
+    "date": "2026-09-30",
+    "createdAt": "2026-09-30T15:12:44.000Z",
+    "updatedAt": "2026-09-30T15:12:44.000Z"
+  },
+  {
+    "id": "txn_0011",
+    "description": "Bus pass monthly top-up",
+    "amount": 45,
+    "category": "Transport",
+    "date": "2026-09-01",
+    "createdAt": "2026-09-01T06:50:03.000Z",
+    "updatedAt": "2026-09-01T06:50:03.000Z"
+  },
+  {
+    "id": "txn_0012",
+    "description": "New Year concert ticket",
+    "amount": 25,
+    "category": "Entertainment",
+    "date": "2026-01-01",
+    "createdAt": "2026-01-01T20:00:00.000Z",
+    "updatedAt": "2026-01-01T20:00:00.000Z"
+  },
+  {
+    "id": "txn_0013",
+    "description": "Last-minute gift on New Year's Eve",
+    "amount": 18.99,
+    "category": "Other",
+    "date": "2025-12-31",
+    "createdAt": "2025-12-31T22:58:59.000Z",
+    "updatedAt": "2025-12-31T22:58:59.000Z"
+  },
+  {
+    "id": "txn_0014",
+    "description": "Leap day pizza",
+    "amount": 9.99,
+    "category": "Food",
+    "date": "2024-02-29",
+    "createdAt": "2024-02-29T18:30:00.000Z",
+    "updatedAt": "2024-02-29T18:30:00.000Z"
+  }
+]
