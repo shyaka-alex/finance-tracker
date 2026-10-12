@@ -3,14 +3,30 @@
 export const $ = (selector, root = document) => root.querySelector(selector);
 export const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-export const VIEWS = ['dashboard', 'transactions', 'add', 'settings', 'about'];
+export const VIEWS = ['home', 'dashboard', 'settings'];
 
-const VIEW_TITLES = {
-  dashboard: 'Dashboard',
-  transactions: 'Transactions',
-  add: 'Add transaction',
-  settings: 'Settings',
-  about: 'About',
+/** Sections inside a view that can be linked to directly, mapped to their view. */
+const SECTIONS = {
+  features: 'home',
+  about: 'home',
+  contact: 'home',
+  transactions: 'dashboard',
+  add: 'dashboard',
+};
+
+const TITLES = {
+  home: 'Spendwise · Student Finance Tracker',
+  dashboard: 'Dashboard · Spendwise',
+  settings: 'Settings · Spendwise',
+  about: 'About · Spendwise',
+  contact: 'Contact · Spendwise',
+  transactions: 'Transactions · Spendwise',
+  add: 'Add transaction · Spendwise',
+};
+
+/** Where focus goes when a section is opened from a link. */
+const SECTION_FOCUS = {
+  add: 'f-description',
 };
 
 /**
@@ -42,46 +58,108 @@ export function setStatus(element, message, kind = 'success') {
   element.dataset.kind = kind;
 }
 
+/** Small toast at the bottom of the screen; the same text goes to the polite live region. */
+let toastTimer = 0;
+export function toast(message) {
+  const el = document.getElementById('toast');
+  if (el) {
+    document.getElementById('toast-text').textContent = message;
+    el.classList.add('is-visible');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => el.classList.remove('is-visible'), 2600);
+  }
+  announce(message);
+}
+
 /* ---------- Navigation (one page, hash-based) ---------- */
 
 let currentView = null;
 
-export function showView(id, { focus = true } = {}) {
-  if (!VIEWS.includes(id)) return;
+function setMenuOpen(open) {
+  const header = document.getElementById('site-header');
+  const button = document.getElementById('menu-btn');
+  if (!header || !button) return;
+  header.classList.toggle('is-open', open);
+  button.setAttribute('aria-expanded', String(open));
+}
+
+function showView(id) {
   const changed = currentView !== id;
   currentView = id;
+  for (const view of VIEWS) document.getElementById(view).hidden = view !== id;
+  if (changed) document.dispatchEvent(new CustomEvent('viewchange', { detail: { id } }));
+  return changed;
+}
 
-  for (const view of VIEWS) {
-    document.getElementById(view).hidden = view !== id;
-  }
-
+function markCurrentLink(key) {
   for (const link of $$('[data-nav]')) {
-    if (link.getAttribute('href') === `#${id}`) link.setAttribute('aria-current', 'page');
+    if (link.getAttribute('href') === `#${key}`) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   }
+}
 
-  document.title = `${VIEW_TITLES[id]} · Spendwise`;
-
-  if (focus && changed) {
-    document.getElementById(`${id}-title`)?.focus();
+/**
+ * Shows the view for a hash. Sections (like #about or #add) open their parent view,
+ * scroll into place and receive focus so keyboard and screen reader users land there.
+ */
+function route(hash, { focus }) {
+  const id = hash || 'home';
+  const view = VIEWS.includes(id) ? id : SECTIONS[id];
+  if (!view) {
+    // Unknown hashes (e.g. the skip link's #main) must not change the view.
+    if (!currentView) route('home', { focus: false });
+    return;
   }
 
-  document.dispatchEvent(new CustomEvent('viewchange', { detail: { id } }));
+  const changed = showView(view);
+  const navKey = document.querySelector(`[data-nav][href="#${id}"]`) ? id : view;
+  markCurrentLink(navKey);
+  document.title = TITLES[id] ?? TITLES[view];
+  setMenuOpen(false);
+
+  if (!focus) return;
+  if (id === view) {
+    if (changed) window.scrollTo({ top: 0, behavior: 'instant' });
+    document.getElementById(`${view}-title`)?.focus({ preventScroll: !changed });
+    return;
+  }
+  const section = document.getElementById(id);
+  const target = document.getElementById(SECTION_FOCUS[id] ?? `${id}-title`) ?? section;
+  const smooth = !changed && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  section?.scrollIntoView({ block: 'start', behavior: smooth ? 'smooth' : 'instant' });
+  target?.focus({ preventScroll: true });
 }
 
 export function goTo(id) {
-  if (location.hash === `#${id}`) showView(id);
+  if (location.hash === `#${id}`) route(id, { focus: true });
   else location.hash = id;
 }
 
 export function initNavigation() {
-  const route = (focus) => {
-    const id = location.hash.slice(1);
-    if (VIEWS.includes(id)) showView(id, { focus });
-    else if (!currentView) showView('dashboard', { focus: false });
-  };
-  window.addEventListener('hashchange', () => route(true));
-  route(false);
+  window.addEventListener('hashchange', () => route(location.hash.slice(1), { focus: true }));
+
+  // Clicking a link to the hash we are already on would not fire hashchange, so route manually.
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link || link.getAttribute('href') !== location.hash || location.hash === '#main') return;
+    event.preventDefault();
+    route(location.hash.slice(1), { focus: true });
+  });
+
+  const button = document.getElementById('menu-btn');
+  button?.addEventListener('click', () => {
+    setMenuOpen(button.getAttribute('aria-expanded') !== 'true');
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      button.focus();
+    }
+  });
+
+  route(location.hash.slice(1), { focus: false });
+  const initial = location.hash.slice(1);
+  if (SECTIONS[initial]) document.getElementById(initial)?.scrollIntoView({ block: 'start', behavior: 'instant' });
 }
 
 /* ---------- Confirm dialog ---------- */

@@ -19,6 +19,8 @@ export const PATTERNS = {
   rate: /^(?=.*[1-9])(0|[1-9]\d*)(\.\d{1,6})?$/,
   // Record ids such as txn_0001 or rec_42.
   recordId: /^[A-Za-z]+_[A-Za-z0-9]+$/,
+  // Contact form: name@domain.tld with no spaces and a 2+ letter ending.
+  email: /^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)*\.[A-Za-z]{2,}$/,
 };
 
 export const LIMITS = {
@@ -93,6 +95,23 @@ export function validateCurrencyCode(value) {
 export function validateRate(value) {
   if (value === '') return 'Rate is required.';
   if (!PATTERNS.rate.test(value)) return 'Rate must be above 0 with up to 6 decimals, like 1450.';
+  return '';
+}
+
+export function validateName(value) {
+  if (value.trim() === '') return 'Please tell me your name.';
+  if (!PATTERNS.description.test(value)) return 'Remove the spaces at the start or end.';
+  return '';
+}
+
+export function validateEmail(value) {
+  if (value === '') return 'Email is required.';
+  if (!PATTERNS.email.test(value)) return 'Enter an email like name@example.com.';
+  return '';
+}
+
+export function validateMessage(value) {
+  if (value.trim().length < 10) return 'Write at least 10 characters.';
   return '';
 }
 

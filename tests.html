@@ -30,6 +30,7 @@
     import {
       PATTERNS, validateDescription, validateAmount, validateDate, validateCategory,
       validateCurrencyCode, validateRate, findDuplicateWord, isRealDate, describeRecordProblem,
+      validateEmail, validateName, validateMessage,
     } from './scripts/validators.js';
     import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './scripts/search.js';
     import { computeStats, capStatus } from './scripts/stats.js';
@@ -120,6 +121,19 @@
       expect('"USD" is valid', ok(validateCurrencyCode('USD')), true);
       expect('"rwf" is rejected', ok(validateCurrencyCode('rwf')), false);
       expect('"US" is rejected', ok(validateCurrencyCode('US')), false);
+    });
+
+    group('Contact form: email /^[^\\s@]+@…\\.[A-Za-z]{2,}$/', (expect) => {
+      for (const value of ['s.alex@spiderbit.rw', 'amina+budget@alu.edu', 'a@b.co']) {
+        expect(`"${value}" is valid`, ok(validateEmail(value)), true);
+      }
+      for (const value of ['', 'alex', 'alex@', '@alu.edu', 'alex@alu', 'alex @alu.edu', 'alex@alu.c', 'a@@b.com']) {
+        expect(`"${value}" is rejected`, ok(validateEmail(value)), false);
+      }
+      expect('name with only spaces is rejected', ok(validateName('   ')), false);
+      expect('"Shyaka Alex" is a valid name', ok(validateName('Shyaka Alex')), true);
+      expect('message shorter than 10 characters is rejected', ok(validateMessage('Hi there')), false);
+      expect('a full sentence message is valid', ok(validateMessage('Love the budget card!')), true);
     });
 
     group('Record structure check', (expect) => {

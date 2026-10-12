@@ -9,8 +9,8 @@ import {
   parseImport, toJSON, toCSV, downloadFile, MAX_IMPORT_BYTES,
 } from './storage.js';
 import { escapeHTML } from './search.js';
-import { $, $$, announce, confirmDialog, setFieldMessage, setStatus } from './ui.js';
-import { todayISO } from './format.js';
+import { $, $$, announce, toast, confirmDialog, setFieldMessage, setStatus } from './ui.js';
+import { todayISO, categoryTone } from './format.js';
 
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
@@ -18,7 +18,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 export function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0E1714' : '#0F4D3A');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0B1220' : '#F8FAFC');
 }
 
 /* ---------- Rendering ---------- */
@@ -51,7 +51,7 @@ function renderCategories() {
     const count = counts.get(name) ?? 0;
     const safe = escapeHTML(name);
     return `
-      <li class="tag">
+      <li class="tag" data-tone="${categoryTone(name, state.settings.categories)}">
         <span>${safe}</span>
         <span class="tag__count" aria-label="${plural(count, 'transaction')}">${count}</span>
         <button type="button" class="tag__remove" data-remove="${safe}" aria-label="Remove category ${safe}">
@@ -126,12 +126,12 @@ function saveCurrencies() {
   if (unchanged) return;
 
   updateSettings({ baseCurrency, currencies, displayCurrency });
-  announce('Currency settings saved.');
+  toast('Currency settings saved');
 }
 
 /* ---------- Budget ---------- */
 
-function saveCap() {
+function saveCap(event) {
   const input = $('#s-cap');
   input.value = input.value.trim();
   const error = validateAmount(input.value, 'Spending cap');
@@ -141,9 +141,12 @@ function saveCap() {
     return;
   }
   const cap = Number(input.value);
-  if (cap === state.settings.cap) return;
+  if (cap === state.settings.cap) {
+    if (event?.type === 'submit') toast('Budget saved');
+    return;
+  }
   updateSettings({ cap });
-  announce(cap === 0 ? 'Budget turned off.' : 'Budget saved.');
+  toast(cap === 0 ? 'Budget turned off' : 'Budget saved');
 }
 
 /* ---------- Categories ---------- */
@@ -165,7 +168,7 @@ function addCategory(event) {
   }
   updateSettings({ categories: [...state.settings.categories, name] });
   input.value = '';
-  announce(`Category “${name}” added.`);
+  toast(`Category “${name}” added`);
 }
 
 function removeCategory(name) {
@@ -182,7 +185,7 @@ function removeCategory(name) {
   const index = buttons.findIndex((b) => b.dataset.remove === name);
 
   updateSettings({ categories: state.settings.categories.filter((c) => c !== name) });
-  announce(`Category “${name}” removed.`);
+  toast(`Category “${name}” removed`);
 
   const remaining = $$('#category-list [data-remove]');
   (remaining[index] ?? remaining[index - 1] ?? $('#s-new-category')).focus();
@@ -293,7 +296,7 @@ export function initSettings() {
   currencyForm.addEventListener('change', (event) => {
     if (event.target.id === 's-display') {
       updateSettings({ displayCurrency: event.target.value });
-      announce(`Amounts now shown in ${event.target.value}.`);
+      toast(`Amounts now shown in ${event.target.value}`);
     } else {
       saveCurrencies();
     }
@@ -311,7 +314,7 @@ export function initSettings() {
   budgetForm.addEventListener('change', saveCap);
   budgetForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    saveCap();
+    saveCap(event);
   });
 
   $('#category-form').addEventListener('submit', addCategory);
@@ -324,7 +327,7 @@ export function initSettings() {
     const theme = event.target.checked ? 'dark' : 'light';
     updateSettings({ theme });
     applyTheme(theme);
-    announce(`${theme === 'dark' ? 'Dark' : 'Light'} theme on.`);
+    toast(`${theme === 'dark' ? 'Dark' : 'Light'} theme on`);
   });
 
   $('#export-json').addEventListener('click', () => exportData('json'));

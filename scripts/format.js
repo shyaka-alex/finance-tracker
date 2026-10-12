@@ -43,3 +43,22 @@ export function isoDate(date = new Date()) {
 }
 
 export const todayISO = () => isoDate(new Date());
+
+const TONES = 6;
+
+/** A stable colour slot (0–5) for a category pill, based on its position in Settings. */
+export function categoryTone(name, categories) {
+  const index = categories.indexOf(name);
+  if (index >= 0) return index % TONES;
+  let hash = 0;
+  for (const char of name) hash = (hash * 31 + char.charCodeAt(0)) % 997;
+  return hash % TONES;
+}
+
+/** "Good morning" / "Good afternoon" / "Good evening" for the given time. */
+export function greeting(date = new Date()) {
+  const hour = date.getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 18) return 'Good afternoon';
+  return 'Good evening';
+}

@@ -19,12 +19,13 @@ Spendwise is an accessible, responsive student finance tracker for students in R
 
 | Area | What it does |
 |---|---|
-| Dashboard | Total transactions, total spent, top category, last-7-days total, a CSS bar chart with a screen-reader text alternative, and a spending-by-category breakdown |
+| Home | Landing page with a hero, feature cards, “how it works”, “why Spendwise”, About and a Contact form (email checked with a regex, then opened in your email app). Mockup images live in `assets/img/` |
+| Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total, a CSS bar chart with a screen-reader text alternative, and a spending-by-category breakdown |
 | Budget cap | Monthly cap with a progress bar, remaining amount or overage, days left and a daily allowance. Under the cap it is announced politely; over the cap it is announced assertively |
 | Transactions | Table on tablet/desktop, cards on mobile. Live regex search with a case-insensitive toggle, `<mark>` highlighting, sorting by date, description (A↕Z) and amount (↑↓) using a dropdown or the column headers |
 | Inline edit & delete | Edit any row in place (same validation as the form, updates `updatedAt`). Delete asks for confirmation in an accessible `<dialog>` |
-| Add form | Four regex rules with inline errors as you type, plus a duplicate-word warning (back-reference) |
-| Settings | Base currency RWF plus USD and EUR with manual rates (RWF per 1 unit, e.g. 1 USD = 1450 RWF), display currency, monthly cap, editable categories, light/dark theme |
+| Add form | Beside the transactions on wide screens. Four regex rules with inline errors as you type, plus a duplicate-word warning (back-reference). The “Add transaction” button jumps to it and focuses the first field |
+| Settings | Base currency RWF plus USD and EUR with manual rates (RWF per 1 unit, e.g. 1 USD = 1450 RWF), display currency, monthly cap, editable categories, light/dark theme, and a danger zone for clearing data. Saves show a toast that is also read by screen readers |
 | Data | Auto-save to `localStorage`, JSON import with full validation, JSON and CSV export, load sample data, clear all data |
 | Stretch goals | Light/dark theme (saved), CSV export (escaped), reduced-motion support |
 
@@ -39,7 +40,7 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-Click **Load sample data** (Transactions empty state, or Settings → Your data) to load the 14 records from `seed.json`.
+Click **Load sample data** (the empty transactions list on the Dashboard, or Settings → Your Data) to load the 14 records from `seed.json`.
 
 ## Run the tests
 
@@ -59,6 +60,7 @@ Open [`tests.html`](tests.html) through the same server (`http://localhost:8000/
 | 5 | **Advanced, back-reference**: duplicate word | `/\b(\w+)\s+\1\b/i` | warns on `Coffee coffee with Amina`, `the the` | no warning for `the theme` |
 | 6 | **Advanced, lookahead**: positive exchange rate | `/^(?=.*[1-9])(0\|[1-9]\d*)(\.\d{1,6})?$/` | `1450`, `1580.25`, `0.000001` | `0`, `0.000`, `-1` |
 | 7 | Currency code | `/^[A-Z]{3}$/` | `RWF`, `USD` | `rwf`, `RW` |
+| 8 | Contact email | `/^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)*\.[A-Za-z]{2,}$/` | `s.alex@spiderbit.rw` | `alex@alu`, `alex @alu.edu` |
 
 ### Search examples to try (Transactions page)
 
@@ -81,7 +83,8 @@ Search runs on what you see (date, description, category and the formatted amoun
 |---|---|---|
 | `Tab` / `Shift+Tab` | Everywhere | Move between links, buttons and fields in visual order |
 | `Tab` (first press) | Page load | Reveals the **Skip to main content** link |
-| `Enter` | Navigation links | Switch section; focus moves to the section heading |
+| `Enter` | Navigation links | Switch page or jump to a section; focus moves to its heading |
+| `Enter` / `Escape` | Menu button (mobile) | Open the menu / close it and return focus to the button |
 | `Enter` | Add form | Save the transaction (focus jumps to the first invalid field if any) |
 | `Space` | Checkboxes | Toggle case-insensitive search or dark theme |
 | `Enter` | Sort header buttons | Sort by that column; press again to reverse |
@@ -91,7 +94,7 @@ Search runs on what you see (date, description, category and the formatted amoun
 
 ## Accessibility notes
 
-- **Landmarks and headings:** `header`, `nav`, `main`, five `section`s and `footer`; one `h1`, an `h2` per section, `h3` inside cards.
+- **Landmarks and headings:** `header`, `nav`, `main`, three views (Home, Dashboard, Settings) as `section`s, and `footer`; one `h1`, an `h2` per view, `h3` for each section or card.
 - **Labels:** every input has a visible `<label for>`; settings are grouped in `fieldset`/`legend`.
 - **Errors:** inline messages are linked with `aria-describedby`, and invalid fields get `aria-invalid="true"`.
 - **Live regions:** `role="status"` (polite) and `role="alert"` (assertive) regions announce saves, deletes, imports and the budget cap. Messages are appended, not replaced, so quick back-to-back messages are both read. The result count under the search box is also a status region.
@@ -134,12 +137,13 @@ scripts/
   search.js           safe regex compiler, <mark> highlight, sorting
   stats.js            dashboard numbers (pure functions)
   format.js           currency conversion and dates
-  ui.js               live announcements, navigation, confirm dialog
+  ui.js               live announcements, toast, hash navigation, mobile menu, confirm dialog
   form.js             add-transaction form
   records.js          table/cards, search, inline edit, delete
+  contact.js          contact form validation and mailto hand-off
   dashboard.js        stat cards, chart, budget cap
   settings.js         currencies, cap, categories, theme, data tools
-assets/               logo mark, favicon, brand images
+assets/               logo mark, favicon, brand images, img/ mockups for the home page
 docs/design.md        M1 spec: data model, wireframes, a11y plan
 ```
 
@@ -147,10 +151,11 @@ docs/design.md        M1 spec: data model, wireframes, a11y plan
 
 | Width | Layout |
 |---|---|
-| ~360px (base) | Single column, wrapped pill navigation, transactions shown as cards with sort chips |
-| ≥ 768px | Horizontal nav bar, 2-column dashboard and settings, real table |
-| ≥ 1024px | Left sidebar navigation, 12-column dashboard grid, form beside its rules panel |
-| ≥ 1280px | Wider sidebar, 3-column settings |
+| ~360px (base) | Single column, menu button for navigation, transactions shown as cards with sort chips |
+| ≥ 640px | 2-column stat cards and feature cards |
+| ≥ 768px | Real transactions table, 2-column dashboard cards, two-column add form |
+| ≥ 1024px | Full navigation bar, two-column home sections, 4 stat cards, 3 dashboard cards in a row |
+| ≥ 1280px | Transactions and the add form side by side (the form stays in view while scrolling) |
 
 ## Milestones
 

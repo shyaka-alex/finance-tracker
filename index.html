@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spendwise · Student Finance Tracker</title>
-  <meta name="description" content="Spendwise is an accessible student finance tracker: log transactions, search them with regular expressions and stay under your monthly budget.">
-  <meta name="theme-color" content="#0F4D3A">
+  <meta name="description" content="Spendwise helps students in Rwanda track spending in Rwandan francs, set a monthly budget and find any transaction with pattern search, right in the browser.">
+  <meta name="theme-color" content="#F8FAFC">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="styles/main.css">
   <script>
     try {
@@ -21,83 +21,324 @@
   <script type="module" src="scripts/main.js"></script>
 </head>
 <body>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h9M19 6h1M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="16" cy="6" r="2.5"/><circle cx="9" cy="12" r="2.5"/><circle cx="17" cy="18" r="2.5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><path d="M16 14h.01"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8Z"/><path d="M7.5 7.5h.01"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 20V9m0 0-4 4m4-4 4 4M5 4h14"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 17c0 1.7 2.7 3 6 3s6-1.3 6-3v-4c0-1.7-2.7-3-6-3"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
+    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="15" height="11" rx="2"/><path d="M6 19h7"/><rect x="17" y="9" width="5" height="11" rx="1.5"/></symbol>
+  </svg>
+
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <div class="app">
-    <header class="site-header">
-      <a class="brand" href="#dashboard" aria-label="Spendwise home">
-        <img class="brand__mark" src="assets/logo-mark.svg" alt="" width="48" height="48">
-        <span class="brand__text">
-          <span class="brand__name">Spend<span class="brand__accent">wise</span></span>
-          <span class="brand__tagline">Track smarter. Spend wiser.</span>
-        </span>
+  <header class="site-header" id="site-header">
+    <div class="site-header__inner">
+      <a class="brand" href="#home">
+        <img class="brand__mark" src="assets/logo-mark.svg" alt="" width="40" height="40">
+        <span class="brand__name">Spend<span class="brand__accent">wise</span></span>
       </a>
       <h1 class="sr-only">Spendwise: student finance tracker</h1>
 
-      <nav class="site-nav" aria-label="Main">
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="site-nav">
+        <svg class="icon icon--open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-close"/></svg>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
-          <li>
-            <a href="#dashboard" data-nav>
-              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#transactions" data-nav>
-              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="18" r="1.2"/></svg>
-              Transactions
-            </a>
-          </li>
-          <li>
-            <a href="#add" data-nav>
-              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-              Add
-            </a>
-          </li>
-          <li>
-            <a href="#settings" data-nav>
-              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h9M19 6h1M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="16" cy="6" r="2.5"/><circle cx="9" cy="12" r="2.5"/><circle cx="17" cy="18" r="2.5"/></svg>
-              Settings
-            </a>
-          </li>
-          <li>
-            <a href="#about" data-nav>
-              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
-              About
-            </a>
-          </li>
+          <li><a href="#home" data-nav><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg>Home</a></li>
+          <li><a href="#dashboard" data-nav><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Dashboard</a></li>
+          <li><a href="#settings" data-nav><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg>Settings</a></li>
+          <li><a href="#about" data-nav><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>About</a></li>
+          <li><a href="#contact" data-nav><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Contact</a></li>
         </ul>
+        <a class="btn btn--primary header-cta" href="#dashboard">Open dashboard</a>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <main id="main" class="main" tabindex="-1">
+  <main id="main" class="main" tabindex="-1">
 
-      <!-- ============ Dashboard ============ -->
-      <section id="dashboard" class="view" aria-labelledby="dashboard-title">
-        <div class="view__head">
-          <h2 id="dashboard-title" class="view__title" tabindex="-1">Dashboard</h2>
-          <p class="view__lede">Your spending at a glance.</p>
+    <!-- ================= Home ================= -->
+    <section id="home" class="view view--home" aria-labelledby="home-title">
+
+      <div class="hero">
+        <div class="container hero__inner">
+          <div class="hero__text">
+            <p class="badge">Built for students in Rwanda</p>
+            <h2 id="home-title" class="hero__title" tabindex="-1">Know Where Your <span class="text-teal">Money Goes.</span></h2>
+            <p class="hero__lede">Spendwise helps you track spending in Rwandan francs, set a budget, and stay on top of your money all semester, right in your browser.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary btn--lg" href="#dashboard">Open dashboard <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="btn btn--outline btn--lg" href="#features">See features</a>
+            </div>
+            <ul class="trust" aria-label="Why it is easy to start">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Free</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>No sign-up</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Your data stays on your device</li>
+            </ul>
+          </div>
+          <div class="hero__visual">
+            <img class="hero__img"
+                 src="assets/img/hero-phones@1x.png"
+                 srcset="assets/img/hero-phones@1x.png 1440w, assets/img/hero-phones@2x.png 2880w"
+                 sizes="(min-width: 1024px) 600px, 100vw"
+                 width="1440" height="860" fetchpriority="high"
+                 alt="Three Spendwise phone screens: a transaction search for coffee or tea with highlighted matches, a home screen with monthly spending and a 7-day chart, and a budget ring with spending by category.">
+          </div>
+        </div>
+      </div>
+
+      <section id="features" class="band" aria-labelledby="features-title">
+        <div class="container">
+          <h3 id="features-title" class="sr-only" tabindex="-1">Features</h3>
+          <ul class="feature-row card">
+            <li class="feature">
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-wallet"/></svg></span>
+              <h4 class="feature__title">Track Spending</h4>
+              <p class="muted">Log every expense in seconds.</p>
+            </li>
+            <li class="feature">
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-target"/></svg></span>
+              <h4 class="feature__title">Set a Budget</h4>
+              <p class="muted">Get warned before you overspend.</p>
+            </li>
+            <li class="feature">
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-search"/></svg></span>
+              <h4 class="feature__title">Smart Search</h4>
+              <p class="muted">Find anything with powerful pattern search.</p>
+            </li>
+            <li class="feature">
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg></span>
+              <h4 class="feature__title">Your Data, Your Device</h4>
+              <p class="muted">Saved locally, with import and export.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="band band--tint" aria-labelledby="how-title">
+        <div class="container split">
+          <div class="split__media split__media--narrow">
+            <span class="blob blob--sm" aria-hidden="true"></span>
+            <img src="assets/img/add-phone@1x.png"
+                 srcset="assets/img/add-phone@1x.png 520w, assets/img/add-phone@2x.png 1040w"
+                 sizes="(min-width: 1024px) 360px, 80vw"
+                 width="520" height="860" loading="lazy"
+                 alt="The Add transaction screen on a phone, warning about a duplicate word in the description.">
+          </div>
+          <div class="split__text">
+            <p class="badge">How it works</p>
+            <h3 id="how-title" class="section-title">Log an expense in seconds</h3>
+            <p class="muted">Every field is checked while you type, so mistakes are caught before they are saved.</p>
+            <ol class="steps">
+              <li>
+                <span class="steps__num" aria-hidden="true">1</span>
+                <div><h4>Add it</h4><p class="muted">Type what you bought, the amount in francs, a category and the date.</p></div>
+              </li>
+              <li>
+                <span class="steps__num" aria-hidden="true">2</span>
+                <div><h4>Find it</h4><p class="muted">Search with patterns like <code>moto|bus</code> and see every match highlighted.</p></div>
+              </li>
+              <li>
+                <span class="steps__num" aria-hidden="true">3</span>
+                <div><h4>Stay on budget</h4><p class="muted">Watch your monthly cap and get a clear warning before you go over.</p></div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" aria-labelledby="why-title">
+        <div class="container split split--reverse">
+          <div class="split__text">
+            <p class="badge">Why Spendwise</p>
+            <h3 id="why-title" class="section-title">Everything a Student Budget Needs</h3>
+            <ul class="checks">
+              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Editable categories</li>
+              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Rwandan francs, plus USD and EUR with your own rates</li>
+              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Fully keyboard accessible</li>
+              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Import &amp; export your data</li>
+            </ul>
+            <a class="btn btn--primary" href="#dashboard">Go to dashboard <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="split__media">
+            <img src="assets/img/stat-chips@1x.png"
+                 srcset="assets/img/stat-chips@1x.png 960w, assets/img/stat-chips@2x.png 1920w"
+                 sizes="(min-width: 1024px) 560px, 100vw"
+                 width="960" height="720" loading="lazy"
+                 alt="Example insights screen: a spending donut chart by category with floating cards for budget used, top category and the last 7 days.">
+          </div>
+        </div>
+      </section>
+
+      <section class="band band--tint" aria-labelledby="devices-title">
+        <div class="container split">
+          <div class="split__media">
+            <img class="framed"
+                 src="assets/img/responsive@1x.png"
+                 srcset="assets/img/responsive@1x.png 1200w, assets/img/responsive@2x.png 2400w"
+                 sizes="(min-width: 1024px) 580px, 100vw"
+                 width="1200" height="720" loading="lazy"
+                 alt="The Spendwise dashboard on a laptop next to the same dashboard on a phone.">
+          </div>
+          <div class="split__text">
+            <p class="badge">Any screen</p>
+            <h3 id="devices-title" class="section-title">On your phone between classes, on your laptop at home</h3>
+            <p class="muted">The layout adapts from a small phone to a wide desktop. Transactions turn into cards on mobile and a sortable table on bigger screens.</p>
+            <ul class="mini-stats" aria-label="Highlights">
+              <li><strong>3</strong><span>screen sizes designed for</span></li>
+              <li><strong>0</strong><span>accounts or servers needed</span></li>
+              <li><strong>100%</strong><span>works with a keyboard</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="band" aria-labelledby="about-title">
+        <div class="container split split--reverse">
+          <div class="split__text">
+            <div class="card about-card">
+              <p class="badge">About</p>
+              <h3 id="about-title" class="section-title" tabindex="-1">About Spendwise</h3>
+              <p>Spendwise was built by <strong>Shyaka Alex</strong> as a project for the African Leadership University course <em>Building Responsive UI</em>. It is a simple, accessible way for students in Rwanda to manage everyday spending, from lunch and moto rides to textbooks and fees.</p>
+              <p class="muted">It is made with plain HTML, CSS and JavaScript only. Your data never leaves your browser.</p>
+              <div class="btn-row">
+                <a class="btn btn--pill" href="https://github.com/shyaka-alex"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a>
+                <a class="btn btn--pill" href="mailto:s.alex@spiderbit.rw"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
+              </div>
+            </div>
+          </div>
+          <div class="split__media">
+            <img src="assets/img/student-coins@1x.png"
+                 srcset="assets/img/student-coins@1x.png 960w, assets/img/student-coins@2x.png 1920w"
+                 sizes="(min-width: 1024px) 560px, 100vw"
+                 width="960" height="720" loading="lazy"
+                 alt="A Spendwise student budget card and a phone showing the remaining budget and recent activity, next to a stack of coins.">
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="band band--tint" aria-labelledby="contact-title">
+        <div class="container split split--top">
+          <div class="split__text">
+            <p class="badge">Contact</p>
+            <h3 id="contact-title" class="section-title" tabindex="-1">Get in Touch</h3>
+            <p class="muted">Found a bug or have an idea? I’d love to hear it.</p>
+            <ul class="contact-list">
+              <li>
+                <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
+                <span><span class="contact-list__label">Email</span><a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a></span>
+              </li>
+              <li>
+                <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></span>
+                <span><span class="contact-list__label">GitHub</span><a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a></span>
+              </li>
+              <li>
+                <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-list"/></svg></span>
+                <span><span class="contact-list__label">Source code</span><a href="https://github.com/shyaka-alex/finance-tracker">finance-tracker repository</a></span>
+              </li>
+            </ul>
+          </div>
+
+          <form id="contact-form" class="card form-card" novalidate aria-labelledby="contact-form-title">
+            <h4 id="contact-form-title" class="card__title">Send a message</h4>
+            <div class="field">
+              <label for="c-name">Name</label>
+              <input id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-error">
+              <p id="c-name-error" class="field__error"></p>
+            </div>
+            <div class="field">
+              <label for="c-email">Email</label>
+              <input id="c-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="c-email-error">
+              <p id="c-email-error" class="field__error"></p>
+            </div>
+            <div class="field">
+              <label for="c-message">Message</label>
+              <textarea id="c-message" name="message" rows="4" maxlength="1000" required aria-describedby="c-message-hint c-message-error"></textarea>
+              <p id="c-message-hint" class="hint">At least 10 characters.</p>
+              <p id="c-message-error" class="field__error"></p>
+            </div>
+            <button type="submit" class="btn btn--primary btn--block">Send message</button>
+            <p class="form-status" id="contact-status" role="status"></p>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <!-- ================= Dashboard ================= -->
+    <section id="dashboard" class="view view--app" aria-labelledby="dashboard-title" hidden>
+      <div class="container">
+        <div class="dash-top">
+          <div>
+            <p class="dash-top__greeting" id="greeting">Hello,</p>
+            <h2 id="dashboard-title" class="view__title" tabindex="-1">Dashboard</h2>
+            <p class="muted" id="today-date"></p>
+          </div>
+          <a class="btn btn--primary" href="#add"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add transaction</a>
         </div>
 
-        <div class="dash-grid">
-          <article class="card card--intro" aria-labelledby="intro-title">
-            <p class="eyebrow">Student finance tracker</p>
-            <h3 id="intro-title" class="display">Spend smart,<br> stay on budget.</h3>
-            <p class="muted intro__text">Log every lunch, moto ride and textbook in Rwandan francs, find any transaction with a regex search, and see how close you are to your monthly cap.</p>
-            <div class="btn-row">
-              <a class="btn btn--accent" href="#add">Add transaction</a>
-              <a class="btn btn--ghost" href="#transactions">View transactions</a>
-            </div>
-          </article>
+        <ul class="stat-list" aria-label="Summary">
+          <li class="stat card">
+            <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-wallet"/></svg></span>
+            <span class="stat__label">Total spent</span>
+            <strong class="stat__value" id="stat-total">RWF 0</strong>
+            <span class="stat__sub">All time</span>
+          </li>
+          <li class="stat card">
+            <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-list"/></svg></span>
+            <span class="stat__label">Transactions</span>
+            <strong class="stat__value" id="stat-count">0</strong>
+            <span class="stat__sub" id="stat-count-sub">recorded</span>
+          </li>
+          <li class="stat card">
+            <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-tag"/></svg></span>
+            <span class="stat__label">Top category</span>
+            <strong class="stat__value" id="stat-top">None</strong>
+            <span class="stat__sub" id="stat-top-sub">No spending yet</span>
+          </li>
+          <li class="stat card">
+            <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span>
+            <span class="stat__label">Last 7 days</span>
+            <strong class="stat__value" id="stat-week">RWF 0</strong>
+            <span class="stat__sub" id="stat-week-sub">0 transactions</span>
+          </li>
+        </ul>
 
-          <article class="card card--budget card--flip" id="budget-card" data-state="none" aria-labelledby="budget-title">
-            <div class="budget__head">
+        <div class="dash-row">
+          <article class="card budget-card" id="budget-card" data-state="none" aria-labelledby="budget-title">
+            <div class="card__head">
               <h3 id="budget-title" class="card__title">Monthly budget</h3>
               <a class="link-small" href="#settings">Change<span class="sr-only"> budget</span></a>
             </div>
             <p class="budget__figures">
               <span class="budget__spent" id="budget-spent">RWF 0</span>
-              <span class="muted">spent of <span id="budget-cap">RWF 0</span></span>
+              <span class="muted">of <span id="budget-cap">RWF 0</span></span>
             </p>
             <div class="meter" id="budget-meter" role="progressbar" aria-labelledby="budget-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
               <div class="meter__fill" id="budget-fill"></div>
@@ -106,127 +347,103 @@
             <p class="budget__pace muted" id="budget-pace"></p>
           </article>
 
-          <ul class="stat-list" aria-label="Summary">
-            <li class="stat">
-              <span class="stat__label">Transactions</span>
-              <strong class="stat__value" id="stat-count">0</strong>
-              <span class="stat__sub" id="stat-count-sub">All time</span>
-            </li>
-            <li class="stat">
-              <span class="stat__label">Total spent</span>
-              <strong class="stat__value" id="stat-total">RWF 0</strong>
-              <span class="stat__sub">All time</span>
-            </li>
-            <li class="stat">
-              <span class="stat__label">Top category</span>
-              <strong class="stat__value" id="stat-top">None</strong>
-              <span class="stat__sub" id="stat-top-sub">No spending yet</span>
-            </li>
-            <li class="stat stat--accent">
-              <span class="stat__label">Last 7 days</span>
-              <strong class="stat__value" id="stat-week">RWF 0</strong>
-              <span class="stat__sub" id="stat-week-sub">0 transactions</span>
-            </li>
-          </ul>
-
-          <article class="card card--hero chart-card" aria-labelledby="chart-title">
-            <div class="chart-card__head">
-              <h3 id="chart-title" class="card__title">Last 7 days</h3>
+          <article class="card chart-card" aria-labelledby="chart-title">
+            <div class="card__head">
+              <h3 id="chart-title" class="card__title">This Week</h3>
               <p class="chart-card__total" id="chart-total"></p>
             </div>
             <div class="chart" id="chart" aria-hidden="true"></div>
             <ul class="sr-only" id="chart-list" aria-label="Spending per day, last 7 days"></ul>
           </article>
 
-          <article class="card card--categories" aria-labelledby="categories-title">
-            <h3 id="categories-title" class="card__title">Spending by category</h3>
+          <article class="card" aria-labelledby="categories-title">
+            <h3 id="categories-title" class="card__title">By category</h3>
             <ul class="cat-breakdown" id="cat-breakdown"></ul>
           </article>
         </div>
-      </section>
 
-      <!-- ============ Transactions ============ -->
-      <section id="transactions" class="view" aria-labelledby="transactions-title" hidden>
-        <div class="view__head">
-          <h2 id="transactions-title" class="view__title" tabindex="-1">Transactions</h2>
-          <p class="view__lede">Search with regular expressions, sort, edit inline.</p>
-        </div>
-
-        <div class="card toolbar" role="search" aria-label="Search and sort transactions">
-          <div class="field toolbar__search">
-            <label for="search">Search (regex)</label>
-            <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. moto|bus" aria-describedby="search-hint search-error">
-            <p id="search-hint" class="hint">Try <code>(coffee|tea)</code>, <code>\d{2},\d{3}</code> (10,000 RWF or more) or <code>\b(\w+)\s+\1\b</code>.</p>
-            <p id="search-error" class="field__error"></p>
-          </div>
-          <div class="check toolbar__case">
-            <input type="checkbox" id="case-insensitive" checked>
-            <label for="case-insensitive">Case-insensitive</label>
-          </div>
-          <div class="field toolbar__sort">
-            <label for="sort">Sort by</label>
-            <select id="sort">
-              <option value="date-desc">Date (newest first)</option>
-              <option value="date-asc">Date (oldest first)</option>
-              <option value="description-asc">Description (A–Z)</option>
-              <option value="description-desc">Description (Z–A)</option>
-              <option value="amount-desc">Amount (high to low)</option>
-              <option value="amount-asc">Amount (low to high)</option>
-            </select>
-          </div>
-        </div>
-
-        <p class="result-count" id="result-count" role="status"></p>
-
-        <div class="card table-card">
-          <table class="records" id="records-table" role="table">
-            <caption class="sr-only">Transactions. Use the column header buttons to sort.</caption>
-            <thead role="rowgroup">
-              <tr role="row">
-                <th scope="col" role="columnheader" data-col="date" aria-sort="descending">
-                  <button type="button" class="sort-btn" data-sort-col="date">Date<span class="sort-icon" aria-hidden="true"></span></button>
-                </th>
-                <th scope="col" role="columnheader" data-col="description" aria-sort="none">
-                  <button type="button" class="sort-btn" data-sort-col="description">Description<span class="sort-icon" aria-hidden="true"></span></button>
-                </th>
-                <th scope="col" role="columnheader" class="th--plain">Category</th>
-                <th scope="col" role="columnheader" data-col="amount" aria-sort="none" class="num">
-                  <button type="button" class="sort-btn" data-sort-col="amount">Amount<span class="sort-icon" aria-hidden="true"></span></button>
-                </th>
-                <th scope="col" role="columnheader" class="th--plain"><span class="sr-only">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody id="records-body" role="rowgroup"></tbody>
-          </table>
-          <div class="empty" id="records-empty" hidden></div>
-        </div>
-      </section>
-
-      <!-- ============ Add transaction ============ -->
-      <section id="add" class="view" aria-labelledby="add-title" hidden>
-        <div class="view__head">
-          <h2 id="add-title" class="view__title" tabindex="-1">Add transaction</h2>
-          <p class="view__lede">Every field is checked as you type.</p>
-        </div>
-
-        <div class="add-layout">
-          <form id="txn-form" class="card form-card" novalidate aria-labelledby="add-title">
-            <div class="field">
-              <label for="f-description">Description</label>
-              <input id="f-description" name="description" type="text" autocomplete="off" maxlength="160" required
-                     aria-describedby="f-description-hint f-description-error f-description-warning">
-              <p id="f-description-hint" class="hint">For example “Lunch at cafeteria”. No spaces at the start or end.</p>
-              <p id="f-description-error" class="field__error"></p>
-              <p id="f-description-warning" class="field__warning"></p>
+        <div class="dash-main">
+          <section id="transactions" class="card records-card" aria-labelledby="transactions-title">
+            <div class="card__head">
+              <h3 id="transactions-title" class="card__title" tabindex="-1">Transactions</h3>
+              <p class="result-count" id="result-count" role="status"></p>
             </div>
 
-            <div class="form-row">
+            <div class="toolbar" role="search" aria-label="Search and sort transactions">
+              <div class="field toolbar__search">
+                <label for="search">Search</label>
+                <div class="input-icon">
+                  <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+                  <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Search with a pattern, e.g. moto|bus" aria-describedby="search-hint search-error">
+                </div>
+                <p id="search-hint" class="hint">Regex works: try <code>(coffee|tea)</code>, <code>\d{2},\d{3}</code> (RWF 10,000+) or <code>\b(\w+)\s+\1\b</code>.</p>
+                <p id="search-error" class="field__error"></p>
+              </div>
+              <div class="switch toolbar__case">
+                <input type="checkbox" id="case-insensitive" role="switch" checked>
+                <label for="case-insensitive">Ignore case</label>
+              </div>
+              <div class="field toolbar__sort">
+                <label for="sort">Sort</label>
+                <select id="sort">
+                  <option value="date-desc">Date (newest first)</option>
+                  <option value="date-asc">Date (oldest first)</option>
+                  <option value="description-asc">Description (A–Z)</option>
+                  <option value="description-desc">Description (Z–A)</option>
+                  <option value="amount-desc">Amount (high to low)</option>
+                  <option value="amount-asc">Amount (low to high)</option>
+                </select>
+              </div>
+            </div>
+
+            <table class="records" id="records-table" role="table">
+              <caption class="sr-only">Transactions. Use the column header buttons to sort.</caption>
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th scope="col" role="columnheader" data-col="date" aria-sort="descending">
+                    <button type="button" class="sort-btn" data-sort-col="date">Date<span class="sort-icon" aria-hidden="true"></span></button>
+                  </th>
+                  <th scope="col" role="columnheader" data-col="description" aria-sort="none">
+                    <button type="button" class="sort-btn" data-sort-col="description">Description<span class="sort-icon" aria-hidden="true"></span></button>
+                  </th>
+                  <th scope="col" role="columnheader" class="th--plain">Category</th>
+                  <th scope="col" role="columnheader" data-col="amount" aria-sort="none" class="num">
+                    <button type="button" class="sort-btn" data-sort-col="amount">Amount<span class="sort-icon" aria-hidden="true"></span></button>
+                  </th>
+                  <th scope="col" role="columnheader" class="th--plain"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="records-body" role="rowgroup"></tbody>
+            </table>
+            <div class="empty" id="records-empty" hidden></div>
+          </section>
+
+          <section id="add" class="card form-card add-card" aria-labelledby="add-title">
+            <h3 id="add-title" class="card__title" tabindex="-1">Add Transaction</h3>
+            <form id="txn-form" class="form-stack" novalidate aria-labelledby="add-title">
+              <div class="field">
+                <label for="f-description">Description</label>
+                <input id="f-description" name="description" type="text" autocomplete="off" maxlength="160" required
+                       aria-describedby="f-description-hint f-description-error f-description-warning">
+                <p id="f-description-hint" class="hint">e.g. “Lunch at cafeteria”</p>
+                <p id="f-description-error" class="field__error"></p>
+                <p id="f-description-warning" class="field__warning"></p>
+              </div>
+
               <div class="field">
                 <label for="f-amount">Amount (<span data-base-currency>RWF</span>)</label>
                 <input id="f-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" required
                        aria-describedby="f-amount-hint f-amount-error">
-                <p id="f-amount-hint" class="hint">In Rwandan francs, e.g. 2500 (no commas)</p>
+                <p id="f-amount-hint" class="hint">e.g. 2500, no commas</p>
                 <p id="f-amount-error" class="field__error"></p>
+              </div>
+
+              <div class="field">
+                <label for="f-category">Category</label>
+                <input id="f-category" name="category" type="text" list="category-options" autocomplete="off" required
+                       aria-describedby="f-category-hint f-category-error">
+                <p id="f-category-hint" class="hint">One of: <span id="category-hint-list">Food, Books, Transport, Entertainment, Fees, Other</span></p>
+                <p id="f-category-error" class="field__error"></p>
               </div>
 
               <div class="field">
@@ -236,47 +453,33 @@
                 <p id="f-date-hint" class="hint">Format YYYY-MM-DD</p>
                 <p id="f-date-error" class="field__error"></p>
               </div>
-            </div>
 
-            <div class="field">
-              <label for="f-category">Category</label>
-              <input id="f-category" name="category" type="text" list="category-options" autocomplete="off" required
-                     aria-describedby="f-category-hint f-category-error">
-              <p id="f-category-hint" class="hint">Pick from your categories: <span id="category-hint-list">Food, Books, Transport, Entertainment, Fees, Other</span>.</p>
-              <p id="f-category-error" class="field__error"></p>
-            </div>
-
-            <div class="btn-row">
-              <button type="submit" class="btn btn--primary">Save transaction</button>
-              <button type="reset" class="btn btn--ghost">Clear form</button>
-            </div>
-            <p class="form-status" id="form-status"></p>
-          </form>
-
-          <aside class="card card--hero tips" aria-labelledby="tips-title">
-            <h3 id="tips-title" class="card__title">How fields are checked</h3>
-            <dl class="rules">
-              <div><dt>Description</dt><dd>No leading, trailing or double spaces. Repeated words like “the the” get a friendly warning.</dd></div>
-              <div><dt>Amount</dt><dd>0 or more, no leading zeros, at most 2 decimals: <code>2500</code> or <code>2500.50</code></dd></div>
-              <div><dt>Date</dt><dd>A real calendar date in <code>YYYY-MM-DD</code> form.</dd></div>
-              <div><dt>Category</dt><dd>Letters with single spaces or hyphens, and it must exist in Settings.</dd></div>
-            </dl>
-          </aside>
+              <div class="btn-row">
+                <button type="submit" class="btn btn--primary">Save</button>
+                <button type="reset" class="btn btn--text">Cancel</button>
+              </div>
+              <p class="form-status" id="form-status"></p>
+            </form>
+          </section>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============ Settings ============ -->
-      <section id="settings" class="view" aria-labelledby="settings-title" hidden>
-        <div class="view__head">
-          <h2 id="settings-title" class="view__title" tabindex="-1">Settings</h2>
-          <p class="view__lede">Changes save automatically in this browser.</p>
+    <!-- ================= Settings ================= -->
+    <section id="settings" class="view view--app" aria-labelledby="settings-title" hidden>
+      <div class="container container--narrow">
+        <div class="dash-top">
+          <div>
+            <h2 id="settings-title" class="view__title" tabindex="-1">Settings</h2>
+            <p class="muted">Changes save automatically in this browser.</p>
+          </div>
         </div>
 
-        <div class="settings-grid">
+        <div class="settings-stack">
           <form id="currency-form" class="card settings-card" novalidate>
             <fieldset>
-              <legend>Currency</legend>
-              <p class="hint">Amounts are stored in Rwandan francs (RWF) by default. Type in today’s rates by hand, for example 1 USD = 1450 RWF. No internet needed.</p>
+              <legend><span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-coins"/></svg></span>Currency</legend>
+              <p class="hint">Amounts are stored in Rwandan francs (RWF). Type in today’s rates by hand, for example 1 USD = 1450 RWF. No internet needed.</p>
               <div class="field">
                 <label for="s-base">Base currency</label>
                 <input id="s-base" name="base" type="text" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="s-base-hint s-base-error">
@@ -308,110 +511,96 @@
                 </div>
               </div>
               <div class="field">
-                <label for="s-display">Display amounts in</label>
+                <label for="s-display">Show amounts in</label>
                 <select id="s-display" name="display"></select>
               </div>
             </fieldset>
           </form>
 
-          <form id="budget-form" class="card settings-card card--flip" novalidate>
+          <form id="budget-form" class="card settings-card" novalidate>
             <fieldset>
-              <legend>Monthly budget</legend>
-              <div class="field">
-                <label for="s-cap">Spending cap (<span data-base-currency>RWF</span>)</label>
-                <input id="s-cap" name="cap" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cap-hint s-cap-error">
-                <p id="s-cap-hint" class="hint">Compared with this month’s spending. Use 0 to turn the budget off.</p>
-                <p id="s-cap-error" class="field__error"></p>
+              <legend><span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-target"/></svg></span>Budget</legend>
+              <div class="inline-form">
+                <div class="field">
+                  <label for="s-cap">Monthly cap (<span data-base-currency>RWF</span>)</label>
+                  <input id="s-cap" name="cap" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cap-hint s-cap-error">
+                  <p id="s-cap-hint" class="hint">Compared with this month’s spending. Use 0 to turn the budget off.</p>
+                  <p id="s-cap-error" class="field__error"></p>
+                </div>
+                <button type="submit" class="btn btn--primary">Save</button>
               </div>
             </fieldset>
           </form>
 
           <div class="card settings-card">
             <fieldset>
-              <legend>Categories</legend>
+              <legend><span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-tag"/></svg></span>Categories</legend>
               <ul class="tag-list" id="category-list"></ul>
               <form id="category-form" class="inline-form" novalidate>
                 <div class="field">
-                  <label for="s-new-category">New category</label>
+                  <label for="s-new-category">Add category</label>
                   <input id="s-new-category" name="category" type="text" maxlength="30" autocomplete="off" aria-describedby="s-new-category-error">
                   <p id="s-new-category-error" class="field__error"></p>
                 </div>
-                <button type="submit" class="btn btn--primary">Add category</button>
+                <button type="submit" class="btn btn--outline">Add</button>
               </form>
             </fieldset>
           </div>
 
-          <div class="card settings-card card--flip">
+          <div class="card settings-card">
             <fieldset>
-              <legend>Appearance</legend>
-              <div class="check">
+              <legend><span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-database"/></svg></span>Your Data</legend>
+              <p class="hint">Import replaces your current data after checking the file. Everything is saved in this browser only.</p>
+              <div class="btn-row">
+                <button type="button" class="btn btn--primary" id="export-json"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Export JSON</button>
+                <span class="file-btn">
+                  <input id="import-file" class="file-btn__input" type="file" accept="application/json,.json" aria-describedby="import-hint">
+                  <label for="import-file" class="btn btn--outline"><svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>Import JSON</label>
+                </span>
+                <button type="button" class="btn btn--outline" id="export-csv"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Export CSV</button>
+              </div>
+              <p id="import-hint" class="hint">If anything in the file is wrong, nothing is changed.</p>
+              <button type="button" class="btn btn--text" id="load-sample">Load sample data</button>
+              <p class="form-status" id="data-status"></p>
+            </fieldset>
+          </div>
+
+          <div class="card settings-card">
+            <fieldset>
+              <legend><span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-moon"/></svg></span>Appearance</legend>
+              <div class="switch">
                 <input type="checkbox" id="s-theme" role="switch">
                 <label for="s-theme">Dark theme</label>
               </div>
             </fieldset>
           </div>
 
-          <div class="card settings-card settings-card--wide">
+          <div class="card settings-card danger-zone">
             <fieldset>
-              <legend>Your data</legend>
-              <p class="hint">Everything is saved in this browser only. Export a copy to back it up or move it.</p>
-              <div class="btn-row">
-                <button type="button" class="btn btn--primary" id="export-json">Export JSON</button>
-                <button type="button" class="btn btn--ghost" id="export-csv">Export CSV</button>
-              </div>
-              <div class="field file-field">
-                <label for="import-file">Import JSON file</label>
-                <input id="import-file" type="file" accept="application/json,.json" aria-describedby="import-hint">
-                <p id="import-hint" class="hint">Every record is checked first. If anything is wrong, nothing is changed.</p>
-              </div>
-              <div class="btn-row">
-                <button type="button" class="btn btn--ghost" id="load-sample">Load sample data</button>
-                <button type="button" class="btn btn--danger-ghost" id="clear-data">Clear all data</button>
-              </div>
-              <p class="form-status" id="data-status"></p>
+              <legend><span class="tile tile--danger" aria-hidden="true"><svg class="icon"><use href="#i-alert"/></svg></span>Danger zone</legend>
+              <p class="hint">Deletes every transaction and resets your settings. Export first if you want a backup.</p>
+              <button type="button" class="btn btn--danger" id="clear-data"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>Clear all data</button>
             </fieldset>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <!-- ============ About ============ -->
-      <section id="about" class="view" aria-labelledby="about-title" hidden>
-        <div class="view__head">
-          <h2 id="about-title" class="view__title" tabindex="-1">About</h2>
-          <p class="view__lede">Why Spendwise exists and who built it.</p>
-        </div>
-
-        <div class="about-grid">
-          <article class="card about-card" aria-labelledby="about-purpose">
-            <h3 id="about-purpose" class="card__title">Purpose</h3>
-            <p>Students in Rwanda spend in many small amounts, like lunch, moto rides, airtime and printing, and it is easy to lose track of the francs. Spendwise records every transaction, groups it by category, shows the last seven days at a glance and warns you before you pass the monthly cap you set.</p>
-            <p>It is built with plain HTML, CSS and JavaScript only. Your data never leaves your browser.</p>
-            <ul class="feature-list">
-              <li>Regex-powered live search with highlighted matches</li>
-              <li>Inline editing, sorting and safe delete confirmation</li>
-              <li>Budget cap with spoken updates for screen reader users</li>
-              <li>Rwandan francs by default, plus USD and EUR with manual rates</li>
-              <li>JSON import and export with validation</li>
-            </ul>
-          </article>
-
-          <article class="card card--hero card--flip about-card" aria-labelledby="about-contact">
-            <h3 id="about-contact" class="card__title">Contact</h3>
-            <p>Built by <strong>Shyaka Alex</strong> for the ALU “Building Responsive UI” summative.</p>
-            <ul class="contact-list">
-              <li><span class="contact-list__label">GitHub</span> <a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a></li>
-              <li><span class="contact-list__label">Email</span> <a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a></li>
-              <li><span class="contact-list__label">Source</span> <a href="https://github.com/shyaka-alex/finance-tracker">finance-tracker repository</a></li>
-            </ul>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <p>© <span id="year">2026</span> Spendwise · Built by Shyaka Alex · <a href="#about">About</a> · <a href="tests.html">Tests</a></p>
-    </footer>
-  </div>
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <a class="brand brand--small" href="#home">
+        <img class="brand__mark" src="assets/logo-mark.svg" alt="" width="28" height="28">
+        <span class="brand__name">Spend<span class="brand__accent">wise</span></span>
+      </a>
+      <p class="muted">© <span id="year">2026</span> Spendwise · Built by Shyaka Alex</p>
+      <ul class="footer-links">
+        <li><a href="https://github.com/shyaka-alex"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></li>
+        <li><a href="mailto:s.alex@spiderbit.rw"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Email</a></li>
+        <li><a href="tests.html">Tests</a></li>
+      </ul>
+    </div>
+  </footer>
 
   <datalist id="category-options"></datalist>
 
@@ -420,11 +609,16 @@
       <h2 id="confirm-title" class="dialog__title">Are you sure?</h2>
       <p id="confirm-message" class="dialog__message"></p>
       <div class="btn-row dialog__actions">
-        <button type="submit" value="cancel" class="btn btn--ghost">Cancel</button>
+        <button type="submit" value="cancel" class="btn btn--outline">Cancel</button>
         <button type="submit" value="confirm" class="btn btn--danger" id="confirm-ok">Delete</button>
       </div>
     </form>
   </dialog>
+
+  <div class="toast" id="toast" aria-hidden="true">
+    <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+    <span id="toast-text"></span>
+  </div>
 
   <div id="live-polite" class="sr-only" role="status" aria-live="polite"></div>
   <div id="live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>

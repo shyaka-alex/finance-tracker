@@ -13,7 +13,7 @@ const RULES = {
   category: (value) => validateCategory(value, state.settings.categories),
 };
 
-const FIELD_ORDER = ['description', 'amount', 'date', 'category'];
+const FIELD_ORDER = ['description', 'amount', 'category', 'date'];
 
 export function renderCategoryOptions() {
   const { categories } = state.settings;
@@ -100,7 +100,7 @@ export function initForm() {
 
     clearForm();
     const money = formatMoney(record.amount, state.settings);
-    setStatus(status, `Saved “${record.description}” (${money}). Add another, or view your transactions.`);
+    setStatus(status, `Saved “${record.description}” (${money}).`);
     announce(`Transaction added: ${record.description}, ${money}.`);
     inputs.description.focus();
   });

@@ -5,6 +5,7 @@ import { initSettings } from './settings.js';
 import { initForm } from './form.js';
 import { initRecords } from './records.js';
 import { initDashboard } from './dashboard.js';
+import { initContact } from './contact.js';
 
 const startup = initState();
 
@@ -13,6 +14,7 @@ initSettings();
 initForm();
 initRecords();
 initDashboard();
+initContact();
 
 subscribe((type) => {
   if (type === 'storage-error') {

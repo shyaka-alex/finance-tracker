@@ -3,7 +3,7 @@ import { state, subscribe, getRecord, updateRecord, deleteRecord } from './state
 import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './search.js';
 import { validateTransaction, findDuplicateWord } from './validators.js';
 import { $, $$, announce, confirmDialog, setFieldMessage } from './ui.js';
-import { formatMoney } from './format.js';
+import { formatMoney, categoryTone } from './format.js';
 
 const view = {
   query: '',
@@ -47,12 +47,16 @@ function rowHTML(record) {
     <tr role="row" data-id="${escapeHTML(record.id)}">
       <td role="cell" class="cell-date"><time datetime="${escapeHTML(record.date)}">${highlight(text.date, re)}</time></td>
       <td role="cell" class="cell-desc">${highlight(text.description, re)}</td>
-      <td role="cell" class="cell-cat"><span class="chip">${highlight(text.category, re)}</span></td>
+      <td role="cell" class="cell-cat"><span class="chip" data-tone="${categoryTone(record.category, state.settings.categories)}">${highlight(text.category, re)}</span></td>
       <td role="cell" class="cell-amount num">${highlight(text.amount, re)}</td>
       <td role="cell" class="cell-actions">
         <div class="row-actions">
-          <button type="button" class="btn btn--ghost btn--small" data-action="edit" aria-label="Edit ${name}">Edit</button>
-          <button type="button" class="btn btn--danger-ghost btn--small" data-action="delete" aria-label="Delete ${name}">Delete</button>
+          <button type="button" class="icon-btn" data-action="edit" aria-label="Edit ${name}" title="Edit">
+            <svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg>
+          </button>
+          <button type="button" class="icon-btn icon-btn--danger" data-action="delete" aria-label="Delete ${name}" title="Delete">
+            <svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>
+          </button>
         </div>
       </td>
     </tr>`;
@@ -83,7 +87,7 @@ function editRowHTML(record) {
       <td role="cell" class="cell-actions">
         <div class="row-actions">
           <button type="button" class="btn btn--primary btn--small" data-action="save">Save</button>
-          <button type="button" class="btn btn--ghost btn--small" data-action="cancel">Cancel</button>
+          <button type="button" class="btn btn--text btn--small" data-action="cancel">Cancel</button>
         </div>
       </td>
     </tr>`;
@@ -92,18 +96,19 @@ function editRowHTML(record) {
 function renderEmpty(container, totalRecords) {
   if (totalRecords === 0) {
     container.innerHTML = `
-      <p class="empty__title">No transactions yet.</p>
-      <p class="muted">Add your first one, or load the sample data to explore.</p>
+      <img class="empty__owl" src="assets/logo-mark.svg" alt="" width="64" height="64">
+      <p class="empty__title">No transactions yet. Add your first one!</p>
+      <p class="muted">Or load the sample data to explore.</p>
       <div class="btn-row">
-        <a class="btn btn--accent" href="#add">Add your first one <span aria-hidden="true">→</span></a>
-        <button type="button" class="btn btn--ghost" data-action="load-sample">Load sample data</button>
+        <a class="btn btn--primary" href="#add">Add transaction</a>
+        <button type="button" class="btn btn--outline" data-action="load-sample">Load sample data</button>
       </div>`;
   } else {
     container.innerHTML = `
       <p class="empty__title">No transactions match <code>${escapeHTML(view.query)}</code>.</p>
       <p class="muted">Check the pattern, or turn on case-insensitive matching.</p>
       <div class="btn-row">
-        <button type="button" class="btn btn--ghost" data-action="clear-search">Clear search</button>
+        <button type="button" class="btn btn--outline" data-action="clear-search">Clear search</button>
       </div>`;
   }
 }
@@ -137,8 +142,8 @@ function render() {
   const count = $('#result-count');
   const noun = records.length === 1 ? 'transaction' : 'transactions';
   const text = view.re
-    ? `Showing ${rows.length} of ${records.length} ${noun} matching /${view.query}/${view.caseInsensitive ? 'i' : ''}.`
-    : `Showing all ${records.length} ${noun}.`;
+    ? `${rows.length} of ${records.length} ${noun} match /${view.query}/${view.caseInsensitive ? 'i' : ''}`
+    : `${records.length} ${noun}`;
   if (count.textContent !== text) count.textContent = text;
 
   updateSortHeaders();
