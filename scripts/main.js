@@ -4,7 +4,7 @@ import { initNavigation, announce } from './ui.js';
 import { initSettings } from './settings.js';
 import { initForm } from './form.js';
 import { initRecords } from './records.js';
-import { initDashboard } from './dashboard.js?v=20261012b';
+import { initDashboard } from './dashboard.js?v=20261012c';
 import { initContact } from './contact.js';
 
 const startup = initState();

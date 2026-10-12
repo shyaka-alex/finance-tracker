@@ -106,7 +106,7 @@ function renderEmpty(container, totalRecords) {
   } else {
     container.innerHTML = `
       <p class="empty__title">No transactions match <code>${escapeHTML(view.query)}</code>.</p>
-      <p class="muted">Check the pattern, or turn on case-insensitive matching.</p>
+      <p class="muted">Check the pattern or try a shorter search.</p>
       <div class="btn-row">
         <button type="button" class="btn btn--outline" data-action="clear-search">Clear search</button>
       </div>`;

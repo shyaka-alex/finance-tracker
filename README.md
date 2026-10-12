@@ -20,9 +20,9 @@ Spendwise is an accessible, responsive student finance tracker for students in R
 | Area | What it does |
 |---|---|
 | Home | Landing page with a hero, feature cards, About (with a founder profile) and a Contact form (email checked with a regex, then opened in your email app). Mockup images live in `assets/img/` |
-| Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total, a monthly budget, a spending-by-category breakdown, and the add form beside the transactions |
+| Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total, a “This Week” CSS bar chart (with a screen-reader text alternative), a monthly budget, a spending-by-category breakdown, and the add form beside the transactions |
 | Budget cap | Monthly cap with a progress bar, remaining amount or overage, days left and a daily allowance. Under the cap it is announced politely; over the cap it is announced assertively |
-| Transactions | Table on tablet/desktop, cards on mobile. Live regex search with a case-insensitive toggle, `<mark>` highlighting, sorting by date, description (A↕Z) and amount (↑↓) using a dropdown or the column headers |
+| Transactions | Table on tablet/desktop, cards on mobile. Live regex search (always case-insensitive), `<mark>` highlighting, sorting by date, description (A↕Z) and amount (↑↓) using a dropdown or the column headers |
 | Inline edit & delete | Edit any row in place (same validation as the form, updates `updatedAt`). Delete asks for confirmation in an accessible `<dialog>` |
 | Add form | Beside the transactions on wide screens. Four regex rules with inline errors as you type, plus a duplicate-word warning (back-reference). The “Add transaction” button jumps to it and focuses the first field |
 | Settings | Base currency RWF plus USD and EUR with manual rates (RWF per 1 unit, e.g. 1 USD = 1450 RWF), display currency, monthly cap, editable categories, light/dark theme, and a danger zone for clearing data. Saves show a toast that is also read by screen readers |
@@ -86,7 +86,7 @@ Search runs on what you see (date, description, category and the formatted amoun
 | `Enter` | Navigation links | Switch page or jump to a section; focus moves to its heading |
 | `Enter` / `Escape` | Menu button (mobile) | Open the menu / close it and return focus to the button |
 | `Enter` | Add form | Save the transaction (focus jumps to the first invalid field if any) |
-| `Space` | Checkboxes | Toggle case-insensitive search or dark theme |
+| `Space` | Checkboxes | Toggle the dark theme |
 | `Enter` | Sort header buttons | Sort by that column; press again to reverse |
 | `Enter` | Inline edit field | Save the row |
 | `Escape` | Inline edit field | Cancel editing and return focus to the row's Edit button |

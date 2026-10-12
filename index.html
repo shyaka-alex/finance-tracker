@@ -11,14 +11,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles/main.css?v=20261012b">
+  <link rel="stylesheet" href="styles/main.css?v=20261012c">
   <script>
     try {
       var saved = JSON.parse(localStorage.getItem('spendwise:settings'));
       if (saved && saved.theme === 'dark') document.documentElement.dataset.theme = 'dark';
     } catch (e) { /* ignore unreadable settings */ }
   </script>
-  <script type="module" src="scripts/main.js?v=20261012b"></script>
+  <script type="module" src="scripts/main.js?v=20261012c"></script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -313,6 +313,15 @@
             <ul class="cat-breakdown" id="cat-breakdown"></ul>
           </article>
 
+          <article class="card chart-card" aria-labelledby="chart-title">
+            <div class="card__head">
+              <h3 id="chart-title" class="card__title">This Week</h3>
+              <p class="chart-card__total" id="chart-total"></p>
+            </div>
+            <div class="chart" id="chart" aria-hidden="true"></div>
+            <ul class="sr-only" id="chart-list" aria-label="Spending per day, last 7 days"></ul>
+          </article>
+
           <section id="add" class="card form-card add-card" aria-labelledby="add-title">
             <h3 id="add-title" class="card__title" tabindex="-1">Add Transaction</h3>
             <form id="txn-form" class="form-stack" novalidate aria-labelledby="add-title">
@@ -372,7 +381,7 @@
                 </div>
                 <p id="search-error" class="field__error"></p>
               </div>
-              <div class="switch toolbar__case">
+              <div class="switch toolbar__case" hidden>
                 <input type="checkbox" id="case-insensitive" role="switch" checked>
                 <label for="case-insensitive">Ignore case</label>
               </div>
