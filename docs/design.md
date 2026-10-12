@@ -250,13 +250,13 @@ Each field shows its error message inline, next to the input, as the user types 
 
 | Milestone | Target | Status |
 |---|---|---|
-| M1 – Spec & wireframes | Mon | ☐ |
-| M2 – Semantic HTML & base CSS | Mon | ☐ |
-| M3 – Forms & regex validation + tests | Tue AM | ☐ |
-| M4 – Render, sort, regex search | Tue PM | ☐ |
-| M5 – Stats & cap | Tue PM | ☐ |
-| M6 – Persistence, import/export, settings | Wed AM | ☐ |
-| M7 – Polish, a11y audit, README, demo | Wed PM | ☐ |
+| M1 – Spec & wireframes | Mon | ☑ |
+| M2 – Semantic HTML & base CSS | Mon | ☑ |
+| M3 – Forms & regex validation + tests | Tue AM | ☑ |
+| M4 – Render, sort, regex search | Tue PM | ☑ |
+| M5 – Stats & cap | Tue PM | ☑ |
+| M6 – Persistence, import/export, settings | Wed AM | ☑ |
+| M7 – Polish, a11y audit, README, demo | Wed PM | ☐ (demo video pending) |
 
 ---
 
