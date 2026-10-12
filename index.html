@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spendwise · Student Finance Tracker</title>
+  <meta name="description" content="Spendwise is an accessible student finance tracker: log transactions, search them with regular expressions and stay under your monthly budget.">
+  <meta name="theme-color" content="#0F4D3A">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles/main.css">
+  <script>
+    try {
+      var saved = JSON.parse(localStorage.getItem('spendwise:settings'));
+      if (saved && saved.theme === 'dark') document.documentElement.dataset.theme = 'dark';
+    } catch (e) { /* ignore unreadable settings */ }
+  </script>
+  <script type="module" src="scripts/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="app">
+    <header class="site-header">
+      <a class="brand" href="#dashboard" aria-label="Spendwise home">
+        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="brand-gradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#1E8F5E"/>
+              <stop offset="1" stop-color="#0F4D3A"/>
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="18" fill="url(#brand-gradient)"/>
+          <circle cx="44" cy="20" r="9" fill="#F08A4B"/>
+          <path d="M16 46c5-15 16-22 30-22-4 13-13 22-30 22z" fill="#F6F6F3"/>
+          <path d="M17 45c7-7 13-11 21-15" stroke="#0F4D3A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__name">Spendwise</span>
+          <span class="brand__tagline">Spend smart, stay on budget</span>
+        </span>
+      </a>
+      <h1 class="sr-only">Spendwise: student finance tracker</h1>
+
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li>
+            <a href="#dashboard" data-nav>
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#transactions" data-nav>
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4.5" cy="6" r="1.2"/><circle cx="4.5" cy="12" r="1.2"/><circle cx="4.5" cy="18" r="1.2"/></svg>
+              Transactions
+            </a>
+          </li>
+          <li>
+            <a href="#add" data-nav>
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+              Add
+            </a>
+          </li>
+          <li>
+            <a href="#settings" data-nav>
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h9M19 6h1M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="16" cy="6" r="2.5"/><circle cx="9" cy="12" r="2.5"/><circle cx="17" cy="18" r="2.5"/></svg>
+              Settings
+            </a>
+          </li>
+          <li>
+            <a href="#about" data-nav>
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
+              About
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+
+      <!-- ============ Dashboard ============ -->
+      <section id="dashboard" class="view" aria-labelledby="dashboard-title">
+        <div class="view__head">
+          <h2 id="dashboard-title" class="view__title" tabindex="-1">Dashboard</h2>
+          <p class="view__lede">Your spending at a glance.</p>
+        </div>
+
+        <div class="dash-grid">
+          <article class="card card--intro" aria-labelledby="intro-title">
+            <p class="eyebrow">Student finance tracker</p>
+            <h3 id="intro-title" class="display">Spend smart,<br> stay on budget.</h3>
+            <p class="muted intro__text">Log every coffee, bus fare and textbook, find any transaction with a regex search, and see how close you are to your monthly cap.</p>
+            <div class="btn-row">
+              <a class="btn btn--accent" href="#add">Add transaction</a>
+              <a class="btn btn--ghost" href="#transactions">View transactions</a>
+            </div>
+          </article>
+
+          <article class="card card--budget card--flip" id="budget-card" data-state="none" aria-labelledby="budget-title">
+            <div class="budget__head">
+              <h3 id="budget-title" class="card__title">Monthly budget</h3>
+              <a class="link-small" href="#settings">Change<span class="sr-only"> budget</span></a>
+            </div>
+            <p class="budget__figures">
+              <span class="budget__spent" id="budget-spent">$0.00</span>
+              <span class="muted">spent of <span id="budget-cap">$0.00</span></span>
+            </p>
+            <div class="meter" id="budget-meter" role="progressbar" aria-labelledby="budget-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="meter__fill" id="budget-fill"></div>
+            </div>
+            <p class="budget__message" id="budget-message">No budget set yet.</p>
+          </article>
+
+          <ul class="stat-list" aria-label="Summary">
+            <li class="stat">
+              <span class="stat__label">Transactions</span>
+              <strong class="stat__value" id="stat-count">0</strong>
+              <span class="stat__sub" id="stat-count-sub">All time</span>
+            </li>
+            <li class="stat">
+              <span class="stat__label">Total spent</span>
+              <strong class="stat__value" id="stat-total">$0.00</strong>
+              <span class="stat__sub">All time</span>
+            </li>
+            <li class="stat">
+              <span class="stat__label">Top category</span>
+              <strong class="stat__value" id="stat-top">None</strong>
+              <span class="stat__sub" id="stat-top-sub">No spending yet</span>
+            </li>
+            <li class="stat stat--accent">
+              <span class="stat__label">Last 7 days</span>
+              <strong class="stat__value" id="stat-week">$0.00</strong>
+              <span class="stat__sub" id="stat-week-sub">0 transactions</span>
+            </li>
+          </ul>
+
+          <article class="card card--hero chart-card" aria-labelledby="chart-title">
+            <div class="chart-card__head">
+              <h3 id="chart-title" class="card__title">Last 7 days</h3>
+              <p class="chart-card__total" id="chart-total"></p>
+            </div>
+            <div class="chart" id="chart" aria-hidden="true"></div>
+            <ul class="sr-only" id="chart-list" aria-label="Spending per day, last 7 days"></ul>
+          </article>
+
+          <article class="card card--categories" aria-labelledby="categories-title">
+            <h3 id="categories-title" class="card__title">Spending by category</h3>
+            <ul class="cat-breakdown" id="cat-breakdown"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ Transactions ============ -->
+      <section id="transactions" class="view" aria-labelledby="transactions-title" hidden>
+        <div class="view__head">
+          <h2 id="transactions-title" class="view__title" tabindex="-1">Transactions</h2>
+          <p class="view__lede">Search with regular expressions, sort, edit inline.</p>
+        </div>
+
+        <div class="card toolbar" role="search" aria-label="Search and sort transactions">
+          <div class="field toolbar__search">
+            <label for="search">Search (regex)</label>
+            <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. coffee|tea" aria-describedby="search-hint search-error">
+            <p id="search-hint" class="hint">Try <code>(coffee|tea)</code>, <code>\.\d{2}\b</code> or <code>\b(\w+)\s+\1\b</code>.</p>
+            <p id="search-error" class="field__error"></p>
+          </div>
+          <div class="check toolbar__case">
+            <input type="checkbox" id="case-insensitive" checked>
+            <label for="case-insensitive">Case-insensitive</label>
+          </div>
+          <div class="field toolbar__sort">
+            <label for="sort">Sort by</label>
+            <select id="sort">
+              <option value="date-desc">Date (newest first)</option>
+              <option value="date-asc">Date (oldest first)</option>
+              <option value="description-asc">Description (A–Z)</option>
+              <option value="description-desc">Description (Z–A)</option>
+              <option value="amount-desc">Amount (high to low)</option>
+              <option value="amount-asc">Amount (low to high)</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="result-count" id="result-count" role="status"></p>
+
+        <div class="card table-card">
+          <table class="records" id="records-table" role="table">
+            <caption class="sr-only">Transactions. Use the column header buttons to sort.</caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th scope="col" role="columnheader" data-col="date" aria-sort="descending">
+                  <button type="button" class="sort-btn" data-sort-col="date">Date<span class="sort-icon" aria-hidden="true"></span></button>
+                </th>
+                <th scope="col" role="columnheader" data-col="description" aria-sort="none">
+                  <button type="button" class="sort-btn" data-sort-col="description">Description<span class="sort-icon" aria-hidden="true"></span></button>
+                </th>
+                <th scope="col" role="columnheader" class="th--plain">Category</th>
+                <th scope="col" role="columnheader" data-col="amount" aria-sort="none" class="num">
+                  <button type="button" class="sort-btn" data-sort-col="amount">Amount<span class="sort-icon" aria-hidden="true"></span></button>
+                </th>
+                <th scope="col" role="columnheader" class="th--plain"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="records-body" role="rowgroup"></tbody>
+          </table>
+          <div class="empty" id="records-empty" hidden></div>
+        </div>
+      </section>
+
+      <!-- ============ Add transaction ============ -->
+      <section id="add" class="view" aria-labelledby="add-title" hidden>
+        <div class="view__head">
+          <h2 id="add-title" class="view__title" tabindex="-1">Add transaction</h2>
+          <p class="view__lede">Every field is checked as you type.</p>
+        </div>
+
+        <div class="add-layout">
+          <form id="txn-form" class="card form-card" novalidate aria-labelledby="add-title">
+            <div class="field">
+              <label for="f-description">Description</label>
+              <input id="f-description" name="description" type="text" autocomplete="off" maxlength="160" required
+                     aria-describedby="f-description-hint f-description-error f-description-warning">
+              <p id="f-description-hint" class="hint">For example “Lunch at cafeteria”. No spaces at the start or end.</p>
+              <p id="f-description-error" class="field__error"></p>
+              <p id="f-description-warning" class="field__warning"></p>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="f-amount">Amount (<span data-base-currency>USD</span>)</label>
+                <input id="f-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" required
+                       aria-describedby="f-amount-hint f-amount-error">
+                <p id="f-amount-hint" class="hint">Up to 2 decimals, e.g. 12.50</p>
+                <p id="f-amount-error" class="field__error"></p>
+              </div>
+
+              <div class="field">
+                <label for="f-date">Date</label>
+                <input id="f-date" name="date" type="text" inputmode="numeric" autocomplete="off" placeholder="YYYY-MM-DD" required
+                       aria-describedby="f-date-hint f-date-error">
+                <p id="f-date-hint" class="hint">Format YYYY-MM-DD</p>
+                <p id="f-date-error" class="field__error"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-category">Category</label>
+              <input id="f-category" name="category" type="text" list="category-options" autocomplete="off" required
+                     aria-describedby="f-category-hint f-category-error">
+              <p id="f-category-hint" class="hint">Pick from your categories: <span id="category-hint-list">Food, Books, Transport, Entertainment, Fees, Other</span>.</p>
+              <p id="f-category-error" class="field__error"></p>
+            </div>
+
+            <div class="btn-row">
+              <button type="submit" class="btn btn--primary">Save transaction</button>
+              <button type="reset" class="btn btn--ghost">Clear form</button>
+            </div>
+            <p class="form-status" id="form-status"></p>
+          </form>
+
+          <aside class="card card--hero tips" aria-labelledby="tips-title">
+            <h3 id="tips-title" class="card__title">How fields are checked</h3>
+            <dl class="rules">
+              <div><dt>Description</dt><dd>No leading, trailing or double spaces. Repeated words like “the the” get a friendly warning.</dd></div>
+              <div><dt>Amount</dt><dd>0 or more, no leading zeros, at most 2 decimals: <code>12.50</code></dd></div>
+              <div><dt>Date</dt><dd>A real calendar date in <code>YYYY-MM-DD</code> form.</dd></div>
+              <div><dt>Category</dt><dd>Letters with single spaces or hyphens, and it must exist in Settings.</dd></div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ Settings ============ -->
+      <section id="settings" class="view" aria-labelledby="settings-title" hidden>
+        <div class="view__head">
+          <h2 id="settings-title" class="view__title" tabindex="-1">Settings</h2>
+          <p class="view__lede">Changes save automatically in this browser.</p>
+        </div>
+
+        <div class="settings-grid">
+          <form id="currency-form" class="card settings-card" novalidate>
+            <fieldset>
+              <legend>Currency</legend>
+              <p class="hint">Amounts are stored in your base currency. Rates are typed in by hand, so no internet is needed.</p>
+              <div class="field">
+                <label for="s-base">Base currency</label>
+                <input id="s-base" name="base" type="text" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="s-base-hint s-base-error">
+                <p id="s-base-hint" class="hint">3-letter code. Changing it relabels amounts but does not convert them.</p>
+                <p id="s-base-error" class="field__error"></p>
+              </div>
+              <div class="rate-row">
+                <div class="field">
+                  <label for="s-cur1-code">2nd currency</label>
+                  <input id="s-cur1-code" name="cur1Code" type="text" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="s-cur1-code-error">
+                  <p id="s-cur1-code-error" class="field__error"></p>
+                </div>
+                <div class="field">
+                  <label for="s-cur1-rate">Rate: 1 <span data-base-currency>USD</span> =</label>
+                  <input id="s-cur1-rate" name="cur1Rate" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cur1-rate-error">
+                  <p id="s-cur1-rate-error" class="field__error"></p>
+                </div>
+              </div>
+              <div class="rate-row">
+                <div class="field">
+                  <label for="s-cur2-code">3rd currency</label>
+                  <input id="s-cur2-code" name="cur2Code" type="text" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="s-cur2-code-error">
+                  <p id="s-cur2-code-error" class="field__error"></p>
+                </div>
+                <div class="field">
+                  <label for="s-cur2-rate">Rate: 1 <span data-base-currency>USD</span> =</label>
+                  <input id="s-cur2-rate" name="cur2Rate" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cur2-rate-error">
+                  <p id="s-cur2-rate-error" class="field__error"></p>
+                </div>
+              </div>
+              <div class="field">
+                <label for="s-display">Display amounts in</label>
+                <select id="s-display" name="display"></select>
+              </div>
+            </fieldset>
+          </form>
+
+          <form id="budget-form" class="card settings-card card--flip" novalidate>
+            <fieldset>
+              <legend>Monthly budget</legend>
+              <div class="field">
+                <label for="s-cap">Spending cap (<span data-base-currency>USD</span>)</label>
+                <input id="s-cap" name="cap" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cap-hint s-cap-error">
+                <p id="s-cap-hint" class="hint">Compared with this month’s spending. Use 0 to turn the budget off.</p>
+                <p id="s-cap-error" class="field__error"></p>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="card settings-card">
+            <fieldset>
+              <legend>Categories</legend>
+              <ul class="tag-list" id="category-list"></ul>
+              <form id="category-form" class="inline-form" novalidate>
+                <div class="field">
+                  <label for="s-new-category">New category</label>
+                  <input id="s-new-category" name="category" type="text" maxlength="30" autocomplete="off" aria-describedby="s-new-category-error">
+                  <p id="s-new-category-error" class="field__error"></p>
+                </div>
+                <button type="submit" class="btn btn--primary">Add category</button>
+              </form>
+            </fieldset>
+          </div>
+
+          <div class="card settings-card card--flip">
+            <fieldset>
+              <legend>Appearance</legend>
+              <div class="check">
+                <input type="checkbox" id="s-theme" role="switch">
+                <label for="s-theme">Dark theme</label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="card settings-card settings-card--wide">
+            <fieldset>
+              <legend>Your data</legend>
+              <p class="hint">Everything is saved in this browser only. Export a copy to back it up or move it.</p>
+              <div class="btn-row">
+                <button type="button" class="btn btn--primary" id="export-json">Export JSON</button>
+                <button type="button" class="btn btn--ghost" id="export-csv">Export CSV</button>
+              </div>
+              <div class="field file-field">
+                <label for="import-file">Import JSON file</label>
+                <input id="import-file" type="file" accept="application/json,.json" aria-describedby="import-hint">
+                <p id="import-hint" class="hint">Every record is checked first. If anything is wrong, nothing is changed.</p>
+              </div>
+              <div class="btn-row">
+                <button type="button" class="btn btn--ghost" id="load-sample">Load sample data</button>
+                <button type="button" class="btn btn--danger-ghost" id="clear-data">Clear all data</button>
+              </div>
+              <p class="form-status" id="data-status"></p>
+            </fieldset>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ About ============ -->
+      <section id="about" class="view" aria-labelledby="about-title" hidden>
+        <div class="view__head">
+          <h2 id="about-title" class="view__title" tabindex="-1">About</h2>
+          <p class="view__lede">Why Spendwise exists and who built it.</p>
+        </div>
+
+        <div class="about-grid">
+          <article class="card about-card" aria-labelledby="about-purpose">
+            <h3 id="about-purpose" class="card__title">Purpose</h3>
+            <p>Students spend in many small amounts, like lunch, moto rides and printing, and it is easy to lose track. Spendwise records every transaction, groups it by category, shows the last seven days at a glance and warns you before you pass the monthly cap you set.</p>
+            <p>It is built with plain HTML, CSS and JavaScript only. Your data never leaves your browser.</p>
+            <ul class="feature-list">
+              <li>Regex-powered live search with highlighted matches</li>
+              <li>Inline editing, sorting and safe delete confirmation</li>
+              <li>Budget cap with spoken updates for screen reader users</li>
+              <li>Three currencies with manual rates</li>
+              <li>JSON import and export with validation</li>
+            </ul>
+          </article>
+
+          <article class="card card--hero card--flip about-card" aria-labelledby="about-contact">
+            <h3 id="about-contact" class="card__title">Contact</h3>
+            <p>Built by <strong>Shyaka Alex</strong> for the ALU “Building Responsive UI” summative.</p>
+            <ul class="contact-list">
+              <li><span class="contact-list__label">GitHub</span> <a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a></li>
+              <li><span class="contact-list__label">Email</span> <a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a></li>
+              <li><span class="contact-list__label">Source</span> <a href="https://github.com/shyaka-alex/finance-tracker">finance-tracker repository</a></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year">2026</span> Spendwise · Built by Shyaka Alex · <a href="#about">About</a> · <a href="tests.html">Tests</a></p>
+    </footer>
+  </div>
+
+  <datalist id="category-options"></datalist>
+
+  <dialog id="confirm-dialog" class="dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+    <form method="dialog">
+      <h2 id="confirm-title" class="dialog__title">Are you sure?</h2>
+      <p id="confirm-message" class="dialog__message"></p>
+      <div class="btn-row dialog__actions">
+        <button type="submit" value="cancel" class="btn btn--ghost">Cancel</button>
+        <button type="submit" value="confirm" class="btn btn--danger" id="confirm-ok">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="live-polite" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="live-assertive" class="sr-only" role="alert" aria-live="assertive"></div>
+</body>
+</html>
