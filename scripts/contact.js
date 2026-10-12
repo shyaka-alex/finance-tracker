@@ -1,6 +1,6 @@
 // Contact form: regex-validated, then handed to the visitor's email app (there is no server).
-import { validateName, validateEmail, validateMessage } from './validators.js';
-import { $, announce, setFieldMessage, setStatus } from './ui.js';
+import { validateName, validateEmail, validateMessage } from './validators.js?v=20261012d';
+import { $, announce, setFieldMessage, setStatus } from './ui.js?v=20261012d';
 
 const TO = 's.alex@spiderbit.rw';
 

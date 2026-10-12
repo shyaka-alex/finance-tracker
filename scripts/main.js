@@ -1,11 +1,11 @@
 // Entry point: wires every module together.
-import { initState, subscribe } from './state.js';
-import { initNavigation, announce } from './ui.js';
-import { initSettings } from './settings.js';
-import { initForm } from './form.js';
-import { initRecords } from './records.js';
-import { initDashboard } from './dashboard.js?v=20261012c';
-import { initContact } from './contact.js';
+import { initState, subscribe } from './state.js?v=20261012d';
+import { initNavigation, announce } from './ui.js?v=20261012d';
+import { initSettings } from './settings.js?v=20261012d';
+import { initForm } from './form.js?v=20261012d';
+import { initRecords } from './records.js?v=20261012d';
+import { initDashboard } from './dashboard.js?v=20261012d';
+import { initContact } from './contact.js?v=20261012d';
 
 const startup = initState();
 

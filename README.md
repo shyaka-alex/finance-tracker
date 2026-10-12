@@ -19,7 +19,9 @@ Spendwise is an accessible, responsive student finance tracker for students in R
 
 | Area | What it does |
 |---|---|
-| Home | Landing page with a hero, feature cards, About (with a founder profile) and a Contact form (email checked with a regex, then opened in your email app). Mockup images live in `assets/img/` |
+| Home | Landing page with a hero and feature cards. Mockup images live in `assets/img/` |
+| About | Its own page: what Spendwise is, plus a founder profile |
+| Contact | Its own page: contact details and a message form (email checked with a regex, then opened in your email app) |
 | Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total, a “This Week” CSS bar chart (with a screen-reader text alternative), a monthly budget, a spending-by-category breakdown, and the add form beside the transactions |
 | Budget cap | Monthly cap with a progress bar, remaining amount or overage, days left and a daily allowance. Under the cap it is announced politely; over the cap it is announced assertively |
 | Transactions | Table on tablet/desktop, cards on mobile. Live regex search (always case-insensitive), `<mark>` highlighting, sorting by date, description (A↕Z) and amount (↑↓) using a dropdown or the column headers |
@@ -94,7 +96,7 @@ Search runs on what you see (date, description, category and the formatted amoun
 
 ## Accessibility notes
 
-- **Landmarks and headings:** `header`, `nav`, `main`, three views (Home, Dashboard, Settings) as `section`s, and `footer`; one `h1`, an `h2` per view, `h3` for each section or card.
+- **Landmarks and headings:** `header`, `nav`, `main`, five views (Home, About, Contact, Dashboard, Settings) as `section`s, and `footer`; one `h1`, an `h2` per view, `h3` for each section or card.
 - **Labels:** every input has a visible `<label for>`; settings are grouped in `fieldset`/`legend`.
 - **Errors:** inline messages are linked with `aria-describedby`, and invalid fields get `aria-invalid="true"`.
 - **Live regions:** `role="status"` (polite) and `role="alert"` (assertive) regions announce saves, deletes, imports and the budget cap. Messages are appended, not replaced, so quick back-to-back messages are both read. The result count under the search box is also a status region.

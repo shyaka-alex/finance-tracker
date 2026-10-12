@@ -1,5 +1,5 @@
 // Pure statistics over the records. No DOM access, so it is easy to test.
-import { isoDate } from './format.js';
+import { isoDate } from './format.js?v=20261012d';
 
 const WEEKDAY = new Intl.DateTimeFormat('en-US', { weekday: 'short' });
 const LONG_DAY = new Intl.DateTimeFormat('en-US', { weekday: 'long', day: 'numeric', month: 'long' });

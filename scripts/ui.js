@@ -3,13 +3,11 @@
 export const $ = (selector, root = document) => root.querySelector(selector);
 export const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-export const VIEWS = ['home', 'dashboard', 'settings'];
+export const VIEWS = ['home', 'about', 'contact', 'dashboard', 'settings'];
 
 /** Sections inside a view that can be linked to directly, mapped to their view. */
 const SECTIONS = {
   features: 'home',
-  about: 'home',
-  contact: 'home',
   transactions: 'dashboard',
   add: 'dashboard',
 };

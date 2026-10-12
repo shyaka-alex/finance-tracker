@@ -423,6 +423,8 @@ mark {
 
 .view--app { padding: 28px 0 64px; }
 
+.view--page { min-height: calc(100vh - var(--header-h) - 120px); }
+
 .band { padding: 56px 0; }
 .band--tint { background: var(--tint); }
 

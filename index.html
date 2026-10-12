@@ -11,14 +11,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles/main.css?v=20261012c">
+  <link rel="stylesheet" href="styles/main.css?v=20261012d">
   <script>
     try {
       var saved = JSON.parse(localStorage.getItem('spendwise:settings'));
       if (saved && saved.theme === 'dark') document.documentElement.dataset.theme = 'dark';
     } catch (e) { /* ignore unreadable settings */ }
   </script>
-  <script type="module" src="scripts/main.js?v=20261012c"></script>
+  <script type="module" src="scripts/main.js?v=20261012d"></script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -139,120 +139,122 @@
           </ul>
         </div>
       </section>
+    </section>
 
-      <section id="about" class="band" aria-labelledby="about-title">
-        <div class="container split split--reverse">
-          <div class="split__text">
-            <div class="card about-card">
-              <p class="badge">About</p>
-              <h3 id="about-title" class="section-title" tabindex="-1">About Spendwise</h3>
-              <p>Spendwise was built by <strong>Shyaka Alex</strong> as a project for the African Leadership University course <em>Building Responsive UI</em>. It is a simple, accessible way for students in Rwanda to manage everyday spending, from lunch and moto rides to textbooks and fees.</p>
-              <p class="muted">It is made with plain HTML, CSS and JavaScript only. Your data never leaves your browser.</p>
-              <div class="btn-row">
-                <a class="btn btn--pill" href="https://github.com/shyaka-alex"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a>
-                <a class="btn btn--pill" href="mailto:s.alex@spiderbit.rw"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
-              </div>
+    <!-- ================= About ================= -->
+    <section id="about" class="view view--page band" aria-labelledby="about-title" hidden>
+      <div class="container split split--reverse">
+        <div class="split__text">
+          <div class="card about-card">
+            <p class="badge">About</p>
+            <h2 id="about-title" class="section-title" tabindex="-1">About Spendwise</h2>
+            <p>Spendwise was built by <strong>Shyaka Alex</strong> as a project for the African Leadership University course <em>Building Responsive UI</em>. It is a simple, accessible way for students in Rwanda to manage everyday spending, from lunch and moto rides to textbooks and fees.</p>
+            <p class="muted">It is made with plain HTML, CSS and JavaScript only. Your data never leaves your browser.</p>
+            <div class="btn-row">
+              <a class="btn btn--pill" href="https://github.com/shyaka-alex"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a>
+              <a class="btn btn--pill" href="mailto:s.alex@spiderbit.rw"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Email me</a>
             </div>
           </div>
-          <div class="split__media">
-            <img src="assets/img/student-coins@1x.png"
-                 srcset="assets/img/student-coins@1x.png 960w, assets/img/student-coins@2x.png 1920w"
-                 sizes="(min-width: 1024px) 560px, 100vw"
-                 width="960" height="720" loading="lazy"
-                 alt="A Spendwise student budget card and a phone showing the remaining budget and recent activity, next to a stack of coins.">
-          </div>
         </div>
-
-        <div class="container">
-          <article class="founder card" aria-labelledby="founder-title">
-            <div class="founder__media">
-              <div class="founder__photo">
-                <img class="founder__img" src="assets/img/founder.png" width="490" height="965" loading="lazy"
-                     alt="Shyaka Alex in sunglasses, a cream and navy hoodie and black cargo trousers, sitting on a black cube.">
-              </div>
-              <p class="founder__role-tag">CEO &amp; Founder</p>
-            </div>
-
-            <div class="founder__body">
-              <p class="founder__hello" aria-hidden="true"><span class="founder__quote">“</span>Hello</p>
-              <h4 id="founder-title" class="founder__name">I’m Shyaka Alex</h4>
-              <p class="founder__role">CEO &amp; Founder of Spendwise</p>
-              <p>I started Spendwise because I saw how quickly a student’s money disappears between lunch, moto rides and fees. My goal is a simple, private tool that helps every student in Rwanda see where their francs go and stay in control.</p>
-
-              <dl class="founder__facts">
-                <div>
-                  <dt>Education</dt>
-                  <dd>African Leadership University</dd>
-                </div>
-                <div>
-                  <dt>Building</dt>
-                  <dd>Spendwise, a student finance tracker</dd>
-                </div>
-              </dl>
-
-              <div class="founder__contact">
-                <p class="founder__contact-title">Let’s work together</p>
-                <ul class="founder__links">
-                  <li>
-                    <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
-                    <a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a>
-                  </li>
-                  <li>
-                    <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></span>
-                    <a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </article>
+        <div class="split__media">
+          <img src="assets/img/student-coins@1x.png"
+               srcset="assets/img/student-coins@1x.png 960w, assets/img/student-coins@2x.png 1920w"
+               sizes="(min-width: 1024px) 560px, 100vw"
+               width="960" height="720" loading="lazy"
+               alt="A Spendwise student budget card and a phone showing the remaining budget and recent activity, next to a stack of coins.">
         </div>
-      </section>
+      </div>
 
-      <section id="contact" class="band band--tint" aria-labelledby="contact-title">
-        <div class="container split split--top">
-          <div class="split__text">
-            <p class="badge">Contact</p>
-            <h3 id="contact-title" class="section-title" tabindex="-1">Get in Touch</h3>
-            <p class="muted">Found a bug or have an idea? I’d love to hear it.</p>
-            <ul class="contact-list">
-              <li>
-                <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
-                <span><span class="contact-list__label">Email</span><a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a></span>
-              </li>
-              <li>
-                <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></span>
-                <span><span class="contact-list__label">GitHub</span><a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a></span>
-              </li>
-              <li>
-                <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-list"/></svg></span>
-                <span><span class="contact-list__label">Source code</span><a href="https://github.com/shyaka-alex/finance-tracker">finance-tracker repository</a></span>
-              </li>
-            </ul>
+      <div class="container">
+        <article class="founder card" aria-labelledby="founder-title">
+          <div class="founder__media">
+            <div class="founder__photo">
+              <img class="founder__img" src="assets/img/founder.png" width="490" height="965" loading="lazy"
+                   alt="Shyaka Alex in sunglasses, a cream and navy hoodie and black cargo trousers, sitting on a black cube.">
+            </div>
+            <p class="founder__role-tag">CEO &amp; Founder</p>
           </div>
 
-          <form id="contact-form" class="card form-card" novalidate aria-labelledby="contact-form-title">
-            <h4 id="contact-form-title" class="card__title">Send a message</h4>
-            <div class="field">
-              <label for="c-name">Name</label>
-              <input id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-error">
-              <p id="c-name-error" class="field__error"></p>
+          <div class="founder__body">
+            <p class="founder__hello" aria-hidden="true"><span class="founder__quote">“</span>Hello</p>
+            <h3 id="founder-title" class="founder__name">I’m Shyaka Alex</h3>
+            <p class="founder__role">CEO &amp; Founder of Spendwise</p>
+            <p>I started Spendwise because I saw how quickly a student’s money disappears between lunch, moto rides and fees. My goal is a simple, private tool that helps every student in Rwanda see where their francs go and stay in control.</p>
+
+            <dl class="founder__facts">
+              <div>
+                <dt>Education</dt>
+                <dd>African Leadership University</dd>
+              </div>
+              <div>
+                <dt>Building</dt>
+                <dd>Spendwise, a student finance tracker</dd>
+              </div>
+            </dl>
+
+            <div class="founder__contact">
+              <p class="founder__contact-title">Let’s work together</p>
+              <ul class="founder__links">
+                <li>
+                  <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
+                  <a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a>
+                </li>
+                <li>
+                  <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></span>
+                  <a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a>
+                </li>
+              </ul>
             </div>
-            <div class="field">
-              <label for="c-email">Email</label>
-              <input id="c-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="c-email-error">
-              <p id="c-email-error" class="field__error"></p>
-            </div>
-            <div class="field">
-              <label for="c-message">Message</label>
-              <textarea id="c-message" name="message" rows="4" maxlength="1000" required aria-describedby="c-message-hint c-message-error"></textarea>
-              <p id="c-message-hint" class="hint">At least 10 characters.</p>
-              <p id="c-message-error" class="field__error"></p>
-            </div>
-            <button type="submit" class="btn btn--primary btn--block">Send message</button>
-            <p class="form-status" id="contact-status" role="status"></p>
-          </form>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= Contact ================= -->
+    <section id="contact" class="view view--page band" aria-labelledby="contact-title" hidden>
+      <div class="container split split--top">
+        <div class="split__text">
+          <p class="badge">Contact</p>
+          <h2 id="contact-title" class="section-title" tabindex="-1">Get in Touch</h2>
+          <p class="muted">Found a bug or have an idea? I’d love to hear it.</p>
+          <ul class="contact-list">
+            <li>
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
+              <span><span class="contact-list__label">Email</span><a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a></span>
+            </li>
+            <li>
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></span>
+              <span><span class="contact-list__label">GitHub</span><a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a></span>
+            </li>
+            <li>
+              <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-list"/></svg></span>
+              <span><span class="contact-list__label">Source code</span><a href="https://github.com/shyaka-alex/finance-tracker">finance-tracker repository</a></span>
+            </li>
+          </ul>
         </div>
-      </section>
+
+        <form id="contact-form" class="card form-card" novalidate aria-labelledby="contact-form-title">
+          <h3 id="contact-form-title" class="card__title">Send a message</h3>
+          <div class="field">
+            <label for="c-name">Name</label>
+            <input id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-error">
+            <p id="c-name-error" class="field__error"></p>
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="c-email-error">
+            <p id="c-email-error" class="field__error"></p>
+          </div>
+          <div class="field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" rows="4" maxlength="1000" required aria-describedby="c-message-hint c-message-error"></textarea>
+            <p id="c-message-hint" class="hint">At least 10 characters.</p>
+            <p id="c-message-error" class="field__error"></p>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block">Send message</button>
+          <p class="form-status" id="contact-status" role="status"></p>
+        </form>
+      </div>
     </section>
 
     <!-- ================= Dashboard ================= -->

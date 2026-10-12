@@ -1,9 +1,9 @@
 // Dashboard: greeting, stat cards, 7-day bar chart, category breakdown and budget cap.
-import { state, subscribe } from './state.js';
-import { computeStats, capStatus } from './stats.js';
-import { formatMoney, categoryTone, greeting } from './format.js';
-import { escapeHTML } from './search.js';
-import { $, announce } from './ui.js';
+import { state, subscribe } from './state.js?v=20261012d';
+import { computeStats, capStatus } from './stats.js?v=20261012d';
+import { formatMoney, categoryTone, greeting } from './format.js?v=20261012d';
+import { escapeHTML } from './search.js?v=20261012d';
+import { $, announce } from './ui.js?v=20261012d';
 
 let lastCapKey = null;
 
