@@ -32,6 +32,7 @@
       validateCurrencyCode, validateRate, findDuplicateWord, isRealDate, describeRecordProblem,
     } from './scripts/validators.js';
     import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './scripts/search.js';
+    import { computeStats, capStatus } from './scripts/stats.js';
 
     const groups = [];
 
@@ -170,6 +171,31 @@
       expect('amount high to low', ids('amount-desc'), ['b', 'a', 'c']);
       expect('amount low to high', ids('amount-asc'), ['c', 'a', 'b']);
       expect('original array is not mutated', rows.map((r) => r.id), ['a', 'b', 'c']);
+    });
+
+    group('Stats and budget cap', (expect) => {
+      const now = new Date(2026, 9, 12); // 12 Oct 2026
+      const r = (date, amount, category) => ({ date, amount, category });
+      const stats = computeStats([
+        r('2026-10-12', 10, 'Food'),
+        r('2026-10-10', 5.5, 'Food'),
+        r('2026-10-06', 100, 'Books'),
+        r('2026-10-05', 1, 'Food'),
+        r('2026-09-30', 40, 'Transport'),
+      ], now);
+      expect('counts every record', stats.count, 5);
+      expect('sums every amount', stats.total, 156.5);
+      expect('top category is the highest total', stats.top.category, 'Books');
+      expect('7-day window starts 6 days ago', stats.days[0].date, '2026-10-06');
+      expect('7-day window ends today', stats.days[6].date, '2026-10-12');
+      expect('7-day total excludes older records', stats.weekTotal, 115.5);
+      expect('month total only counts October', stats.monthTotal, 116.5);
+      expect('no records gives no top category', computeStats([], now).top, null);
+      expect('under the cap is "ok"', capStatus(50, 100).state, 'ok');
+      expect('80% or more is "warn"', capStatus(80, 100).state, 'warn');
+      expect('exactly at the cap is not over', capStatus(100, 100).state, 'warn');
+      expect('above the cap is "over"', capStatus(100.01, 100).state, 'over');
+      expect('cap of 0 means no budget', capStatus(10, 0).state, 'none');
     });
 
     /* ---------- Render results ---------- */
