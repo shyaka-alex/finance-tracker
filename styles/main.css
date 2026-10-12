@@ -51,6 +51,9 @@
   --hero-2: #0F4D3A;
   --hero-3: #0A3529;
 
+  --brand-ink: #0F172A;
+  --brand-teal: #0F766E;
+
   --deco-opacity: 1;
 
   --space-1: 4px;
@@ -116,6 +119,9 @@
   --hero-1: #155A45;
   --hero-2: #0F4535;
   --hero-3: #0A2D23;
+
+  --brand-ink: #F8FAFC;
+  --brand-teal: #2DD4BF;
 
   --deco-opacity: 0.12;
   --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.2), 0 18px 40px -16px rgba(0, 0, 0, 0.6);
@@ -273,11 +279,14 @@ mark {
 }
 
 .brand__mark {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   flex: none;
-  filter: drop-shadow(0 6px 12px rgba(15, 77, 58, 0.25));
+  filter: drop-shadow(0 6px 12px rgba(15, 118, 110, 0.3));
+  transition: transform 0.25s var(--ease);
 }
+
+.brand:hover .brand__mark { transform: rotate(-6deg) scale(1.04); }
 
 .brand__text { display: flex; flex-direction: column; }
 
@@ -286,7 +295,12 @@ mark {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.1;
-  color: var(--primary-text);
+  color: var(--brand-ink);
+}
+
+.brand__accent {
+  font-weight: 600;
+  color: var(--brand-teal);
 }
 
 .brand__tagline {
@@ -748,6 +762,11 @@ mark {
   display: flex;
   gap: 8px;
   font-weight: 700;
+}
+
+.budget__pace {
+  margin-top: var(--space-2);
+  font-size: 0.875rem;
 }
 
 .card--budget { transition: background 0.4s var(--ease), border-color 0.4s var(--ease); }

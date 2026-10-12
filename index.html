@@ -7,6 +7,7 @@
   <meta name="description" content="Spendwise is an accessible student finance tracker: log transactions, search them with regular expressions and stay under your monthly budget.">
   <meta name="theme-color" content="#0F4D3A">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
@@ -25,21 +26,10 @@
   <div class="app">
     <header class="site-header">
       <a class="brand" href="#dashboard" aria-label="Spendwise home">
-        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-          <defs>
-            <linearGradient id="brand-gradient" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#1E8F5E"/>
-              <stop offset="1" stop-color="#0F4D3A"/>
-            </linearGradient>
-          </defs>
-          <rect width="64" height="64" rx="18" fill="url(#brand-gradient)"/>
-          <circle cx="44" cy="20" r="9" fill="#F08A4B"/>
-          <path d="M16 46c5-15 16-22 30-22-4 13-13 22-30 22z" fill="#F6F6F3"/>
-          <path d="M17 45c7-7 13-11 21-15" stroke="#0F4D3A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
+        <img class="brand__mark" src="assets/logo-mark.svg" alt="" width="48" height="48">
         <span class="brand__text">
-          <span class="brand__name">Spendwise</span>
-          <span class="brand__tagline">Spend smart, stay on budget</span>
+          <span class="brand__name">Spend<span class="brand__accent">wise</span></span>
+          <span class="brand__tagline">Track smarter. Spend wiser.</span>
         </span>
       </a>
       <h1 class="sr-only">Spendwise: student finance tracker</h1>
@@ -113,6 +103,7 @@
               <div class="meter__fill" id="budget-fill"></div>
             </div>
             <p class="budget__message" id="budget-message">No budget set yet.</p>
+            <p class="budget__pace muted" id="budget-pace"></p>
           </article>
 
           <ul class="stat-list" aria-label="Summary">
