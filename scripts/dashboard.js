@@ -1,4 +1,4 @@
-// Dashboard: greeting, stat cards, 7-day bar chart, category breakdown and budget cap.
+// Dashboard: greeting, stat cards with a 7-day mini bar chart, category breakdown and budget cap.
 import { state, subscribe } from './state.js';
 import { computeStats, capStatus } from './stats.js';
 import { formatMoney, categoryTone, greeting } from './format.js';
@@ -41,20 +41,15 @@ function renderChart(stats) {
   const max = Math.max(...stats.days.map((d) => d.total), 0);
 
   $('#chart').innerHTML = stats.days.map((day, i) => {
-    const height = max > 0 ? Math.max((day.total / max) * 100, day.total > 0 ? 4 : 0) : 0;
-    return `
-      <div class="chart__col${day.isToday ? ' is-today' : ''}" title="${escapeHTML(`${day.longLabel}: ${money(day.total)}`)}">
-        <div class="chart__track"><div class="chart__bar" style="--h:${height.toFixed(1)}%; --i:${i}"></div></div>
-        <span class="chart__label">${escapeHTML(day.label.charAt(0))}</span>
-      </div>`;
-  }).join('') + (max === 0 ? '<p class="chart__empty">No spending in the last 7 days</p>' : '');
+    const height = max > 0 ? Math.max((day.total / max) * 100, day.total > 0 ? 8 : 0) : 0;
+    return `<span class="spark__bar${day.isToday ? ' is-today' : ''}${day.total > 0 ? '' : ' is-empty'}"
+      style="--h:${height.toFixed(1)}%; --i:${i}" title="${escapeHTML(`${day.longLabel}: ${money(day.total)}`)}"></span>`;
+  }).join('');
 
   // Text alternative for screen readers.
   $('#chart-list').innerHTML = stats.days
     .map((day) => `<li>${escapeHTML(day.longLabel)}: ${escapeHTML(money(day.total))}</li>`)
     .join('');
-
-  $('#chart-total').textContent = money(stats.weekTotal);
 }
 
 function renderCategories(stats) {

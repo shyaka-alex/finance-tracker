@@ -270,32 +270,30 @@
 
         <ul class="stat-list" aria-label="Summary">
           <li class="stat card">
-            <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-wallet"/></svg></span>
             <span class="stat__label">Total spent</span>
             <strong class="stat__value" id="stat-total">RWF 0</strong>
             <span class="stat__sub">All time</span>
           </li>
           <li class="stat card">
-            <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-list"/></svg></span>
             <span class="stat__label">Transactions</span>
             <strong class="stat__value" id="stat-count">0</strong>
             <span class="stat__sub" id="stat-count-sub">recorded</span>
           </li>
           <li class="stat card">
-            <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-tag"/></svg></span>
             <span class="stat__label">Top category</span>
             <strong class="stat__value" id="stat-top">None</strong>
             <span class="stat__sub" id="stat-top-sub">No spending yet</span>
           </li>
           <li class="stat card">
-            <span class="tile" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span>
             <span class="stat__label">Last 7 days</span>
             <strong class="stat__value" id="stat-week">RWF 0</strong>
             <span class="stat__sub" id="stat-week-sub">0 transactions</span>
+            <div class="spark" id="chart" aria-hidden="true"></div>
+            <ul class="sr-only" id="chart-list" aria-label="Spending per day, last 7 days"></ul>
           </li>
         </ul>
 
-        <div class="dash-row">
+        <div class="dash-grid">
           <article class="card budget-card" id="budget-card" data-state="none" aria-labelledby="budget-title">
             <div class="card__head">
               <h3 id="budget-title" class="card__title">Monthly budget</h3>
@@ -312,76 +310,10 @@
             <p class="budget__pace muted" id="budget-pace"></p>
           </article>
 
-          <article class="card chart-card" aria-labelledby="chart-title">
-            <div class="card__head">
-              <h3 id="chart-title" class="card__title">This Week</h3>
-              <p class="chart-card__total" id="chart-total"></p>
-            </div>
-            <div class="chart" id="chart" aria-hidden="true"></div>
-            <ul class="sr-only" id="chart-list" aria-label="Spending per day, last 7 days"></ul>
-          </article>
-
-          <article class="card" aria-labelledby="categories-title">
+          <article class="card categories-card" aria-labelledby="categories-title">
             <h3 id="categories-title" class="card__title">By category</h3>
             <ul class="cat-breakdown" id="cat-breakdown"></ul>
           </article>
-        </div>
-
-        <div class="dash-main">
-          <section id="transactions" class="card records-card" aria-labelledby="transactions-title">
-            <div class="card__head">
-              <h3 id="transactions-title" class="card__title" tabindex="-1">Transactions</h3>
-              <p class="result-count" id="result-count" role="status"></p>
-            </div>
-
-            <div class="toolbar" role="search" aria-label="Search and sort transactions">
-              <div class="field toolbar__search">
-                <label for="search">Search</label>
-                <div class="input-icon">
-                  <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
-                  <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Search with a pattern, e.g. moto|bus" aria-describedby="search-hint search-error">
-                </div>
-                <p id="search-hint" class="hint">Regex works: try <code>(coffee|tea)</code>, <code>\d{2},\d{3}</code> (RWF 10,000+) or <code>\b(\w+)\s+\1\b</code>.</p>
-                <p id="search-error" class="field__error"></p>
-              </div>
-              <div class="switch toolbar__case">
-                <input type="checkbox" id="case-insensitive" role="switch" checked>
-                <label for="case-insensitive">Ignore case</label>
-              </div>
-              <div class="field toolbar__sort">
-                <label for="sort">Sort</label>
-                <select id="sort">
-                  <option value="date-desc">Date (newest first)</option>
-                  <option value="date-asc">Date (oldest first)</option>
-                  <option value="description-asc">Description (A–Z)</option>
-                  <option value="description-desc">Description (Z–A)</option>
-                  <option value="amount-desc">Amount (high to low)</option>
-                  <option value="amount-asc">Amount (low to high)</option>
-                </select>
-              </div>
-            </div>
-
-            <table class="records" id="records-table" role="table">
-              <caption class="sr-only">Transactions. Use the column header buttons to sort.</caption>
-              <thead role="rowgroup">
-                <tr role="row">
-                  <th scope="col" role="columnheader" data-col="date" aria-sort="descending">
-                    <button type="button" class="sort-btn" data-sort-col="date">Date<span class="sort-icon" aria-hidden="true"></span></button>
-                  </th>
-                  <th scope="col" role="columnheader" data-col="description" aria-sort="none">
-                    <button type="button" class="sort-btn" data-sort-col="description">Description<span class="sort-icon" aria-hidden="true"></span></button>
-                  </th>
-                  <th scope="col" role="columnheader" class="th--plain">Category</th>
-                  <th scope="col" role="columnheader" data-col="amount" aria-sort="none" class="num">
-                    <button type="button" class="sort-btn" data-sort-col="amount">Amount<span class="sort-icon" aria-hidden="true"></span></button>
-                  </th>
-                  <th scope="col" role="columnheader" class="th--plain"><span class="sr-only">Actions</span></th>
-                </tr>
-              </thead>
-              <tbody id="records-body" role="rowgroup"></tbody>
-            </table>
-            <div class="empty" id="records-empty" hidden></div>
-          </section>
 
           <section id="add" class="card form-card add-card" aria-labelledby="add-title">
             <h3 id="add-title" class="card__title" tabindex="-1">Add Transaction</h3>
@@ -425,6 +357,60 @@
               </div>
               <p class="form-status" id="form-status"></p>
             </form>
+          </section>
+
+          <section id="transactions" class="card records-card" aria-labelledby="transactions-title">
+            <div class="card__head">
+              <h3 id="transactions-title" class="card__title" tabindex="-1">Transactions</h3>
+              <p class="result-count" id="result-count" role="status"></p>
+            </div>
+
+            <div class="toolbar" role="search" aria-label="Search and sort transactions">
+              <div class="field toolbar__search">
+                <label for="search">Search</label>
+                <div class="input-icon">
+                  <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+                  <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Search with a pattern, e.g. moto|bus" aria-describedby="search-error">
+                </div>
+                <p id="search-error" class="field__error"></p>
+              </div>
+              <div class="switch toolbar__case">
+                <input type="checkbox" id="case-insensitive" role="switch" checked>
+                <label for="case-insensitive">Ignore case</label>
+              </div>
+              <div class="field toolbar__sort">
+                <label for="sort">Sort</label>
+                <select id="sort">
+                  <option value="date-desc">Date (newest first)</option>
+                  <option value="date-asc">Date (oldest first)</option>
+                  <option value="description-asc">Description (A–Z)</option>
+                  <option value="description-desc">Description (Z–A)</option>
+                  <option value="amount-desc">Amount (high to low)</option>
+                  <option value="amount-asc">Amount (low to high)</option>
+                </select>
+              </div>
+            </div>
+
+            <table class="records" id="records-table" role="table">
+              <caption class="sr-only">Transactions. Use the column header buttons to sort.</caption>
+              <thead role="rowgroup">
+                <tr role="row">
+                  <th scope="col" role="columnheader" data-col="date" aria-sort="descending">
+                    <button type="button" class="sort-btn" data-sort-col="date">Date<span class="sort-icon" aria-hidden="true"></span></button>
+                  </th>
+                  <th scope="col" role="columnheader" data-col="description" aria-sort="none">
+                    <button type="button" class="sort-btn" data-sort-col="description">Description<span class="sort-icon" aria-hidden="true"></span></button>
+                  </th>
+                  <th scope="col" role="columnheader" class="th--plain">Category</th>
+                  <th scope="col" role="columnheader" data-col="amount" aria-sort="none" class="num">
+                    <button type="button" class="sort-btn" data-sort-col="amount">Amount<span class="sort-icon" aria-hidden="true"></span></button>
+                  </th>
+                  <th scope="col" role="columnheader" class="th--plain"><span class="sr-only">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="records-body" role="rowgroup"></tbody>
+            </table>
+            <div class="empty" id="records-empty" hidden></div>
           </section>
         </div>
       </div>
