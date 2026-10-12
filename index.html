@@ -83,7 +83,7 @@
           <article class="card card--intro" aria-labelledby="intro-title">
             <p class="eyebrow">Student finance tracker</p>
             <h3 id="intro-title" class="display">Spend smart,<br> stay on budget.</h3>
-            <p class="muted intro__text">Log every coffee, bus fare and textbook, find any transaction with a regex search, and see how close you are to your monthly cap.</p>
+            <p class="muted intro__text">Log every lunch, moto ride and textbook in Rwandan francs, find any transaction with a regex search, and see how close you are to your monthly cap.</p>
             <div class="btn-row">
               <a class="btn btn--accent" href="#add">Add transaction</a>
               <a class="btn btn--ghost" href="#transactions">View transactions</a>
@@ -96,8 +96,8 @@
               <a class="link-small" href="#settings">Change<span class="sr-only"> budget</span></a>
             </div>
             <p class="budget__figures">
-              <span class="budget__spent" id="budget-spent">$0.00</span>
-              <span class="muted">spent of <span id="budget-cap">$0.00</span></span>
+              <span class="budget__spent" id="budget-spent">RWF 0</span>
+              <span class="muted">spent of <span id="budget-cap">RWF 0</span></span>
             </p>
             <div class="meter" id="budget-meter" role="progressbar" aria-labelledby="budget-title" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
               <div class="meter__fill" id="budget-fill"></div>
@@ -114,7 +114,7 @@
             </li>
             <li class="stat">
               <span class="stat__label">Total spent</span>
-              <strong class="stat__value" id="stat-total">$0.00</strong>
+              <strong class="stat__value" id="stat-total">RWF 0</strong>
               <span class="stat__sub">All time</span>
             </li>
             <li class="stat">
@@ -124,7 +124,7 @@
             </li>
             <li class="stat stat--accent">
               <span class="stat__label">Last 7 days</span>
-              <strong class="stat__value" id="stat-week">$0.00</strong>
+              <strong class="stat__value" id="stat-week">RWF 0</strong>
               <span class="stat__sub" id="stat-week-sub">0 transactions</span>
             </li>
           </ul>
@@ -155,8 +155,8 @@
         <div class="card toolbar" role="search" aria-label="Search and sort transactions">
           <div class="field toolbar__search">
             <label for="search">Search (regex)</label>
-            <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. coffee|tea" aria-describedby="search-hint search-error">
-            <p id="search-hint" class="hint">Try <code>(coffee|tea)</code>, <code>\.\d{2}\b</code> or <code>\b(\w+)\s+\1\b</code>.</p>
+            <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. moto|bus" aria-describedby="search-hint search-error">
+            <p id="search-hint" class="hint">Try <code>(coffee|tea)</code>, <code>\d{2},\d{3}</code> (10,000 RWF or more) or <code>\b(\w+)\s+\1\b</code>.</p>
             <p id="search-error" class="field__error"></p>
           </div>
           <div class="check toolbar__case">
@@ -222,10 +222,10 @@
 
             <div class="form-row">
               <div class="field">
-                <label for="f-amount">Amount (<span data-base-currency>USD</span>)</label>
+                <label for="f-amount">Amount (<span data-base-currency>RWF</span>)</label>
                 <input id="f-amount" name="amount" type="text" inputmode="decimal" autocomplete="off" required
                        aria-describedby="f-amount-hint f-amount-error">
-                <p id="f-amount-hint" class="hint">Up to 2 decimals, e.g. 12.50</p>
+                <p id="f-amount-hint" class="hint">In Rwandan francs, e.g. 2500 (no commas)</p>
                 <p id="f-amount-error" class="field__error"></p>
               </div>
 
@@ -257,7 +257,7 @@
             <h3 id="tips-title" class="card__title">How fields are checked</h3>
             <dl class="rules">
               <div><dt>Description</dt><dd>No leading, trailing or double spaces. Repeated words like “the the” get a friendly warning.</dd></div>
-              <div><dt>Amount</dt><dd>0 or more, no leading zeros, at most 2 decimals: <code>12.50</code></dd></div>
+              <div><dt>Amount</dt><dd>0 or more, no leading zeros, at most 2 decimals: <code>2500</code> or <code>2500.50</code></dd></div>
               <div><dt>Date</dt><dd>A real calendar date in <code>YYYY-MM-DD</code> form.</dd></div>
               <div><dt>Category</dt><dd>Letters with single spaces or hyphens, and it must exist in Settings.</dd></div>
             </dl>
@@ -276,7 +276,7 @@
           <form id="currency-form" class="card settings-card" novalidate>
             <fieldset>
               <legend>Currency</legend>
-              <p class="hint">Amounts are stored in your base currency. Rates are typed in by hand, so no internet is needed.</p>
+              <p class="hint">Amounts are stored in Rwandan francs (RWF) by default. Type in today’s rates by hand, for example 1 USD = 1450 RWF. No internet needed.</p>
               <div class="field">
                 <label for="s-base">Base currency</label>
                 <input id="s-base" name="base" type="text" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="s-base-hint s-base-error">
@@ -290,7 +290,7 @@
                   <p id="s-cur1-code-error" class="field__error"></p>
                 </div>
                 <div class="field">
-                  <label for="s-cur1-rate">Rate: 1 <span data-base-currency>USD</span> =</label>
+                  <label for="s-cur1-rate">1 unit = ? <span data-base-currency>RWF</span></label>
                   <input id="s-cur1-rate" name="cur1Rate" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cur1-rate-error">
                   <p id="s-cur1-rate-error" class="field__error"></p>
                 </div>
@@ -302,7 +302,7 @@
                   <p id="s-cur2-code-error" class="field__error"></p>
                 </div>
                 <div class="field">
-                  <label for="s-cur2-rate">Rate: 1 <span data-base-currency>USD</span> =</label>
+                  <label for="s-cur2-rate">1 unit = ? <span data-base-currency>RWF</span></label>
                   <input id="s-cur2-rate" name="cur2Rate" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cur2-rate-error">
                   <p id="s-cur2-rate-error" class="field__error"></p>
                 </div>
@@ -318,7 +318,7 @@
             <fieldset>
               <legend>Monthly budget</legend>
               <div class="field">
-                <label for="s-cap">Spending cap (<span data-base-currency>USD</span>)</label>
+                <label for="s-cap">Spending cap (<span data-base-currency>RWF</span>)</label>
                 <input id="s-cap" name="cap" type="text" inputmode="decimal" autocomplete="off" aria-describedby="s-cap-hint s-cap-error">
                 <p id="s-cap-hint" class="hint">Compared with this month’s spending. Use 0 to turn the budget off.</p>
                 <p id="s-cap-error" class="field__error"></p>
@@ -384,13 +384,13 @@
         <div class="about-grid">
           <article class="card about-card" aria-labelledby="about-purpose">
             <h3 id="about-purpose" class="card__title">Purpose</h3>
-            <p>Students spend in many small amounts, like lunch, moto rides and printing, and it is easy to lose track. Spendwise records every transaction, groups it by category, shows the last seven days at a glance and warns you before you pass the monthly cap you set.</p>
+            <p>Students in Rwanda spend in many small amounts, like lunch, moto rides, airtime and printing, and it is easy to lose track of the francs. Spendwise records every transaction, groups it by category, shows the last seven days at a glance and warns you before you pass the monthly cap you set.</p>
             <p>It is built with plain HTML, CSS and JavaScript only. Your data never leaves your browser.</p>
             <ul class="feature-list">
               <li>Regex-powered live search with highlighted matches</li>
               <li>Inline editing, sorting and safe delete confirmation</li>
               <li>Budget cap with spoken updates for screen reader users</li>
-              <li>Three currencies with manual rates</li>
+              <li>Rwandan francs by default, plus USD and EUR with manual rates</li>
               <li>JSON import and export with validation</li>
             </ul>
           </article>

@@ -8,7 +8,7 @@
 **Demo video (unlisted):** _add your YouTube / Drive link here_
 **Tests:** https://shyaka-alex.github.io/finance-tracker/tests.html
 
-Spendwise is an accessible, responsive student finance tracker built with **plain HTML, CSS and JavaScript only** (no frameworks or libraries). You can log transactions, find them with live **regular-expression search**, watch the last seven days of spending, and stay under a monthly budget cap that is announced to screen reader users.
+Spendwise is an accessible, responsive student finance tracker for students in Rwanda, built with **plain HTML, CSS and JavaScript only** (no frameworks or libraries). All money is in **Rwandan francs (RWF)** by default. You can log transactions, find them with live **regular-expression search**, watch the last seven days of spending, and stay under a monthly budget cap that is announced to screen reader users.
 
 - **Theme chosen:** Student Finance Tracker
 - **Author:** Shyaka Alex · [GitHub](https://github.com/shyaka-alex) · s.alex@spiderbit.rw
@@ -24,7 +24,7 @@ Spendwise is an accessible, responsive student finance tracker built with **plai
 | Transactions | Table on tablet/desktop, cards on mobile. Live regex search with a case-insensitive toggle, `<mark>` highlighting, sorting by date, description (A↕Z) and amount (↑↓) using a dropdown or the column headers |
 | Inline edit & delete | Edit any row in place (same validation as the form, updates `updatedAt`). Delete asks for confirmation in an accessible `<dialog>` |
 | Add form | Four regex rules with inline errors as you type, plus a duplicate-word warning (back-reference) |
-| Settings | Base currency plus 2 others with manual rates, display currency, monthly cap, editable categories, light/dark theme |
+| Settings | Base currency RWF plus USD and EUR with manual rates (RWF per 1 unit, e.g. 1 USD = 1450 RWF), display currency, monthly cap, editable categories, light/dark theme |
 | Data | Auto-save to `localStorage`, JSON import with full validation, JSON and CSV export, load sample data, clear all data |
 | Stretch goals | Light/dark theme (saved), CSV export (escaped), reduced-motion support |
 
@@ -53,22 +53,22 @@ Open [`tests.html`](tests.html) through the same server (`http://localhost:8000/
 |---|---|---|---|---|
 | 1 | Description: no leading/trailing spaces | `/^\S(?:.*\S)?$/` | `Lunch at cafeteria`, `A` | ` Lunch`, `Lunch ` |
 | 1b | Description: no double spaces | `/ {2,}/` (must **not** match) | `Bus pass` | `Bus  pass` |
-| 2 | Amount | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | `0`, `12`, `12.5`, `2450.00` | `012`, `-5`, `1.234`, `.5`, `1e3` |
+| 2 | Amount | `/^(0\|[1-9]\d*)(\.\d{1,2})?$/` | `0`, `500`, `2500`, `2500.50` | `0500`, `-500`, `2,500`, `1.234`, `1e3` |
 | 3 | Date (YYYY-MM-DD) | `/^\d{4}-(0[1-9]\|1[0-2])-(0[1-9]\|[12]\d\|3[01])$/` + real-calendar check | `2026-10-12`, `2024-02-29` | `2026-13-01`, `2025-02-29`, `26-10-12` |
 | 4 | Category | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | `Food`, `Eating Out`, `Self-care` | `Food1`, `-Food`, `Eating  Out` |
 | 5 | **Advanced, back-reference**: duplicate word | `/\b(\w+)\s+\1\b/i` | warns on `Coffee coffee with Amina`, `the the` | no warning for `the theme` |
-| 6 | **Advanced, lookahead**: positive exchange rate | `/^(?=.*[1-9])(0\|[1-9]\d*)(\.\d{1,6})?$/` | `0.92`, `1300`, `0.000001` | `0`, `0.000`, `-1` |
-| 7 | Currency code | `/^[A-Z]{3}$/` | `USD`, `RWF` | `usd`, `US` |
+| 6 | **Advanced, lookahead**: positive exchange rate | `/^(?=.*[1-9])(0\|[1-9]\d*)(\.\d{1,6})?$/` | `1450`, `1580.25`, `0.000001` | `0`, `0.000`, `-1` |
+| 7 | Currency code | `/^[A-Z]{3}$/` | `RWF`, `USD` | `rwf`, `RW` |
 
 ### Search examples to try (Transactions page)
 
 | Pattern | Finds |
 |---|---|
 | `(coffee\|tea)` | Beverage purchases (case-insensitive by default) |
-| `\.\d{2}\b` | Amounts with cents, e.g. `$12.50` |
+| `\d{2},\d{3}` | Spends of RWF 10,000 or more, e.g. `RWF 35,000` |
 | `\b(\w+)\s+\1\b` | Descriptions with a repeated word (`Coffee coffee`) |
 | `^2026-10` | Everything dated October 2026 |
-| `^\$\d{3,}` | Big spends of $100 or more (in USD display) |
+| `(moto\|bus\|tap&go)` | Transport costs around Kigali |
 | `[abc` | Invalid pattern: shows an error and does not crash |
 
 Search runs on what you see (date, description, category and the formatted amount). Patterns are compiled inside `try/catch` (`compileRegex` in `scripts/search.js`). Text is HTML-escaped before `<mark>` tags are added, so data like `Printing <lecture notes>` can never inject markup.
@@ -107,7 +107,7 @@ Search runs on what you see (date, description, category and the formatted amoun
 {
   "id": "txn_0001",
   "description": "Lunch at cafeteria",
-  "amount": 12.5,
+  "amount": 2500,
   "category": "Food",
   "date": "2026-10-12",
   "createdAt": "2026-10-12T11:42:05.000Z",
@@ -115,9 +115,9 @@ Search runs on what you see (date, description, category and the formatted amoun
 }
 ```
 
-Amounts are stored in the base currency. `localStorage` keys: `spendwise:records` (array of records) and `spendwise:settings` (currencies, cap, categories, theme). Damaged stored records are skipped and announced on startup instead of crashing the app.
+Amounts are stored in the base currency (Rwandan francs by default). `localStorage` keys: `spendwise:records` (array of records) and `spendwise:settings` (currencies, cap, categories, theme). Damaged stored records are skipped and announced on startup instead of crashing the app.
 
-`seed.json` has 14 records with edge cases: a leap day (`2024-02-29`), year boundaries, a `0` amount, a large amount (`2450`), a 100+ character description, accented text (`Café au lait`), HTML-like text (`<lecture notes>`) and a duplicate word (`Coffee coffee`).
+`seed.json` has 14 records with edge cases: a leap day (`2024-02-29`), year boundaries, a `0` amount, a large amount (`RWF 1,250,000` tuition), a 100+ character description, accented text (`Café au lait`), HTML-like text (`<lecture notes>`) and a duplicate word (`Coffee coffee`).
 
 ## Project structure
 

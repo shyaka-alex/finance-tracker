@@ -33,7 +33,8 @@
     } from './scripts/validators.js';
     import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './scripts/search.js';
     import { computeStats, capStatus } from './scripts/stats.js';
-    import { parseImport, toCSV, sanitizeSettings } from './scripts/storage.js';
+    import { parseImport, toCSV, sanitizeSettings, defaultSettings } from './scripts/storage.js';
+    import { convert } from './scripts/format.js';
 
     const groups = [];
 
@@ -65,13 +66,13 @@
     });
 
     group('Amount: /^(0|[1-9]\\d*)(\\.\\d{1,2})?$/', (expect) => {
-      for (const value of ['0', '12', '12.5', '12.50', '2450', '0.99']) {
+      for (const value of ['0', '500', '2500', '112.5', '2500.50', '1250000']) {
         expect(`"${value}" is valid`, ok(validateAmount(value)), true);
       }
-      for (const value of ['', '012', '-5', '1.234', '.5', '5.', '1e3', '12,50', ' 12']) {
+      for (const value of ['', '0500', '-500', '2500.125', '.5', '5.', '1e3', '2,500', ' 2500', 'RWF 2500']) {
         expect(`"${value}" is rejected`, ok(validateAmount(value)), false);
       }
-      expect('over the 1,000,000 limit is rejected', ok(validateAmount('1000000.01')), false);
+      expect('over the 100,000,000 RWF limit is rejected', ok(validateAmount('100000000.01')), false);
     });
 
     group('Date: YYYY-MM-DD and a real calendar day', (expect) => {
@@ -106,8 +107,8 @@
     });
 
     group('Advanced: positive rate lookahead /^(?=.*[1-9])…$/', (expect) => {
-      expect('"0.92" is valid', ok(validateRate('0.92')), true);
-      expect('"1300" is valid', ok(validateRate('1300')), true);
+      expect('"1450" (1 USD in RWF) is valid', ok(validateRate('1450')), true);
+      expect('"1580.25" is valid', ok(validateRate('1580.25')), true);
       expect('"0.000001" is valid', ok(validateRate('0.000001')), true);
       expect('"0" is rejected by the lookahead', ok(validateRate('0')), false);
       expect('"0.000" is rejected by the lookahead', ok(validateRate('0.000')), false);
@@ -115,8 +116,9 @@
     });
 
     group('Currency code: /^[A-Z]{3}$/', (expect) => {
+      expect('"RWF" is valid', ok(validateCurrencyCode('RWF')), true);
       expect('"USD" is valid', ok(validateCurrencyCode('USD')), true);
-      expect('"usd" is rejected', ok(validateCurrencyCode('usd')), false);
+      expect('"rwf" is rejected', ok(validateCurrencyCode('rwf')), false);
       expect('"US" is rejected', ok(validateCurrencyCode('US')), false);
     });
 
@@ -144,7 +146,9 @@
       const { re } = compileRegex('(coffee|tea)');
       expect('/(coffee|tea)/i matches "Tea & biscuits"', matches('Tea & biscuits', re), true);
       expect('repeated test() calls stay stable (lastIndex reset)', [matches('tea', re), matches('tea', re)], [true, true]);
-      expect('cents pattern \\.\\d{2}\\b matches "$12.50"', matches('$12.50', compileRegex('\\.\\d{2}\\b').re), true);
+      expect('cents pattern \\.\\d{2}\\b matches "RWF 112.50"', matches('RWF 112.50', compileRegex('\\.\\d{2}\\b').re), true);
+      expect('\\d{2},\\d{3} matches "RWF 35,000"', matches('RWF 35,000', compileRegex('\\d{2},\\d{3}').re), true);
+      expect('\\d{2},\\d{3} does not match "RWF 2,500"', matches('RWF 2,500', compileRegex('\\d{2},\\d{3}').re), false);
     });
 
     group('Highlight with <mark>', (expect) => {
@@ -225,8 +229,12 @@
       expect('quotes and commas are escaped', csv.split('\r\n')[1], 'txn_1,2026-10-01,"Pens, ""gel"" pack",Books,3.5,x,y');
       expect('formula-like text is neutralised', toCSV([{ id: 'a_1', date: '', description: '=SUM(A1)', category: '', amount: 0, createdAt: '', updatedAt: '' }]).includes("'=SUM(A1)"), true);
       const restored = sanitizeSettings({ cap: -5, baseCurrency: 'dollars', theme: 'neon', categories: 'Food' });
-      expect('negative cap falls back to default', restored.cap, 500);
-      expect('bad currency code falls back to USD', restored.baseCurrency, 'USD');
+      expect('old (version 1) settings are reset to RWF', restored.baseCurrency, 'RWF');
+      const v2 = sanitizeSettings({ version: 2, cap: -5, baseCurrency: 'francs' });
+      expect('negative cap falls back to 150,000 RWF', v2.cap, 150000);
+      expect('bad currency code falls back to RWF', v2.baseCurrency, 'RWF');
+      expect('default rates are quoted in RWF per unit', defaultSettings().currencies, [{ code: 'USD', rate: 1450 }, { code: 'EUR', rate: 1580 }]);
+      expect('100 USD displays as RWF ÷ rate', convert(145000, { ...defaultSettings(), displayCurrency: 'USD' }), 100);
       expect('unknown theme falls back to light', restored.theme, 'light');
       expect('non-array categories fall back to defaults', restored.categories.length, 6);
     });

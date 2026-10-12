@@ -23,7 +23,7 @@ export const PATTERNS = {
 
 export const LIMITS = {
   descriptionLength: 160,
-  maxAmount: 1_000_000,
+  maxAmount: 100_000_000,
   categoryLength: 30,
 };
 
@@ -46,7 +46,7 @@ export function findDuplicateWord(value) {
 export function validateAmount(value, label = 'Amount') {
   if (value === '') return `${label} is required.`;
   if (!PATTERNS.amount.test(value)) {
-    return `${label} must be a number with up to 2 decimals, like 12.50 (no minus sign or leading zeros).`;
+    return `${label} must be a number like 2500 or 2500.50 (up to 2 decimals, no minus sign, commas or leading zeros).`;
   }
   if (Number(value) > LIMITS.maxAmount) {
     return `${label} must be ${LIMITS.maxAmount.toLocaleString('en-US')} or less.`;
@@ -86,13 +86,13 @@ export function validateCategory(value, categories) {
 
 export function validateCurrencyCode(value) {
   if (value === '') return 'Currency code is required.';
-  if (!PATTERNS.currencyCode.test(value)) return 'Use a 3-letter code in capitals, like EUR.';
+  if (!PATTERNS.currencyCode.test(value)) return 'Use a 3-letter code in capitals, like USD.';
   return '';
 }
 
 export function validateRate(value) {
   if (value === '') return 'Rate is required.';
-  if (!PATTERNS.rate.test(value)) return 'Rate must be above 0 with up to 6 decimals, like 0.92.';
+  if (!PATTERNS.rate.test(value)) return 'Rate must be above 0 with up to 6 decimals, like 1450.';
   return '';
 }
 

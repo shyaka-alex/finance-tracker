@@ -27,7 +27,7 @@ An accessible, responsive, vanilla HTML/CSS/JS app for tracking student spending
 |---|---|---|---|
 | `id` | string | `"txn_0001"` | Unique, generated on create, never edited |
 | `description` | string | `"Lunch at cafeteria"` | No leading/trailing spaces; no double spaces |
-| `amount` | number | `12.50` | ≥ 0, max 2 decimal places, stored in base currency |
+| `amount` | number | `2500` | ≥ 0, max 2 decimal places, stored in base currency (RWF) |
 | `category` | string | `"Food"` | Letters, spaces, hyphens; must exist in category list |
 | `date` | string | `"2025-09-29"` | `YYYY-MM-DD` |
 | `createdAt` | string | `"2025-09-29T12:04:11.000Z"` | ISO 8601, set once |
@@ -37,9 +37,9 @@ An accessible, responsive, vanilla HTML/CSS/JS app for tracking student spending
 
 | Field | Type | Example | Notes |
 |---|---|---|---|
-| `baseCurrency` | string | `"USD"` | All amounts are stored in this currency |
+| `baseCurrency` | string | `"RWF"` | All amounts are stored in this currency |
 | `currencies` | array | `[{ code: "RWF", rate: 1300 }, { code: "EUR", rate: 0.92 }]` | Manual rates (1 base = rate), no API |
-| `displayCurrency` | string | `"USD"` | Which currency the table and stats show |
+| `displayCurrency` | string | `"RWF"` | Which currency the table and stats show |
 | `cap` | number | `300` | Spending cap, in base currency |
 | `categories` | array | `["Food", "Books", "Transport", "Entertainment", "Fees", "Other"]` | Editable in Settings |
 | `theme` | string | `"light"` | Optional stretch: `"light"` or `"dark"` |
@@ -84,8 +84,8 @@ An accessible, responsive, vanilla HTML/CSS/JS app for tracking student spending
 ├────────────────────────────┤
 │ ┌────────────────────────┐ │
 │ │ DASHBOARD  (deep green)│ │
-│ │ Total spent   $245.30  │ │
-│ │ Cap left      $54.70   │ │  ← live region
+│ │ Total spent RWF 45,300 │ │
+│ │ Cap left   RWF 104,700 │ │  ← live region
 │ │ Top: Food · 12 records │ │
 │ │ ▂ ▅ ▃ ▇ ▄ ▆ ▂  7 days  │ │
 │ └────────────────────────┘ │
@@ -96,7 +96,7 @@ An accessible, responsive, vanilla HTML/CSS/JS app for tracking student spending
 │ ┌────────────────────────┐ │
 │ │ Lunch at cafeteria     │ │  transaction card
 │ │ Food · 2025-09-25      │ │
-│ │ $12.50    [Edit] [Del] │ │
+│ │ RWF 2,500 [Edit] [Del] │ │
 │ └────────────────────────┘ │
 │ ┌────────────────────────┐ │
 │ │ ADD TRANSACTION        │ │

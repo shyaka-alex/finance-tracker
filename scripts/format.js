@@ -1,10 +1,13 @@
 // Currency conversion and date helpers.
 
-/** Converts an amount stored in the base currency into the display currency. */
+/**
+ * Converts an amount stored in the base currency into the display currency.
+ * Rates are "1 foreign unit = rate base units" (e.g. 1 USD = 1450 RWF), so we divide.
+ */
 export function convert(amount, settings, code = settings.displayCurrency) {
   if (code === settings.baseCurrency) return amount;
   const currency = settings.currencies.find((c) => c.code === code);
-  return currency ? amount * currency.rate : amount;
+  return currency ? amount / currency.rate : amount;
 }
 
 const formatters = new Map();
@@ -27,7 +30,7 @@ function formatterFor(code, compact) {
   return formatters.get(key);
 }
 
-/** Formats a base-currency amount in the chosen display currency, e.g. "$12.50". */
+/** Formats a base-currency amount in the chosen display currency, e.g. "RWF 2,500". */
 export function formatMoney(amount, settings, { compact = false, code = settings.displayCurrency } = {}) {
   return formatterFor(code, compact).format(convert(amount, settings, code));
 }

@@ -32,7 +32,10 @@ function renderDisplayOptions() {
   const select = $('#s-display');
   const options = [
     { code: baseCurrency, label: `${baseCurrency} (base)` },
-    ...currencies.map((c) => ({ code: c.code, label: `${c.code} (1 ${baseCurrency} = ${c.rate} ${c.code})` })),
+    ...currencies.map((c) => ({
+      code: c.code,
+      label: `${c.code} (1 ${c.code} = ${c.rate.toLocaleString('en-US')} ${baseCurrency})`,
+    })),
   ];
   select.innerHTML = options
     .map((o) => `<option value="${escapeHTML(o.code)}">${escapeHTML(o.label)}</option>`)

@@ -8,15 +8,19 @@ export const KEYS = {
 
 export const DEFAULT_CATEGORIES = ['Food', 'Books', 'Transport', 'Entertainment', 'Fees', 'Other'];
 
+export const SETTINGS_VERSION = 2;
+
 export function defaultSettings() {
   return {
-    baseCurrency: 'USD',
+    version: SETTINGS_VERSION,
+    baseCurrency: 'RWF',
+    // rate = how many base-currency units (francs) one unit of this currency is worth.
     currencies: [
-      { code: 'EUR', rate: 0.92 },
-      { code: 'RWF', rate: 1300 },
+      { code: 'USD', rate: 1450 },
+      { code: 'EUR', rate: 1580 },
     ],
-    displayCurrency: 'USD',
-    cap: 500,
+    displayCurrency: 'RWF',
+    cap: 150000,
     categories: [...DEFAULT_CATEGORIES],
     theme: 'light',
   };
@@ -78,6 +82,15 @@ export const saveRecords = (records) => writeJSON(KEYS.records, records);
 export function sanitizeSettings(stored) {
   const settings = defaultSettings();
   if (!stored || typeof stored !== 'object') return settings;
+
+  // Version 1 used USD as the base with "1 base = rate foreign" rates. Keep only theme and categories.
+  if (stored.version !== SETTINGS_VERSION) {
+    return sanitizeSettings({
+      version: SETTINGS_VERSION,
+      theme: stored.theme,
+      categories: stored.categories,
+    });
+  }
 
   if (typeof stored.baseCurrency === 'string' && !validateCurrencyCode(stored.baseCurrency)) {
     settings.baseCurrency = stored.baseCurrency;
