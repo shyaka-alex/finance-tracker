@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spendwise · Student Finance Tracker</title>
   <meta name="description" content="Spendwise helps students in Rwanda track spending in Rwandan francs, set a monthly budget and find any transaction with pattern search, right in the browser.">
-  <meta name="theme-color" content="#F8FAFC">
+  <meta name="theme-color" content="#DDE5E0">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="styles/main.css">
   <script>
     try {
@@ -90,7 +90,6 @@
       <div class="hero">
         <div class="container hero__inner">
           <div class="hero__text">
-            <p class="badge">Built for students in Rwanda</p>
             <h2 id="home-title" class="hero__title" tabindex="-1">Know Where Your <span class="text-teal">Money Goes.</span></h2>
             <p class="hero__lede">Spendwise helps you track spending in Rwandan francs, set a budget, and stay on top of your money all semester, right in your browser.</p>
             <div class="btn-row">
@@ -142,84 +141,6 @@
         </div>
       </section>
 
-      <section class="band band--tint" aria-labelledby="how-title">
-        <div class="container split">
-          <div class="split__media split__media--narrow">
-            <span class="blob blob--sm" aria-hidden="true"></span>
-            <img src="assets/img/add-phone@1x.png"
-                 srcset="assets/img/add-phone@1x.png 520w, assets/img/add-phone@2x.png 1040w"
-                 sizes="(min-width: 1024px) 360px, 80vw"
-                 width="520" height="860" loading="lazy"
-                 alt="The Add transaction screen on a phone, warning about a duplicate word in the description.">
-          </div>
-          <div class="split__text">
-            <p class="badge">How it works</p>
-            <h3 id="how-title" class="section-title">Log an expense in seconds</h3>
-            <p class="muted">Every field is checked while you type, so mistakes are caught before they are saved.</p>
-            <ol class="steps">
-              <li>
-                <span class="steps__num" aria-hidden="true">1</span>
-                <div><h4>Add it</h4><p class="muted">Type what you bought, the amount in francs, a category and the date.</p></div>
-              </li>
-              <li>
-                <span class="steps__num" aria-hidden="true">2</span>
-                <div><h4>Find it</h4><p class="muted">Search with patterns like <code>moto|bus</code> and see every match highlighted.</p></div>
-              </li>
-              <li>
-                <span class="steps__num" aria-hidden="true">3</span>
-                <div><h4>Stay on budget</h4><p class="muted">Watch your monthly cap and get a clear warning before you go over.</p></div>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section class="band" aria-labelledby="why-title">
-        <div class="container split split--reverse">
-          <div class="split__text">
-            <p class="badge">Why Spendwise</p>
-            <h3 id="why-title" class="section-title">Everything a Student Budget Needs</h3>
-            <ul class="checks">
-              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Editable categories</li>
-              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Rwandan francs, plus USD and EUR with your own rates</li>
-              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Fully keyboard accessible</li>
-              <li><span class="check-dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>Import &amp; export your data</li>
-            </ul>
-            <a class="btn btn--primary" href="#dashboard">Go to dashboard <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          </div>
-          <div class="split__media">
-            <img src="assets/img/stat-chips@1x.png"
-                 srcset="assets/img/stat-chips@1x.png 960w, assets/img/stat-chips@2x.png 1920w"
-                 sizes="(min-width: 1024px) 560px, 100vw"
-                 width="960" height="720" loading="lazy"
-                 alt="Example insights screen: a spending donut chart by category with floating cards for budget used, top category and the last 7 days.">
-          </div>
-        </div>
-      </section>
-
-      <section class="band band--tint" aria-labelledby="devices-title">
-        <div class="container split">
-          <div class="split__media">
-            <img class="framed"
-                 src="assets/img/responsive@1x.png"
-                 srcset="assets/img/responsive@1x.png 1200w, assets/img/responsive@2x.png 2400w"
-                 sizes="(min-width: 1024px) 580px, 100vw"
-                 width="1200" height="720" loading="lazy"
-                 alt="The Spendwise dashboard on a laptop next to the same dashboard on a phone.">
-          </div>
-          <div class="split__text">
-            <p class="badge">Any screen</p>
-            <h3 id="devices-title" class="section-title">On your phone between classes, on your laptop at home</h3>
-            <p class="muted">The layout adapts from a small phone to a wide desktop. Transactions turn into cards on mobile and a sortable table on bigger screens.</p>
-            <ul class="mini-stats" aria-label="Highlights">
-              <li><strong>3</strong><span>screen sizes designed for</span></li>
-              <li><strong>0</strong><span>accounts or servers needed</span></li>
-              <li><strong>100%</strong><span>works with a keyboard</span></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
       <section id="about" class="band" aria-labelledby="about-title">
         <div class="container split split--reverse">
           <div class="split__text">
@@ -241,6 +162,49 @@
                  width="960" height="720" loading="lazy"
                  alt="A Spendwise student budget card and a phone showing the remaining budget and recent activity, next to a stack of coins.">
           </div>
+        </div>
+
+        <div class="container">
+          <article class="founder card" aria-labelledby="founder-title">
+            <div class="founder__media">
+              <div class="founder__photo" role="img" aria-label="Portrait of Shyaka Alex">
+                <span class="founder__initials" aria-hidden="true">SA</span>
+              </div>
+              <p class="founder__role-tag">CEO &amp; Founder</p>
+            </div>
+
+            <div class="founder__body">
+              <p class="founder__hello" aria-hidden="true"><span class="founder__quote">“</span>Hello</p>
+              <h4 id="founder-title" class="founder__name">I’m Shyaka Alex</h4>
+              <p class="founder__role">CEO &amp; Founder of Spendwise</p>
+              <p>I started Spendwise because I saw how quickly a student’s money disappears between lunch, moto rides and fees. My goal is a simple, private tool that helps every student in Rwanda see where their francs go and stay in control.</p>
+
+              <dl class="founder__facts">
+                <div>
+                  <dt>Education</dt>
+                  <dd>African Leadership University</dd>
+                </div>
+                <div>
+                  <dt>Building</dt>
+                  <dd>Spendwise, a student finance tracker</dd>
+                </div>
+              </dl>
+
+              <div class="founder__contact">
+                <p class="founder__contact-title">Let’s work together</p>
+                <ul class="founder__links">
+                  <li>
+                    <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
+                    <a href="mailto:s.alex@spiderbit.rw">s.alex@spiderbit.rw</a>
+                  </li>
+                  <li>
+                    <span class="tile tile--gold" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></span>
+                    <a href="https://github.com/shyaka-alex">github.com/shyaka-alex</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 

@@ -18,7 +18,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 export function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0B1220' : '#F8FAFC');
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0E1714' : '#DDE5E0');
 }
 
 /* ---------- Rendering ---------- */
