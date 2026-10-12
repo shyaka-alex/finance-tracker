@@ -11,9 +11,9 @@
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <a class="brand" href="index.html">
-      <img class="brand__mark" src="assets/favicon.svg" alt="">
+      <img class="brand__mark" src="assets/logo-mark.svg" alt="" width="48" height="48">
       <span class="brand__text">
-        <span class="brand__name">Spendwise</span>
+        <span class="brand__name">Spend<span class="brand__accent">wise</span></span>
         <span class="brand__tagline">Back to the app</span>
       </span>
     </a>
@@ -33,6 +33,7 @@
     } from './scripts/validators.js';
     import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './scripts/search.js';
     import { computeStats, capStatus } from './scripts/stats.js';
+    import { parseImport, toCSV, sanitizeSettings } from './scripts/storage.js';
 
     const groups = [];
 
@@ -196,6 +197,38 @@
       expect('exactly at the cap is not over', capStatus(100, 100).state, 'warn');
       expect('above the cap is "over"', capStatus(100.01, 100).state, 'over');
       expect('cap of 0 means no budget', capStatus(10, 0).state, 'none');
+    });
+
+    group('JSON import validation', (expect) => {
+      const rec = (id, extra = {}) => ({
+        id, description: 'Bus pass', amount: 45, category: 'Transport', date: '2026-10-01',
+        createdAt: '2026-10-01T08:00:00.000Z', updatedAt: '2026-10-01T08:00:00.000Z', ...extra,
+      });
+      expect('valid array is accepted', parseImport(JSON.stringify([rec('txn_1'), rec('txn_2')])).ok, true);
+      expect('broken JSON is rejected', parseImport('{oops').error, 'the file is not valid JSON.');
+      expect('an object instead of an array is rejected', parseImport('{"a":1}').error, 'expected a list (JSON array) of transactions.');
+      expect('empty array is rejected', parseImport('[]').error, 'the file contains no transactions.');
+      const { amount, ...missing } = rec('txn_3');
+      expect('reports which record is missing a field',
+        parseImport(JSON.stringify([rec('txn_1'), rec('txn_2'), missing])).error,
+        "record 3 is missing 'amount'.");
+      expect('duplicate ids are rejected',
+        parseImport(JSON.stringify([rec('txn_1'), rec('txn_1')])).error,
+        "record 2 repeats the id 'txn_1'.");
+      expect('extra unknown fields are dropped',
+        Object.keys(parseImport(JSON.stringify([rec('txn_1', { hacked: true })])).records[0]).includes('hacked'),
+        false);
+    });
+
+    group('CSV export and settings recovery', (expect) => {
+      const csv = toCSV([{ id: 'txn_1', date: '2026-10-01', description: 'Pens, "gel" pack', category: 'Books', amount: 3.5, createdAt: 'x', updatedAt: 'y' }]);
+      expect('quotes and commas are escaped', csv.split('\r\n')[1], 'txn_1,2026-10-01,"Pens, ""gel"" pack",Books,3.5,x,y');
+      expect('formula-like text is neutralised', toCSV([{ id: 'a_1', date: '', description: '=SUM(A1)', category: '', amount: 0, createdAt: '', updatedAt: '' }]).includes("'=SUM(A1)"), true);
+      const restored = sanitizeSettings({ cap: -5, baseCurrency: 'dollars', theme: 'neon', categories: 'Food' });
+      expect('negative cap falls back to default', restored.cap, 500);
+      expect('bad currency code falls back to USD', restored.baseCurrency, 'USD');
+      expect('unknown theme falls back to light', restored.theme, 'light');
+      expect('non-array categories fall back to defaults', restored.categories.length, 6);
     });
 
     /* ---------- Render results ---------- */

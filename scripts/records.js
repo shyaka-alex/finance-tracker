@@ -164,8 +164,11 @@ function startEdit(id) {
   view.editingId = id;
   render();
   const input = $('#edit-description');
-  input?.focus();
-  input?.select();
+  if (!input) return;
+  const word = findDuplicateWord(input.value);
+  setFieldMessage(input, word ? `Duplicate word: “${word}”.` : '', 'warning');
+  input.focus();
+  input.select();
 }
 
 function cancelEdit(id) {

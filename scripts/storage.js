@@ -113,3 +113,58 @@ export function loadSettings() {
 }
 
 export const saveSettings = (settings) => writeJSON(KEYS.settings, settings);
+
+/* ---------- Import / export ---------- */
+
+export const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
+
+/**
+ * Validates JSON text before anything is loaded.
+ * Returns { ok: true, records } or { ok: false, error } with a human-readable reason.
+ */
+export function parseImport(text) {
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    return { ok: false, error: 'the file is not valid JSON.' };
+  }
+  if (!Array.isArray(data)) return { ok: false, error: 'expected a list (JSON array) of transactions.' };
+  if (data.length === 0) return { ok: false, error: 'the file contains no transactions.' };
+
+  const ids = new Set();
+  for (let i = 0; i < data.length; i += 1) {
+    const problem = describeRecordProblem(data[i]);
+    if (problem) return { ok: false, error: `record ${i + 1} ${problem}.` };
+    if (ids.has(data[i].id)) return { ok: false, error: `record ${i + 1} repeats the id '${data[i].id}'.` };
+    ids.add(data[i].id);
+  }
+  return { ok: true, records: data.map(pickRecord) };
+}
+
+export const toJSON = (records) => `${JSON.stringify(records, null, 2)}\n`;
+
+const CSV_COLUMNS = ['id', 'date', 'description', 'category', 'amount', 'createdAt', 'updatedAt'];
+
+/** RFC 4180 style CSV: quotes doubled, fields with commas/quotes/newlines wrapped in quotes. */
+export function toCSV(records) {
+  const cell = (value) => {
+    let text = String(value);
+    // Stop spreadsheet apps from treating text as a formula.
+    if (typeof value === 'string' && /^[=+\-@]/.test(text)) text = `'${text}`;
+    return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  };
+  const lines = records.map((record) => CSV_COLUMNS.map((column) => cell(record[column])).join(','));
+  return [CSV_COLUMNS.join(','), ...lines].join('\r\n');
+}
+
+export function downloadFile(filename, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}

@@ -41,6 +41,7 @@ export function computeStats(records, now = new Date()) {
 
   const monthKey = isoDate(now).slice(0, 7);
   const monthRecords = records.filter((r) => r.date.startsWith(monthKey));
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
 
   return {
     count: records.length,
@@ -52,6 +53,7 @@ export function computeStats(records, now = new Date()) {
     weekCount: days.reduce((sum, d) => sum + d.count, 0),
     monthTotal: monthRecords.reduce((sum, r) => sum + r.amount, 0),
     monthLabel: new Intl.DateTimeFormat('en-US', { month: 'long' }).format(now),
+    daysLeft: daysInMonth - now.getDate() + 1,
   };
 }
 

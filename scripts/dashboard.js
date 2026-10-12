@@ -5,7 +5,7 @@ import { formatMoney } from './format.js';
 import { escapeHTML } from './search.js';
 import { $, announce } from './ui.js';
 
-let lastCapMessage = null;
+let lastCapKey = null;
 
 const money = (amount, options) => formatMoney(amount, state.settings, options);
 
@@ -34,7 +34,7 @@ function renderChart(stats) {
     const height = max > 0 ? Math.max((day.total / max) * 100, day.total > 0 ? 3 : 0) : 0;
     return `
       <div class="chart__col${day.isToday ? ' is-today' : ''}">
-        <span class="chart__value">${day.total > 0 ? escapeHTML(money(day.total, { compact: true })) : ''}</span>
+        <span class="chart__value">${day.total > 0 ? escapeHTML(money(day.total, { compact: day.total >= 1000 })) : ''}</span>
         <div class="chart__track"><div class="chart__bar" style="--h:${height.toFixed(1)}%; --i:${i}"></div></div>
         <span class="chart__label">${day.isToday ? 'Today' : day.label}</span>
       </div>`;
@@ -95,14 +95,24 @@ function renderBudget(stats, shouldAnnounce) {
   const icon = status.state === 'over' ? '⚠' : status.state === 'none' ? '' : '✓';
   $('#budget-message').innerHTML = `${icon ? `<span aria-hidden="true">${icon}</span>` : ''}<span>${escapeHTML(message)}</span>`;
 
-  // Polite when under the cap, assertive when it is exceeded. Only speak when something changed.
-  if (shouldAnnounce && message !== lastCapMessage && status.state !== 'none') {
+  const pace = $('#budget-pace');
+  if (status.state === 'none' || status.state === 'over') {
+    pace.textContent = stats.daysLeft === 1 ? '1 day left this month.' : `${stats.daysLeft} days left this month.`;
+  } else {
+    const perDay = status.remaining / stats.daysLeft;
+    pace.textContent = `${stats.daysLeft} days left: about ${money(perDay)} a day keeps you on track.`;
+  }
+
+  // Polite when under the cap, assertive when it is exceeded. Keyed on the numbers, not the
+  // formatted text, so switching display currency does not repeat the announcement.
+  const key = `${status.state}|${Math.round(spent * 100)}|${Math.round(cap * 100)}`;
+  if (shouldAnnounce && key !== lastCapKey && status.state !== 'none') {
     announce(
       status.state === 'over' ? `Budget exceeded. ${message}` : message,
       { assertive: status.state === 'over' },
     );
   }
-  lastCapMessage = message;
+  lastCapKey = key;
 }
 
 function render(shouldAnnounce) {
