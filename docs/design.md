@@ -256,7 +256,7 @@ Each field shows its error message inline, next to the input, as the user types 
 | M4 – Render, sort, regex search | Tue PM | ☑ |
 | M5 – Stats & cap | Tue PM | ☑ |
 | M6 – Persistence, import/export, settings | Wed AM | ☑ |
-| M7 – Polish, a11y audit, README, demo | Wed PM | ☐ (demo video pending) |
+| M7 – Polish, a11y audit, README, demo | Wed PM | ☑ ([demo video](https://youtu.be/bAOfuL--lT0)) |
 
 ---
 

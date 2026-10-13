@@ -5,7 +5,7 @@
 # Spendwise: Student Finance Tracker
 
 **Live demo (GitHub Pages):** https://shyaka-alex.github.io/finance-tracker/
-**Demo video (unlisted):** _add your YouTube / Drive link here_
+**Demo video (unlisted):** https://youtu.be/bAOfuL--lT0
 **Tests:** https://shyaka-alex.github.io/finance-tracker/tests.html
 
 Spendwise is an accessible, responsive student finance tracker for students in Rwanda, built with **plain HTML, CSS and JavaScript only** (no frameworks or libraries). All money is in **Rwandan francs (RWF)** by default. You can log transactions, find them with live **regular-expression search**, watch the last seven days of spending, and stay under a monthly budget cap that is announced to screen reader users.
