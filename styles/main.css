@@ -428,27 +428,6 @@ mark {
 .band { padding: 56px 0; }
 .band--tint { background: var(--tint); }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: var(--tile);
-  color: var(--primary-text);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-.badge::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold);
-}
-
 .section-title {
   margin: 14px 0 12px;
   font-size: clamp(1.625rem, 1.2rem + 1.8vw, 2.375rem);

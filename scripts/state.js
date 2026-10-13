@@ -1,6 +1,6 @@
 // In-memory app state. Every change is saved to localStorage and broadcast to subscribers.
-import { loadRecords, loadSettings, saveRecords, saveSettings, defaultSettings } from './storage.js?v=20261013a';
-import { canonicalCategory } from './validators.js?v=20261013a';
+import { loadRecords, loadSettings, saveRecords, saveSettings, defaultSettings } from './storage.js?v=20261013b';
+import { canonicalCategory } from './validators.js?v=20261013b';
 
 export const state = {
   records: [],

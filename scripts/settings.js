@@ -1,16 +1,16 @@
 // Settings: currencies and rates, budget cap, categories, theme, and data import/export.
 import {
   state, subscribe, updateSettings, replaceRecords, clearAll,
-} from './state.js?v=20261013a';
+} from './state.js?v=20261013b';
 import {
   validateCurrencyCode, validateRate, validateAmount, PATTERNS, LIMITS,
-} from './validators.js?v=20261013a';
+} from './validators.js?v=20261013b';
 import {
   parseImport, toJSON, toCSV, downloadFile, MAX_IMPORT_BYTES,
-} from './storage.js?v=20261013a';
-import { escapeHTML } from './search.js?v=20261013a';
-import { $, $$, announce, toast, confirmDialog, setFieldMessage, setStatus } from './ui.js?v=20261013a';
-import { todayISO, categoryTone } from './format.js?v=20261013a';
+} from './storage.js?v=20261013b';
+import { escapeHTML } from './search.js?v=20261013b';
+import { $, $$, announce, toast, confirmDialog, setFieldMessage, setStatus } from './ui.js?v=20261013b';
+import { todayISO, categoryTone } from './format.js?v=20261013b';
 
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
