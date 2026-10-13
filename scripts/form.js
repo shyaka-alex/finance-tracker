@@ -1,10 +1,10 @@
 // Add-transaction form: real-time regex validation, duplicate-word warning, save.
-import { state, addRecord, subscribe } from './state.js?v=20261013b';
+import { state, addRecord, subscribe } from './state.js?v=20261013c';
 import {
   validateDescription, validateAmount, validateCategory, validateDate, findDuplicateWord,
-} from './validators.js?v=20261013b';
-import { $, announce, setFieldMessage, setStatus } from './ui.js?v=20261013b';
-import { formatMoney, todayISO } from './format.js?v=20261013b';
+} from './validators.js?v=20261013c';
+import { $, announce, setFieldMessage, setStatus } from './ui.js?v=20261013c';
+import { formatMoney, todayISO } from './format.js?v=20261013c';
 
 const RULES = {
   description: (value) => validateDescription(value),

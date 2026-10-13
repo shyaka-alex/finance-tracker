@@ -1,9 +1,9 @@
 // Transactions list: live regex search, sorting, inline edit and delete.
-import { state, subscribe, getRecord, updateRecord, deleteRecord } from './state.js?v=20261013b';
-import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './search.js?v=20261013b';
-import { validateTransaction, findDuplicateWord } from './validators.js?v=20261013b';
-import { $, $$, announce, confirmDialog, setFieldMessage } from './ui.js?v=20261013b';
-import { formatMoney, categoryTone } from './format.js?v=20261013b';
+import { state, subscribe, getRecord, updateRecord, deleteRecord } from './state.js?v=20261013c';
+import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './search.js?v=20261013c';
+import { validateTransaction, findDuplicateWord } from './validators.js?v=20261013c';
+import { $, $$, announce, confirmDialog, setFieldMessage } from './ui.js?v=20261013c';
+import { formatMoney, categoryTone } from './format.js?v=20261013c';
 
 const view = {
   query: '',
@@ -239,10 +239,23 @@ async function removeRecord(id) {
   else $('#search').focus();
 }
 
+/**
+ * On mobile the table is restyled as cards (display: grid/block), which makes some browsers
+ * drop its table semantics. Explicit roles keep it announced as a table. They are added here
+ * rather than in the HTML because the validator flags redundant roles in static markup.
+ */
+function restoreTableRoles(table) {
+  table.setAttribute('role', 'table');
+  for (const group of $$('thead, tbody', table)) group.setAttribute('role', 'rowgroup');
+  for (const row of $$('thead tr', table)) row.setAttribute('role', 'row');
+  for (const cell of $$('thead th', table)) cell.setAttribute('role', 'columnheader');
+}
+
 export function initRecords() {
   const search = $('#search');
   const caseToggle = $('#case-insensitive');
   const body = $('#records-body');
+  restoreTableRoles($('#records-table'));
 
   search.addEventListener('input', () => {
     view.query = search.value;

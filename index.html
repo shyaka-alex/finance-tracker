@@ -11,14 +11,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="styles/main.css?v=20261013b">
+  <link rel="stylesheet" href="styles/main.css?v=20261013c">
   <script>
     try {
       var saved = JSON.parse(localStorage.getItem('spendwise:settings'));
       if (saved && saved.theme === 'dark') document.documentElement.dataset.theme = 'dark';
     } catch (e) { /* ignore unreadable settings */ }
   </script>
-  <script type="module" src="scripts/main.js?v=20261013b"></script>
+  <script type="module" src="scripts/main.js?v=20261013c"></script>
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false">
@@ -507,24 +507,24 @@
               </div>
             </div>
 
-            <table class="records" id="records-table" role="table">
+            <table class="records" id="records-table">
               <caption class="sr-only">Transactions. Use the column header buttons to sort.</caption>
-              <thead role="rowgroup">
-                <tr role="row">
-                  <th scope="col" role="columnheader" data-col="date" aria-sort="descending">
+              <thead>
+                <tr>
+                  <th scope="col" data-col="date" aria-sort="descending">
                     <button type="button" class="sort-btn" data-sort-col="date">Date<span class="sort-icon" aria-hidden="true"></span></button>
                   </th>
-                  <th scope="col" role="columnheader" data-col="description" aria-sort="none">
+                  <th scope="col" data-col="description" aria-sort="none">
                     <button type="button" class="sort-btn" data-sort-col="description">Description<span class="sort-icon" aria-hidden="true"></span></button>
                   </th>
-                  <th scope="col" role="columnheader" class="th--plain">Category</th>
-                  <th scope="col" role="columnheader" data-col="amount" aria-sort="none" class="num">
+                  <th scope="col" class="th--plain">Category</th>
+                  <th scope="col" data-col="amount" aria-sort="none" class="num">
                     <button type="button" class="sort-btn" data-sort-col="amount">Amount<span class="sort-icon" aria-hidden="true"></span></button>
                   </th>
-                  <th scope="col" role="columnheader" class="th--plain"><span class="sr-only">Actions</span></th>
+                  <th scope="col" class="th--plain"><span class="sr-only">Actions</span></th>
                 </tr>
               </thead>
-              <tbody id="records-body" role="rowgroup"></tbody>
+              <tbody id="records-body"></tbody>
             </table>
             <div class="empty" id="records-empty" hidden></div>
           </section>
