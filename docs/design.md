@@ -73,85 +73,31 @@ An accessible, responsive, vanilla HTML/CSS/JS app for tracking student spending
 
 ### 4. Wireframes
 
-> _Hand-drawn or Figma sketches are in `assets/wireframes/`. The diagrams below summarise the layout at each breakpoint._
+Low-fidelity wireframes are in [`assets/wireframes/`](../assets/wireframes/). They show the layout at each breakpoint.
 
-#### Mobile (~360px) — single column
+#### Home · desktop (≥1024px)
 
-```
-┌────────────────────────────┐
-│ [Skip to content]          │  ← visible on focus only
-│ Finance Tracker      [Menu]│  header + nav
-├────────────────────────────┤
-│ ┌────────────────────────┐ │
-│ │ DASHBOARD  (deep green)│ │
-│ │ Total spent RWF 45,300 │ │
-│ │ Cap left   RWF 104,700 │ │  ← live region
-│ │ Top: Food · 12 records │ │
-│ │ ▂ ▅ ▃ ▇ ▄ ▆ ▂  7 days  │ │
-│ └────────────────────────┘ │
-│ ┌────────────────────────┐ │
-│ │ Search  [ regex...   ] │ │
-│ │ [Aa] case   Sort [▼]   │ │
-│ └────────────────────────┘ │
-│ ┌────────────────────────┐ │
-│ │ Lunch at cafeteria     │ │  transaction card
-│ │ Food · 2025-09-25      │ │
-│ │ RWF 2,500 [Edit] [Del] │ │
-│ └────────────────────────┘ │
-│ ┌────────────────────────┐ │
-│ │ ADD TRANSACTION        │ │
-│ │ Description [        ] │ │
-│ │ Amount      [        ] │ │
-│ │ Category    [      ▼ ] │ │
-│ │ Date        [        ] │ │
-│ │ [   Save transaction ] │ │
-│ └────────────────────────┘ │
-│ Settings · About           │
-│ footer                     │
-└────────────────────────────┘
-```
+Hero (headline, lede, "Open dashboard", trust row) beside the phone mockups; four feature cards; About card with image; founder profile; Get in Touch with the contact form.
 
-#### Tablet (~768px) — two columns
+![Home page wireframe, desktop](../assets/wireframes/home-desktop.svg)
 
-```
-┌──────────────────────────────────────────────┐
-│ Finance Tracker    Dashboard Records Add ... │
-├──────────────────────┬───────────────────────┤
-│ DASHBOARD (green)    │ ADD TRANSACTION       │
-│ totals · cap · chart │ form                  │
-├──────────────────────┴───────────────────────┤
-│ Search [ regex... ] [Aa]   Sort [▼]          │
-│ ┌──────────┐ ┌──────────┐                    │
-│ │ card     │ │ card     │  2-column cards    │
-│ └──────────┘ └──────────┘                    │
-├──────────────────────────────────────────────┤
-│ SETTINGS              │ ABOUT                │
-└──────────────────────────────────────────────┘
-```
+#### Dashboard · mobile (~360px), single column
 
-#### Desktop (~1024px+) — asymmetric grid
+Menu button instead of a nav bar. Stat cards stack, then budget, categories, This Week chart, the add form and the transactions list. Table rows turn into cards.
 
-```
-┌────────────────────────────────────────────────────────────┐
-│ Finance Tracker          Dashboard  Records  Add  Settings │
-├───────────────────┬──────────────────────┬─────────────────┤
-│ INTRO / ABOUT     │                      │ CAP STATUS      │
-│ (off-white card,  │  STATS HERO          │ (turns orange   │
-│  large title)     │  (deep green,        │  when over cap) │
-├───────────────────┤   spans 2 rows,      ├─────────────────┤
-│ ADD TRANSACTION   │   7-day bar chart)   │ TOP CATEGORY    │
-│ form              │                      │                 │
-├───────────────────┴──────────────────────┴─────────────────┤
-│ Search [ regex... ] [Aa]                                   │
-│ ┌──────────┬──────────────────────┬──────────┬───────────┐ │
-│ │ Date ↕   │ Description ↕        │ Category │ Amount ↕  │ │
-│ ├──────────┼──────────────────────┼──────────┼───────────┤ │
-│ │ ...      │ ...                  │ ...      │ ... [✎][🗑]│ │
-│ └──────────┴──────────────────────┴──────────┴───────────┘ │
-├────────────────────────────────────────────────────────────┤
-│ SETTINGS (currencies · cap · categories · import/export)   │
-└────────────────────────────────────────────────────────────┘
-```
+![Dashboard wireframe, mobile](../assets/wireframes/dashboard-mobile.svg)
+
+#### Dashboard · tablet (~768px), two columns
+
+Stat cards in a 2×2 grid, budget and categories side by side, chart and form full width, and the real sortable table appears.
+
+![Dashboard wireframe, tablet](../assets/wireframes/dashboard-tablet.svg)
+
+#### Dashboard · desktop (≥1024px), three-column grid
+
+Four stat cards in a row. Budget and categories on the top row, with the add form running down the right column. The This Week chart and the transactions table sit under budget and categories.
+
+![Dashboard wireframe, desktop](../assets/wireframes/dashboard-desktop.svg)
 
 ---
 

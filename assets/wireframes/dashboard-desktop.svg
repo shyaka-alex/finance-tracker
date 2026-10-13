@@ -1,0 +1,132 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1280' height='980' viewBox='0 0 1280 980' role='img'>
+  <title>Spendwise dashboard wireframe, desktop 1280px</title>
+  <rect x='0' y='0' width='1280' height='980' fill='#FFFFFF'/>
+  <rect x='40' y='10' width='1200' height='46' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='52' y='20' width='26' height='26' rx='6' fill='#D1D5DB' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='86' y='38' font-family='Helvetica, Arial, sans-serif' font-size='14' font-weight='bold' fill='#374151' text-anchor='start'>Spendwise</text>
+  <text x='520.0' y='38' font-family='Helvetica, Arial, sans-serif' font-size='12' font-weight='normal' fill='#374151' text-anchor='start'>Home</text>
+  <text x='590.0' y='38' font-family='Helvetica, Arial, sans-serif' font-size='12' font-weight='normal' fill='#374151' text-anchor='start'>About</text>
+  <text x='660.0' y='38' font-family='Helvetica, Arial, sans-serif' font-size='12' font-weight='normal' fill='#374151' text-anchor='start'>Settings</text>
+  <text x='730.0' y='38' font-family='Helvetica, Arial, sans-serif' font-size='12' font-weight='normal' fill='#374151' text-anchor='start'>Contact</text>
+  <rect x='1100' y='20' width='128' height='26' rx='13.0' fill='#6B7280' stroke='#6B7280' stroke-width='1.5'/>
+  <text x='1164.0' y='37.0' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='bold' fill='#FFFFFF' text-anchor='middle'>Open dashboard</text>
+  <text x='40' y='86' font-family='Helvetica, Arial, sans-serif' font-size='12' font-weight='normal' fill='#374151' text-anchor='start'>Good evening,</text>
+  <text x='40' y='114' font-family='Helvetica, Arial, sans-serif' font-size='28' font-weight='normal' fill='#374151' text-anchor='start'>Dashboard</text>
+  <text x='40' y='134' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Monday, 12 October 2026</text>
+  <rect x='1070' y='96' width='170' height='32' rx='16.0' fill='#6B7280' stroke='#6B7280' stroke-width='1.5'/>
+  <text x='1155.0' y='116.0' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='bold' fill='#FFFFFF' text-anchor='middle'>+ Add transaction</text>
+  <rect x='40.0' y='156' width='285.0' height='80' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='52.0' y='178' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>Total spent</text>
+  <text x='52.0' y='202' font-family='Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#374151' text-anchor='start'>RWF 1,354,300</text>
+  <rect x='52.0' y='212' width='76.95' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='345.0' y='156' width='285.0' height='80' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='357.0' y='178' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>Transactions</text>
+  <text x='357.0' y='202' font-family='Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#374151' text-anchor='start'>14</text>
+  <rect x='357.0' y='212' width='76.95' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='650.0' y='156' width='285.0' height='80' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='662.0' y='178' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>Top category</text>
+  <text x='662.0' y='202' font-family='Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#374151' text-anchor='start'>Fees</text>
+  <rect x='662.0' y='212' width='76.95' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='955.0' y='156' width='285.0' height='80' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='967.0' y='178' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>Last 7 days</text>
+  <text x='967.0' y='202' font-family='Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#374151' text-anchor='start'>RWF 40,450</text>
+  <rect x='967.0' y='212' width='76.95' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='40' y='256' width='386.6666666666667' height='200' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='52' y='278' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>October budget</text>
+  <text x='414.6666666666667' y='278' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='end'>Change</text>
+  <text x='52' y='312' font-family='Helvetica, Arial, sans-serif' font-size='18' font-weight='bold' fill='#374151' text-anchor='start'>RWF 1,309,200</text>
+  <text x='52' y='332' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>of RWF 150,000</text>
+  <rect x='52' y='344' width='362.6666666666667' height='10' rx='5' fill='#6B7280'/>
+  <rect x='52' y='366' width='326.6666666666667' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='52' y='378' width='196.0' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='446.6666666666667' y='256' width='386.6666666666667' height='200' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='458.6666666666667' y='278' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>By category</text>
+  <text x='458.6666666666667' y='300' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Fees</text>
+  <rect x='458.6666666666667' y='306' width='362.6666666666667' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='458.6666666666667' y='306' width='363' height='6' rx='3' fill='#6B7280'/>
+  <text x='458.6666666666667' y='330' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Books</text>
+  <rect x='458.6666666666667' y='336' width='362.6666666666667' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='458.6666666666667' y='336' width='109' height='6' rx='3' fill='#6B7280'/>
+  <text x='458.6666666666667' y='360' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Other</text>
+  <rect x='458.6666666666667' y='366' width='362.6666666666667' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='458.6666666666667' y='366' width='91' height='6' rx='3' fill='#6B7280'/>
+  <text x='458.6666666666667' y='390' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Transport</text>
+  <rect x='458.6666666666667' y='396' width='362.6666666666667' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='458.6666666666667' y='396' width='65' height='6' rx='3' fill='#6B7280'/>
+  <text x='458.6666666666667' y='420' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Food</text>
+  <rect x='458.6666666666667' y='426' width='362.6666666666667' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='458.6666666666667' y='426' width='44' height='6' rx='3' fill='#6B7280'/>
+  <rect x='853.3333333333334' y='256' width='386.6666666666667' height='330' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='865.3333333333334' y='278' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>Add Transaction</text>
+  <text x='865.3333333333334' y='306' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Description</text>
+  <rect x='865.3333333333334' y='312' width='362.6666666666667' height='26' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='865.3333333333334' y='356' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Amount (RWF)</text>
+  <rect x='865.3333333333334' y='362' width='362.6666666666667' height='26' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='865.3333333333334' y='406' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Category</text>
+  <rect x='865.3333333333334' y='412' width='362.6666666666667' height='26' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='865.3333333333334' y='456' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Date</text>
+  <rect x='865.3333333333334' y='462' width='362.6666666666667' height='26' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='865.3333333333334' y='506' width='70' height='28' rx='14.0' fill='#6B7280' stroke='#6B7280' stroke-width='1.5'/>
+  <text x='900.3333333333334' y='524.0' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='bold' fill='#FFFFFF' text-anchor='middle'>Save</text>
+  <text x='957.3333333333334' y='524' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='bold' fill='#374151' text-anchor='start'>Cancel</text>
+  <rect x='40' y='476' width='793.3333333333334' height='200' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='52' y='498' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>This Week</text>
+  <text x='821.3333333333334' y='498' font-family='Helvetica, Arial, sans-serif' font-size='12' font-weight='bold' fill='#374151' text-anchor='end'>RWF 40,450</text>
+  <rect x='76.4' y='633.0' width='68.0' height='13.0' rx='3' fill='#9CA3AF'/>
+  <rect x='185.2' y='639.5' width='68.0' height='6.5' rx='3' fill='#9CA3AF'/>
+  <rect x='293.9' y='529.0' width='68.0' height='117.0' rx='3' fill='#9CA3AF'/>
+  <rect x='402.7' y='633.0' width='68.0' height='13.0' rx='3' fill='#9CA3AF'/>
+  <rect x='511.4' y='633.0' width='68.0' height='13.0' rx='3' fill='#9CA3AF'/>
+  <rect x='620.2' y='633.0' width='68.0' height='13.0' rx='3' fill='#9CA3AF'/>
+  <rect x='729.0' y='633.0' width='68.0' height='13.0' rx='3' fill='#9CA3AF'/>
+  <text x='110.38095238095238' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>T</text>
+  <text x='219.14285714285714' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>W</text>
+  <text x='327.9047619047619' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>T</text>
+  <text x='436.66666666666674' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>F</text>
+  <text x='545.4285714285714' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>S</text>
+  <text x='654.1904761904763' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>S</text>
+  <text x='762.9523809523811' y='660' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='normal' fill='#374151' text-anchor='middle'>M</text>
+  <rect x='40' y='696' width='793.3333333333334' height='250' rx='10' fill='#F3F4F6' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='52' y='718' font-family='Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#374151' text-anchor='start'>Transactions</text>
+  <text x='821.3333333333334' y='718' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='end'>14 transactions</text>
+  <text x='52' y='742' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Search (regex, e.g. moto|bus)</text>
+  <rect x='52' y='748' width='599.3333333333334' height='26' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='661.3333333333334' y='742' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#374151' text-anchor='start'>Sort  ▾</text>
+  <rect x='661.3333333333334' y='748' width='160' height='26' rx='8' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <text x='60' y='806' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='bold' fill='#374151' text-anchor='start'>Date ↓</text>
+  <text x='198.48' y='806' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='bold' fill='#374151' text-anchor='start'>Description</text>
+  <text x='475.43999999999994' y='806' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='bold' fill='#374151' text-anchor='start'>Category</text>
+  <text x='613.92' y='806' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='bold' fill='#374151' text-anchor='start'>Amount</text>
+  <text x='737.0133333333333' y='806' font-family='Helvetica, Arial, sans-serif' font-size='10' font-weight='bold' fill='#374151' text-anchor='start'></text>
+  <rect x='52' y='814' width='769.3333333333334' height='1.5' fill='#9CA3AF'/>
+  <rect x='60' y='829' width='97' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='198.48' y='829' width='194' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='475.43999999999994' y='824' width='83' height='16' rx='8' fill='#D1D5DB'/>
+  <rect x='613.92' y='829' width='86' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='737.0133333333333' y='822' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='763.0133333333333' y='822' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='52' y='848' width='769.3333333333334' height='1' fill='#E5E7EB'/>
+  <rect x='60' y='859' width='97' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='198.48' y='859' width='194' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='475.43999999999994' y='854' width='83' height='16' rx='8' fill='#D1D5DB'/>
+  <rect x='613.92' y='859' width='86' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='737.0133333333333' y='852' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='763.0133333333333' y='852' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='52' y='878' width='769.3333333333334' height='1' fill='#E5E7EB'/>
+  <rect x='60' y='889' width='97' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='198.48' y='889' width='194' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='475.43999999999994' y='884' width='83' height='16' rx='8' fill='#D1D5DB'/>
+  <rect x='613.92' y='889' width='86' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='737.0133333333333' y='882' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='763.0133333333333' y='882' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='52' y='908' width='769.3333333333334' height='1' fill='#E5E7EB'/>
+  <rect x='60' y='919' width='97' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='198.48' y='919' width='194' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='475.43999999999994' y='914' width='83' height='16' rx='8' fill='#D1D5DB'/>
+  <rect x='613.92' y='919' width='86' height='6' rx='3' fill='#D1D5DB'/>
+  <rect x='737.0133333333333' y='912' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='763.0133333333333' y='912' width='20' height='20' rx='5' fill='#FFFFFF' stroke='#9CA3AF' stroke-width='1.5'/>
+  <rect x='52' y='938' width='769.3333333333334' height='1' fill='#E5E7EB'/>
+  <text x='853.3333333333334' y='608' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#B45309' text-anchor='start'>Add form runs down the right column</text>
+  <text x='640' y='970' font-family='Helvetica, Arial, sans-serif' font-size='11' font-weight='normal' fill='#6B7280' text-anchor='middle'>Desktop ≥1024px · 3-column grid: budget | categories | add form</text>
+</svg>
