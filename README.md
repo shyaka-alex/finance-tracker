@@ -142,9 +142,10 @@ scripts/
   form.js             add-transaction form
   records.js          table/cards, search, inline edit, delete
   contact.js          contact form validation and mailto hand-off
-  dashboard.js        stat cards, categories, budget cap
+  dashboard.js        stat cards, This Week chart, categories, budget cap
   settings.js         currencies, cap, categories, theme, data tools
 assets/               logo mark, favicon, brand images, img/ mockups for the home page
+assets/wireframes/    home and dashboard wireframes (mobile, tablet, desktop)
 docs/design.md        M1 spec: data model, wireframes, a11y plan
 ```
 
