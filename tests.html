@@ -124,7 +124,7 @@
     });
 
     group('Contact form: email /^[^\\s@]+@…\\.[A-Za-z]{2,}$/', (expect) => {
-      for (const value of ['s.alex@spiderbit.rw', 'amina+budget@alu.edu', 'a@b.co']) {
+      for (const value of ['b.shyaka@alustudent.com', 'amina+budget@alu.edu', 'a@b.co']) {
         expect(`"${value}" is valid`, ok(validateEmail(value)), true);
       }
       for (const value of ['', 'alex', 'alex@', '@alu.edu', 'alex@alu', 'alex @alu.edu', 'alex@alu.c', 'a@@b.com']) {

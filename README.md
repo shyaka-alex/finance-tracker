@@ -11,7 +11,7 @@
 Spendwise is an accessible, responsive student finance tracker for students in Rwanda, built with **plain HTML, CSS and JavaScript only** (no frameworks or libraries). All money is in **Rwandan francs (RWF)** by default. You can log transactions, find them with live **regular-expression search**, watch the last seven days of spending, and stay under a monthly budget cap that is announced to screen reader users.
 
 - **Theme chosen:** Student Finance Tracker
-- **Author:** Shyaka Alex · [GitHub](https://github.com/shyaka-alex) · s.alex@spiderbit.rw
+- **Author:** Shyaka Alex · [GitHub](https://github.com/shyaka-alex) · b.shyaka@alustudent.com
 
 ---
 
@@ -62,7 +62,7 @@ Open [`tests.html`](tests.html) through the same server (`http://localhost:8000/
 | 5 | **Advanced, back-reference**: duplicate word | `/\b(\w+)\s+\1\b/i` | warns on `Coffee coffee with Amina`, `the the` | no warning for `the theme` |
 | 6 | **Advanced, lookahead**: positive exchange rate | `/^(?=.*[1-9])(0\|[1-9]\d*)(\.\d{1,6})?$/` | `1450`, `1580.25`, `0.000001` | `0`, `0.000`, `-1` |
 | 7 | Currency code | `/^[A-Z]{3}$/` | `RWF`, `USD` | `rwf`, `RW` |
-| 8 | Contact email | `/^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)*\.[A-Za-z]{2,}$/` | `s.alex@spiderbit.rw` | `alex@alu`, `alex @alu.edu` |
+| 8 | Contact email | `/^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)*\.[A-Za-z]{2,}$/` | `b.shyaka@alustudent.com` | `alex@alu`, `alex @alu.edu` |
 
 ### Search examples to try (Transactions page)
 
