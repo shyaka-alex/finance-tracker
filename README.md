@@ -19,7 +19,7 @@ Spendwise is an accessible, responsive student finance tracker for students in R
 
 | Area | What it does |
 |---|---|
-| Home | Landing page with a hero and feature cards. Mockup images live in `assets/img/` |
+| Home | Landing page with a hero, feature cards, About (with a founder profile) and a Contact form. Mockup images live in `assets/img/` |
 | About | Its own page: what Spendwise is, plus a founder profile |
 | Contact | Its own page: contact details and a message form (email checked with a regex, then opened in your email app) |
 | Dashboard | Greeting with today’s date, total transactions, total spent, top category, last-7-days total, a “This Week” CSS bar chart (with a screen-reader text alternative), a monthly budget, a spending-by-category breakdown, and the add form beside the transactions |

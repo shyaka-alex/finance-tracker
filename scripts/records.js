@@ -1,9 +1,9 @@
 // Transactions list: live regex search, sorting, inline edit and delete.
-import { state, subscribe, getRecord, updateRecord, deleteRecord } from './state.js?v=20261012d';
-import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './search.js?v=20261012d';
-import { validateTransaction, findDuplicateWord } from './validators.js?v=20261012d';
-import { $, $$, announce, confirmDialog, setFieldMessage } from './ui.js?v=20261012d';
-import { formatMoney, categoryTone } from './format.js?v=20261012d';
+import { state, subscribe, getRecord, updateRecord, deleteRecord } from './state.js?v=20261013a';
+import { compileRegex, highlight, matches, sortRecords, escapeHTML } from './search.js?v=20261013a';
+import { validateTransaction, findDuplicateWord } from './validators.js?v=20261013a';
+import { $, $$, announce, confirmDialog, setFieldMessage } from './ui.js?v=20261013a';
+import { formatMoney, categoryTone } from './format.js?v=20261013a';
 
 const view = {
   query: '',

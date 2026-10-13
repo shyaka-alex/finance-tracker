@@ -1,6 +1,6 @@
 // Contact form: regex-validated, then handed to the visitor's email app (there is no server).
-import { validateName, validateEmail, validateMessage } from './validators.js?v=20261012d';
-import { $, announce, setFieldMessage, setStatus } from './ui.js?v=20261012d';
+import { validateName, validateEmail, validateMessage } from './validators.js?v=20261013a';
+import { $$, announce, setFieldMessage, setStatus } from './ui.js?v=20261013a';
 
 const TO = 's.alex@spiderbit.rw';
 
@@ -12,10 +12,13 @@ const RULES = {
 
 const FIELD_ORDER = ['name', 'email', 'message'];
 
+/** The same form appears on the Home page and the Contact page. */
 export function initContact() {
-  const form = $('#contact-form');
-  if (!form) return;
-  const status = $('#contact-status');
+  for (const form of $$('[data-contact-form]')) initForm(form);
+}
+
+function initForm(form) {
+  const status = form.querySelector('.form-status');
   const touched = new Set();
 
   const check = (name) => {

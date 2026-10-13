@@ -1,5 +1,5 @@
 // localStorage persistence. Every read is defensive: bad data never crashes the app.
-import { describeRecordProblem, PATTERNS, validateCurrencyCode } from './validators.js?v=20261012d';
+import { describeRecordProblem, PATTERNS, validateCurrencyCode } from './validators.js?v=20261013a';
 
 export const KEYS = {
   records: 'spendwise:records',
